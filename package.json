@@ -1,0 +1,31 @@
+{
+  "name": "",
+  "description": "",
+  "version": "",
+  "homepage": "",
+  "author": {
+    "name": "Khaliq Gant",
+    "email": "khaliqgant@gmail.com",
+    "url": "https://github.com/khaliqgant"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khaliqgant/"
+  },
+  "engines": {
+    "node": ""
+  },
+  "bin": {
+    "": ""
+  },
+  "dependencies": {
+    "": ""
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "latest"
+  },
+  "keywords": [
+    ""
+  ]
+}
