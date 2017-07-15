@@ -9,7 +9,7 @@ var serverTS = ["**/*.ts", "!node_modules/**", '!bin/**'];
 gulp.task('ts', ['clean'], function() {
     return gulp
         .src(serverTS, {base: './'})
-        .pipe(ts({ module: 'commonjs', noImplicitAny: true }))
+        .pipe(ts({ module: 'es2015', noImplicitAny: true }))
         .pipe(gulp.dest('./'));
 });
 

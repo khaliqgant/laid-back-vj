@@ -1,6 +1,4 @@
-"use strict";
-exports.__esModule = true;
-exports.data = [
+export var data = [
     {
         test: "Test"
     }

@@ -1,2 +1,13 @@
 <h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+
+<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+<div id="player"></div>
+<div class="tracks">
+    {{tracks.artist}} - {{tracks.name}}
+</div>
+
+<script type="text/javascript">
+    var id = "{{videoId}}";
+</script>
+
+

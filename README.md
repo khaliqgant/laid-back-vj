@@ -26,8 +26,13 @@ and queue up a bunch of videos to watch
 * [Playlistbuddy](http://www.playlistbuddy.com/) allows you to make youtube playlists
 from a Spotify playlist
 * Prioritize Vevo videos [SO](https://stackoverflow.com/questions/29369368/youtube-api-search-vevo-video-in-priority)
+* Create youtube playlists on the fly [link](https://www.labnol.org/internet/create-youtube-playlists/28827/)
 
 # Inspiration
 * Shout out to [Shelby.tv](http://shelby.tv/)
 
-
+# Todos
+* Figure out simplified build system workflow
+* Would like to use gulp to orcestrate
+* Typescript to check all files, fe and be
+* Webpack to pack frontend files and backend files to behave as normal
