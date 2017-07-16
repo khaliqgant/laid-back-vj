@@ -18,6 +18,12 @@ var youTube = new YouTube();
 youTube.setKey(config.youtube.apiKey);
 
 
+router.get('/test', function(req: Request, res: Response, next: Function) {
+    res.render('index', {
+        title: 'Laid Back VJ' + ' - test',
+    });
+});
+
 router.get('/*', function(req: Request, res: Response, next: Function) {
     const id = req.path.replace('/', '');
 
@@ -26,14 +32,14 @@ router.get('/*', function(req: Request, res: Response, next: Function) {
     };
 
     // make this promise based
-    lfm.user.getTopTracks(params, function(err, topTracks){
+    lfm.user.getTopTracks(params, function(err: any, topTracks: any){
         const firstTrack = topTracks.track[0];
         const trackInfo = {
             name: firstTrack.name,
             artist: firstTrack.artist.name
         };
 
-        youTube.search(trackInfo.artist + ' ' + trackInfo.name, 2, function(error, result) {
+        youTube.search(trackInfo.artist + ' ' + trackInfo.name, 2, function(error: any, result: any) {
             if (error) {
                 console.log(error);
             }
@@ -52,4 +58,3 @@ router.get('/*', function(req: Request, res: Response, next: Function) {
 });
 
 module.exports = router;
-

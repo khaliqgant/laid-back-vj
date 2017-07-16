@@ -12,6 +12,11 @@ var lfm = new LastfmAPI({
 var YouTube = require('youtube-node');
 var youTube = new YouTube();
 youTube.setKey(config.youtube.apiKey);
+router.get('/test', function (req, res, next) {
+    res.render('index', {
+        title: 'Laid Back VJ' + ' - test'
+    });
+});
 router.get('/*', function (req, res, next) {
     var id = req.path.replace('/', '');
     var params = {
