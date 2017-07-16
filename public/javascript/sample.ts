@@ -1,7 +1,8 @@
 interface Window {
     id: string;
+    videos: string[];
     onYouTubeIframeAPIReady: Function;
-    YT: any
+    YT: any;
 }
 
 /**
@@ -24,10 +25,7 @@ window.onYouTubeIframeAPIReady = function() {
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event: any) {
-    event.target.playVideo();
-    //event.target.loadPlaylist(
-        //window.ids
-    //);
+    event.target.loadPlaylist(window.videos);
 }
 
 // 5. The API calls this function when the player's state changes.

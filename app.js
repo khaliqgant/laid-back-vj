@@ -12,6 +12,17 @@ var lastfm = require('./routes/lastfm');
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+var hbs = require("express-handlebars");
+app.engine('hbs', hbs({
+    extname: '.hbs',
+    defaultLayout: 'layout.hbs',
+    layoutsDir: 'views',
+    helpers: {
+        json: function (obj) {
+            return (obj) ? JSON.stringify(obj) : '{}';
+        }
+    }
+}));
 app.set('view engine', 'hbs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
