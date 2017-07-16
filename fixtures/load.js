@@ -1,7 +1,10 @@
+"use strict";
+exports.__esModule = true;
 var fixtures = require('pow-mongodb-fixtures').connect('test');
-import { data } from "./data";
-export function loadData(cb) {
+var data_1 = require("./data");
+function loadData(cb) {
     fixtures.clearAndLoad({
-        test: data
+        test: data_1.data
     }, cb);
 }
+exports.loadData = loadData;
