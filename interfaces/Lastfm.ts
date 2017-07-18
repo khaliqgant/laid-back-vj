@@ -12,6 +12,7 @@ interface Track {
         name: string;
         mbid: string;
         url: string;
+        "#text": string;
     }
     image: {
         text: string;
@@ -20,8 +21,8 @@ interface Track {
     }[];
 }
 
-interface TopTracks {
+interface Tracks {
     track: Track[]
 }
-export {TopTracks, Track};
+export {Tracks, Track};
 

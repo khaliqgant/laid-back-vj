@@ -41,3 +41,8 @@ function onPlayerStateChange(event: any) {
 function stopVideo() {
     //player.stopVideo();
 }
+
+// make async request for user info
+// http://www.last.fm/api/show/user.getInfo
+// show their friends too
+// http://www.last.fm/api/show/user.getFriends

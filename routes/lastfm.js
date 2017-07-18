@@ -4,7 +4,8 @@ exports.__esModule = true;
 var Video = require("../library/video");
 var express = require('express');
 var router = express.Router();
-var LIMIT = 25;
+//const LIMIT = 25;
+var LIMIT = 5;
 router.get('/test', function (req, res, next) {
     res.render('index', {
         title: 'Laid Back VJ' + ' - test',
@@ -67,6 +68,46 @@ router.get('/:userId/month', function (req, res, next) {
 });
 /**
  *
+ * Recent
+ * @desc videos from what the user listened to recently
+ *
+ */
+router.get('/:userId/recent', function (req, res, next) {
+    var userId = req.params.userId;
+    var params = {
+        user: userId,
+        limit: LIMIT
+    };
+    Video.recentTracks(params)
+        .then(function (videoIds) {
+        res.render('index', {
+            title: 'Laid Back VJ' + ' - ' + userId,
+            filter: 'Last Months Favorites',
+            videos: videoIds
+        });
+    })["catch"](function (error) {
+        res.render('notFound', {
+            title: 'Laid Back VJ',
+            error: error
+        });
+    });
+});
+router.get('/:userId/recommended', function (req, res, next) {
+    // http://www.last.fm/api/show/track.getSimilar
+    res.render('notFound', {
+        title: 'Laid Back VJ',
+        error: { message: 'not implemented' }
+    });
+});
+router.get('/:userId/friends-videos', function (req, res, next) {
+    // http://www.last.fm/api/show/user.getFriends
+    res.render('notFound', {
+        title: 'Laid Back VJ',
+        error: { message: 'not implemented' }
+    });
+});
+/**
+ *
  * All Time Favorites
  * @desc route to grab the users top tracks from all time
  *
@@ -77,7 +118,7 @@ router.get('/*', function (req, res, next) {
         user: userId,
         limit: LIMIT
     };
-    Video.topTracks(userId)
+    Video.topTracks(params)
         .then(function (videoIds) {
         res.render('index', {
             title: 'Laid Back VJ' + ' - ' + userId,
