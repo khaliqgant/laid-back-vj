@@ -11,6 +11,12 @@ router.get('/test', function (req, res, next) {
         videos: ['5483ImCMSfQ', 'OFjQMDtwAbg']
     });
 });
+/**
+ *
+ * Last Years Favorites
+ * @desc route to grab the users top tracks from last year
+ *
+ */
 router.get('/:userId/year', function (req, res, next) {
     var userId = req.params.userId;
     var params = {
@@ -25,8 +31,19 @@ router.get('/:userId/year', function (req, res, next) {
             filter: 'Last Years Favorites',
             videos: videoIds
         });
+    })["catch"](function (error) {
+        res.render('notFound', {
+            title: 'Laid Back VJ',
+            error: error
+        });
     });
 });
+/**
+ *
+ * Last Months Favorites
+ * @desc route to grab the users top tracks from last month
+ *
+ */
 router.get('/:userId/month', function (req, res, next) {
     var userId = req.params.userId;
     var params = {
@@ -41,8 +58,19 @@ router.get('/:userId/month', function (req, res, next) {
             filter: 'Last Months Favorites',
             videos: videoIds
         });
+    })["catch"](function (error) {
+        res.render('notFound', {
+            title: 'Laid Back VJ',
+            error: error
+        });
     });
 });
+/**
+ *
+ * All Time Favorites
+ * @desc route to grab the users top tracks from all time
+ *
+ */
 router.get('/*', function (req, res, next) {
     var userId = req.path.replace('/', '');
     var params = {
@@ -55,6 +83,11 @@ router.get('/*', function (req, res, next) {
             title: 'Laid Back VJ' + ' - ' + userId,
             filter: 'All Time Favorites',
             videos: videoIds
+        });
+    })["catch"](function (error) {
+        res.render('notFound', {
+            title: 'Laid Back VJ',
+            error: error
         });
     });
 });

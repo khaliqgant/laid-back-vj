@@ -28,9 +28,9 @@ youTube.setKey(config.youtube.apiKey);
 function lastfmTopTracks(params: any): Q.Promise<any> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
-        lfm.user.getTopTracks(params, function(err: any, topTracks: TopTrackResponse) {
-            if (err !== null) {
-                reject({ error: err });
+        lfm.user.getTopTracks(params, function(error: any, topTracks: TopTrackResponse) {
+            if (error !== null) {
+                reject(error);
             } else {
                 let searches = [];
                 for (let i = 0; i < topTracks.track.length; i++)
@@ -58,7 +58,7 @@ function youtubeID(search: string): Q.Promise<any> {
         let numResults = 1;
         youTube.search(search, numResults, function(error: any, result: YoutubeResponse) {
             if (error) {
-                reject({ error: error });
+                reject(error);
             } else {
                 let videoId = result.items[0].id.videoId;
                 resolve(videoId);
@@ -79,7 +79,7 @@ export function topTracks(params: any): Q.Promise<any> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
         lastfmTopTracks(params)
-         .then(function(searches) {
+         .then(function(searches: string[]) {
             let result = [];
             for (let i = 0; i < searches.length; i++) (function(i) {
                 result.push(youtubeID(searches[i])
@@ -89,7 +89,10 @@ export function topTracks(params: any): Q.Promise<any> {
             })(i);
 
             resolve(Q.all(result));
-        });
+         })
+         .catch(function(error: any) {
+            reject(error);
+         });
     })
 
 }

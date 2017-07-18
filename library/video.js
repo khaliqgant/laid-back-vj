@@ -21,9 +21,9 @@ youTube.setKey(config.youtube.apiKey);
  */
 function lastfmTopTracks(params) {
     return Q.Promise(function (resolve, reject) {
-        lfm.user.getTopTracks(params, function (err, topTracks) {
-            if (err !== null) {
-                reject({ error: err });
+        lfm.user.getTopTracks(params, function (error, topTracks) {
+            if (error !== null) {
+                reject(error);
             }
             else {
                 var searches = [];
@@ -48,7 +48,7 @@ function youtubeID(search) {
         var numResults = 1;
         youTube.search(search, numResults, function (error, result) {
             if (error) {
-                reject({ error: error });
+                reject(error);
             }
             else {
                 var videoId = result.items[0].id.videoId;
@@ -77,6 +77,8 @@ function topTracks(params) {
                     }));
                 })(i);
             resolve(Q.all(result));
+        })["catch"](function (error) {
+            reject(error);
         });
     });
 }
