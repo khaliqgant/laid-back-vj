@@ -13,15 +13,13 @@ var youTube = new YouTube();
 youTube.setKey(config.youtube.apiKey);
 /**
  *
- * Last FM ID
+ * Last FM Top Tracks
  * @desc grab top tracks from last FM and iterate through each to build a search
+ * @see https://github.com/maxkueng/node-lastfmapi
  *
  *
  */
-function lastFmID(userId) {
-    var params = {
-        user: userId
-    };
+function lastfmTopTracks(params) {
     return Q.Promise(function (resolve, reject) {
         lfm.user.getTopTracks(params, function (err, topTracks) {
             if (err !== null) {
@@ -63,11 +61,12 @@ function youtubeID(search) {
  *
  * Top Tracks
  * @desc grab last FM data and return an array of youtube ids
+ * @access private
  *
  */
-function topTracks(userId) {
+function topTracks(params) {
     return Q.Promise(function (resolve, reject) {
-        lastFmID(userId)
+        lastfmTopTracks(params)
             .then(function (searches) {
             var result = [];
             for (var i = 0; i < searches.length; i++)
