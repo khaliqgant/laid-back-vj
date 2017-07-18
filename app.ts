@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var lastfm = require('./routes/lastfm');
+var api = require('./routes/api');
 var app = express();
 
 // view engine setup
@@ -37,7 +38,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/user', lastfm);
+app.use('/lastfm', lastfm);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: Function) => {

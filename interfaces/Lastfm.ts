@@ -1,3 +1,8 @@
+interface Image {
+    "#text": string;
+    size: string;
+}
+
 interface Track {
     name: string;
     duration: string;
@@ -14,15 +19,31 @@ interface Track {
         url: string;
         "#text": string;
     }
-    image: {
-        text: string;
-        size: string;
-
-    }[];
+    image: Image[];
 }
 
 interface Tracks {
     track: Track[]
 }
-export {Tracks, Track};
 
+
+interface User {
+    name: string;
+    realname: string;
+    image: Image[];
+    url: string;
+    country: string;
+    age: string;
+    gender: string
+    subscriber: string;
+    playcount: string;
+    playlists: string;
+    bootstrap: string;
+    registered: {
+        "#text": number;
+        unixtime: string
+    }
+    type: string;
+}
+
+export {Tracks, Track, User};
