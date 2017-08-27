@@ -48,7 +48,6 @@
 	// KJG how would i use this interface?
 	//import {User} from './Lastfm';
 	//const User = require('../../interfaces/Lastfm');
-	//console.log(User);
 	var request = __webpack_require__(1);
 	/**
 	 * On YouTubeIframeAPIReady

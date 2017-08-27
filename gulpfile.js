@@ -4,9 +4,18 @@ var clean = require('gulp-clean');
 var server = require('gulp-develop-server');
 var mocha = require('gulp-mocha');
 var webpack = require('gulp-webpack');
+var sass = require('gulp-sass');
+var cleanCSS = require('gulp-clean-css');
 
 var serverTS = ['**/*.ts', '!node_modules/**', '!bin/**'];
 var pack = ['public/js/*.ts'];
+
+gulp.task('sass', function () {
+    return gulp.src('./public/sass/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(cleanCSS({ compatibility: 'ie8' }))
+        .pipe(gulp.dest('./public/css/'));
+});
 
 gulp.task('ts', ['clean'], function () {
     return gulp
@@ -63,6 +72,7 @@ gulp.task('server:restart', ['compile'], function () {
 
 gulp.task('default', ['server:start'], function () {
     gulp.watch(serverTS,  ['server:restart']);
+    gulp.watch('./public/sass/*.scss', ['sass']);
 });
 
 gulp.task('test', ['compile', 'load:fixtures'], function () {

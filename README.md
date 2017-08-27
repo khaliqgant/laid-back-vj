@@ -38,6 +38,14 @@ and queue up a bunch of videos to watch
 
 # APIS
 * [Lastfm](https://www.last.fm/api)
+* [Spotify](https://developer.spotify.com/web-api/)
+
+## Spotify API Endpoints
+* https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+* https://developer.spotify.com/web-api/get-users-saved-tracks/
+* https://developer.spotify.com/web-api/get-list-new-releases/
+* https://developer.spotify.com/web-api/library-endpoints/
+* https://developer.spotify.com/web-api/track-endpoints/
 
 # Resources
 * [Playlistbuddy](http://www.playlistbuddy.com/) allows you to make youtube playlists

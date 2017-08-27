@@ -2,7 +2,6 @@
 // KJG how would i use this interface?
 //import {User} from './Lastfm';
 //const User = require('../../interfaces/Lastfm');
-//console.log(User);
 var request = require('browser-request');
 /**
  * On YouTubeIframeAPIReady

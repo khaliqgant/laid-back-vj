@@ -1,0 +1,37 @@
+@import "./components/normalize";
+
+body {
+    margin: 0 0;
+}
+
+header {
+    height: 100px;
+    color: white;
+
+    &.spotify {
+        background-color: #00a651;
+    }
+    &.lastfm {
+        background-color: #c5001a;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        display: inline-block;
+        padding-left: 10px;
+        margin: 0;
+    }
+
+    .tagline {
+        font-style: italic;
+        padding-left: 37px;
+        font-size: 15px;
+    }
+}
+
+main {
+    padding: 50px;
+}
