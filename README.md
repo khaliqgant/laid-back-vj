@@ -1,12 +1,29 @@
 Laid Back VJ
 ============
-> Sit back and watch all of your favorite songs music videos
+> Watch all your favorite music videos that you didn't know existed
 
 # Idea
 * I listen to a lot more music than I watch music videos, but sometimes I want
 to watch music videos but it's hard to find my favorite songs music videos
 * Using a few different sources (lastfm, spotify) do a look up on Youtube
 and queue up a bunch of videos to watch
+
+# Routes
+* `/lastfm/:userid/year`: show users videos from the past year
+* `/lastfm/:userid/month`: show users videos from the past month
+* `/lastfm/:userid/recent`: show users most recent videos
+* `/lastfm/:userid/artists/week`: show videos from your favorite artist from the past week
+* `/lastfm/:userid/artists/month`: show videos from your favorite artist from the past month
+* `/lastfm/:userid/artists/three-month`: show videos from your favorite artist from the past three months
+* `/lastfm/:userid/artists/year`: show videos from your favorite artist from the past year
+* `/lastfm/:userid/recommended`: show users recommended videos based on their history
+* `/lastfm/:userid/friends-videos`: show the user's friends videos
+* `/lastfm/:userid`: show the users videos using all of their history
+
+## Internal
+* `/api/lastfm/user/:userId/`: JSON response of the users lastfm data
+* `/api/lastfm/friends/:userId/`: JSON response of the user's friends
+
 
 # Roadmap
 * Integrate LastFm initially

@@ -6,7 +6,7 @@ var mocha = require('gulp-mocha');
 var webpack = require('gulp-webpack');
 
 var serverTS = ['**/*.ts', '!node_modules/**', '!bin/**'];
-var pack = ['public/javascript/*.ts'];
+var pack = ['public/js/*.ts'];
 
 gulp.task('ts', ['clean'], function () {
     return gulp
@@ -22,7 +22,7 @@ gulp.task('ts-pack', function () {
         .pipe(gulp.dest('./'))
         .pipe(webpack({
             output: {
-                filename: './public/javascript/app.js'
+                filename: './public/js/app.js'
             }
         }))
         .pipe(gulp.dest('./'));
@@ -36,7 +36,7 @@ gulp.task('clean', function () {
             'app.js',
             '**/*.js',
             '**/*.js.map',
-            '!public/javascript/*.js',
+            '!public/js/*.js',
             '!node_modules/**',
             '!gulpfile.js',
             '!bin/**'

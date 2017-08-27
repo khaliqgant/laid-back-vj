@@ -1,5 +1,5 @@
 "use strict";
-/// <reference path="../typings/tsd.d.ts"/>
+/// <reference path='../typings/tsd.d.ts'/>
 exports.__esModule = true;
 var Video = require("../library/video");
 var express = require('express');
@@ -8,6 +8,7 @@ var router = express.Router();
 var LIMIT = 5;
 router.get('/test', function (req, res, next) {
     res.render('index', {
+        userId: 'khaliqgant',
         title: 'Laid Back VJ' + ' - test',
         videos: ['5483ImCMSfQ', 'OFjQMDtwAbg']
     });
@@ -28,6 +29,7 @@ router.get('/:userId/year', function (req, res, next) {
     Video.topTracks(params)
         .then(function (videoIds) {
         res.render('index', {
+            userId: userId,
             title: 'Laid Back VJ' + ' - ' + userId,
             filter: 'Last Years Favorites',
             videos: videoIds
@@ -55,6 +57,7 @@ router.get('/:userId/month', function (req, res, next) {
     Video.topTracks(params)
         .then(function (videoIds) {
         res.render('index', {
+            userId: userId,
             title: 'Laid Back VJ' + ' - ' + userId,
             filter: 'Last Months Favorites',
             videos: videoIds
@@ -81,6 +84,95 @@ router.get('/:userId/recent', function (req, res, next) {
     Video.recentTracks(params)
         .then(function (videoIds) {
         res.render('index', {
+            userId: userId,
+            title: 'Laid Back VJ' + ' - ' + userId,
+            filter: 'Last Months Favorites',
+            videos: videoIds
+        });
+    })["catch"](function (error) {
+        res.render('notFound', {
+            title: 'Laid Back VJ',
+            error: error
+        });
+    });
+});
+router.get('/:userId/artists/week', function (req, res, next) {
+    var userId = req.params.userId;
+    var params = {
+        user: userId,
+        period: '7day',
+        limit: LIMIT
+    };
+    Video.recentArtists(params)
+        .then(function (videoIds) {
+        res.render('index', {
+            userId: userId,
+            title: 'Laid Back VJ' + ' - ' + userId,
+            filter: 'Last Months Favorites',
+            videos: videoIds
+        });
+    })["catch"](function (error) {
+        res.render('notFound', {
+            title: 'Laid Back VJ',
+            error: error
+        });
+    });
+});
+router.get('/:userId/artists/month', function (req, res, next) {
+    var userId = req.params.userId;
+    var params = {
+        user: userId,
+        period: '1month',
+        limit: LIMIT
+    };
+    Video.recentArtists(params)
+        .then(function (videoIds) {
+        res.render('index', {
+            userId: userId,
+            title: 'Laid Back VJ' + ' - ' + userId,
+            filter: 'Last Months Favorites',
+            videos: videoIds
+        });
+    })["catch"](function (error) {
+        res.render('notFound', {
+            title: 'Laid Back VJ',
+            error: error
+        });
+    });
+});
+router.get('/:userId/artists/three-month', function (req, res, next) {
+    var userId = req.params.userId;
+    var params = {
+        user: userId,
+        period: '3month',
+        limit: LIMIT
+    };
+    Video.recentArtists(params)
+        .then(function (videoIds) {
+        res.render('index', {
+            userId: userId,
+            title: 'Laid Back VJ' + ' - ' + userId,
+            filter: 'Last Months Favorites',
+            videos: videoIds
+        });
+    })["catch"](function (error) {
+        res.render('notFound', {
+            title: 'Laid Back VJ',
+            error: error
+        });
+    });
+});
+router.get('/:userId/artists/year', function (req, res, next) {
+    var userId = req.params.userId;
+    var params = {
+        user: userId,
+        period: '12month',
+        limit: LIMIT
+    };
+    Video.recentArtists(params)
+        .then(function (videoIds) {
+        res.render('index', {
+            userId: userId,
             title: 'Laid Back VJ' + ' - ' + userId,
             filter: 'Last Months Favorites',
             videos: videoIds

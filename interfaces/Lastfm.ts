@@ -46,4 +46,24 @@ interface User {
     type: string;
 }
 
-export {Tracks, Track, User};
+interface Friends {
+    friends: User[];
+}
+
+interface Artist {
+    name: string;
+    playcount: string;
+    mdid: string;
+    url: string;
+    streamable: string;
+    image: Image[];
+    "@attr": {
+        rank: "string"
+    };
+}
+
+interface Artists {
+    artist: Artist[]
+}
+
+export {Tracks, Track, User, Friends, Artists, Artist};

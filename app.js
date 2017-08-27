@@ -1,5 +1,5 @@
 "use strict";
-/// <reference path="./typings/tsd.d.ts"/>
+/// <reference path='./typings/tsd.d.ts'/>
 exports.__esModule = true;
 var express = require('express');
 var path = require('path');

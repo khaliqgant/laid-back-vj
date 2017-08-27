@@ -18,10 +18,11 @@
     "": ""
   },
   "scripts": {
-    "watch": "webpack --watch",
+    "dev": "gulp",
     "start": "./node_modules/nodemon/bin/nodemon.js ./bin/www"
   },
   "dependencies": {
+    "browser-request": "^0.3.3",
     "express-handlebars": "^3.0.0",
     "gulp-webpack": "^1.5.0",
     "lastfmapi": "^0.1.1",

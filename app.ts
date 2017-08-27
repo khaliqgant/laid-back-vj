@@ -1,6 +1,6 @@
-/// <reference path="./typings/tsd.d.ts"/>
+/// <reference path='./typings/tsd.d.ts'/>
 
-import {Request, Response} from "express";
+import {Request, Response} from 'express';
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
