@@ -7,11 +7,13 @@ var webpack = require('gulp-webpack');
 var sass = require('gulp-sass');
 var cleanCSS = require('gulp-clean-css');
 
+var sassFiles = ['./public/sass/*.scss', './public/sass/**/*.scss'];
 var serverTS = ['**/*.ts', '!node_modules/**', '!bin/**'];
 var pack = ['public/js/*.ts'];
 
 gulp.task('sass', function () {
-    return gulp.src('./public/sass/*.scss')
+    return gulp
+        .src('./public/sass/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(cleanCSS({ compatibility: 'ie8' }))
         .pipe(gulp.dest('./public/css/'));
@@ -72,7 +74,7 @@ gulp.task('server:restart', ['compile'], function () {
 
 gulp.task('default', ['server:start'], function () {
     gulp.watch(serverTS,  ['server:restart']);
-    gulp.watch('./public/sass/*.scss', ['sass']);
+    gulp.watch(sassFiles, ['sass']);
 });
 
 gulp.task('test', ['compile', 'load:fixtures'], function () {

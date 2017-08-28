@@ -1,0 +1,41 @@
+header {
+    height: 100px;
+    color: white;
+
+    &.spotify {
+        background-color: #00a651;
+    }
+    &.lastfm {
+        background-color: #c5001a;
+    }
+
+    .container {
+        padding: 14px;
+    }
+
+    .sources {
+        float: right;
+
+        .lastfm {
+            width: 120px;
+            height: 121px;
+        }
+
+        .spotify {
+            width: 60px;
+            height: 60px;
+        }
+    }
+
+    h1 {
+        display: inline-block;
+        padding-left: 10px;
+        margin: 0;
+    }
+
+    .tagline {
+        font-style: italic;
+        padding-left: 37px;
+        font-size: 15px;
+    }
+}
