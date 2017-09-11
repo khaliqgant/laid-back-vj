@@ -1,5 +1,3 @@
-/// <reference path='../typings/tsd.d.ts'/>
-
 import {TrackQuery, ArtistQuery} from '../interfaces/VideoQuery';
 
 const Q = require('q');

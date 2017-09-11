@@ -1,5 +1,3 @@
-/// <reference path='../typings/tsd.d.ts'/>
-
 import {Request, Response} from 'express';
 import {User as UserResponse, Friends as FriendResponse} from '../interfaces/Lastfm'
 import LastfmApi = require('../library/lastfmApi');

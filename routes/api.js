@@ -1,5 +1,4 @@
 "use strict";
-/// <reference path='../typings/tsd.d.ts'/>
 exports.__esModule = true;
 var LastfmApi = require("../library/lastfmApi");
 var express = require('express');

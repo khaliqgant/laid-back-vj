@@ -60,4 +60,7 @@ from a Spotify playlist
 # Todos
 * ~~Typescript to check all files, fe and be~~
 * ~~Webpack to pack frontend files and backend files to behave as normal~~
-* Make spotify and lastfm images smaller
+* ~~Make spotify and lastfm images smaller~~
+* On initial page load make experience so user can authenticate via lastfm or
+Spotiy or just watch the most recently released music videos
+https://github.com/farzaa/Spotify-Login-Button-

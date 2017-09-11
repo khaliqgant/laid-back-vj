@@ -1,10 +1,19 @@
-<h1>{{title}}</h1>
+<h1>{{intro}}</h1>
+
+{{#if auth}}
+    <div class="auth">
+        <a class="spotify-button">Login With Spotify</a>
+        <a class="lastfm-button js-lastfm-login">Login With LastFM</a>
+    </div>
+{{/if}}
 
 <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 <div id="player"></div>
-<div class="tracks">
-    {{tracks.artist}} - {{tracks.name}}
-</div>
+{{#if tracks}}
+    <div class="tracks">
+        {{tracks.artist}} - {{tracks.name}}
+    </div>
+{{/if}}
 
 <script type="text/javascript">
     var userId = {{{json userId}}};

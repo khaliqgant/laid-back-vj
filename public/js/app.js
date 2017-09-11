@@ -44,11 +44,29 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/// <reference path='../../typings/tsd.d.ts'/>
+	__webpack_require__(1);
+	module.exports = __webpack_require__(2);
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+	var LastFmButton = document.getElementsByClassName('js-lastfm-login')[0];
+	LastFmButton.addEventListener('click', function () {
+	    // replace the button with an input area so the user can put in their user name
+	    console.log('clicked');
+	});
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	// KJG how would i use this interface?
 	//import {User} from './Lastfm';
 	//const User = require('../../interfaces/Lastfm');
-	var request = __webpack_require__(1);
+	var request = __webpack_require__(3);
 	/**
 	 * On YouTubeIframeAPIReady
 	 * @desc
@@ -61,8 +79,8 @@
 	        width: '640',
 	        videoId: window.id !== '' ? window.id : 'M7lc1UVf-VE',
 	        events: {
-	            'onReady': onPlayerReady,
-	            'onStateChange': onPlayerStateChange
+	            onReady: onPlayerReady,
+	            onStateChange: onPlayerStateChange
 	        }
 	    });
 	};
@@ -83,19 +101,32 @@
 	function stopVideo() {
 	    //player.stopVideo();
 	}
-	request('/api/lastfm/user/' + window.userId, function (err, response, body) {
-	    var userInfo = JSON.parse(body);
-	    var picture = userInfo.image[1]['#text'];
-	    var playcount = userInfo.playcount;
-	});
-	// make async request for user info
-	// http://www.last.fm/api/show/user.getInfo
-	// show their friends too
-	// http://www.last.fm/api/show/user.getFriends
+	if (window.userId.length) {
+	    /**
+	     *
+	     * Last FM User
+	     * @desc grab the last fm user info and display
+	     *
+	     */
+	    request('/api/lastfm/user/' + window.userId, function (err, response, body) {
+	        var userInfo = JSON.parse(body);
+	        var picture = userInfo.image[1]['#text'];
+	        var playcount = userInfo.playcount;
+	    });
+	    /**
+	     *
+	     * Last FM User's Friends
+	     * @desc grab the last fm user's friends
+	     *
+	     */
+	    request('/api/lastfm/friends/' + window.userId, function (err, response, body) {
+	        var userInfo = JSON.parse(body);
+	    });
+	}
 
 
 /***/ }),
-/* 1 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Browser Request

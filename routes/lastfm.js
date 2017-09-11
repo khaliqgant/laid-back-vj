@@ -1,5 +1,4 @@
 "use strict";
-/// <reference path='../typings/tsd.d.ts'/>
 exports.__esModule = true;
 var Video = require("../library/video");
 var express = require('express');

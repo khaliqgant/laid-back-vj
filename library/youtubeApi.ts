@@ -1,5 +1,3 @@
-/// <reference path='../typings/tsd.d.ts'/>
-
 import {TrackQuery, ArtistQuery} from '../interfaces/VideoQuery';
 import {Response as YoutubeResponse} from '../interfaces/Youtube';
 
@@ -18,13 +16,12 @@ youTube.setKey(config.youtube.apiKey);
  * Search
  * @desc run a youtube search based on a query string
  * @see https://developers.google.com/youtube/v3/docs/search/list
- * @access private
  *
  */
 export function search(search: ArtistQuery|TrackQuery): Q.Promise<any> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
-        let numResults = 1;
+        const numResults: number = 1;
         youTube.search(search.query, numResults, {type: 'video'}, function(error: any, result: YoutubeResponse) {
             if (error) {
                 reject(error);
@@ -39,4 +36,34 @@ export function search(search: ArtistQuery|TrackQuery): Q.Promise<any> {
         });
     });
 
+}
+
+/**
+ *
+ * Popular
+ * @desc grab the most popular music videos and return back the ids
+ */
+export function popular(): Q.Promise<any> {
+
+    const query: string = 'music videos vevo';
+    const numResults: number = 25;
+    const params = {
+        type: 'video',
+        order: 'viewCount'
+    };
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+        youTube.search(query, numResults, params, function (error: any, result: YoutubeResponse) {
+            if (error) {
+                reject(error);
+            } else {
+                let videoObjects = result.items;
+                var videoIds = videoObjects.map(function (vid, i) {
+                    return vid.id.videoId;
+                });
+
+                resolve(videoIds);
+            }
+        });
+    });
 }

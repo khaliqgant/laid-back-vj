@@ -1,4 +1,3 @@
-/// <reference path='../../typings/tsd.d.ts'/>
 // KJG how would i use this interface?
 //import {User} from './Lastfm';
 //const User = require('../../interfaces/Lastfm');
@@ -15,8 +14,8 @@ window.onYouTubeIframeAPIReady = function () {
         width: '640',
         videoId: window.id !== '' ? window.id : 'M7lc1UVf-VE',
         events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            onReady: onPlayerReady,
+            onStateChange: onPlayerStateChange
         }
     });
 };
@@ -37,12 +36,25 @@ function onPlayerStateChange(event) {
 function stopVideo() {
     //player.stopVideo();
 }
-request('/api/lastfm/user/' + window.userId, function (err, response, body) {
-    var userInfo = JSON.parse(body);
-    var picture = userInfo.image[1]['#text'];
-    var playcount = userInfo.playcount;
-});
-// make async request for user info
-// http://www.last.fm/api/show/user.getInfo
-// show their friends too
-// http://www.last.fm/api/show/user.getFriends
+if (window.userId.length) {
+    /**
+     *
+     * Last FM User
+     * @desc grab the last fm user info and display
+     *
+     */
+    request('/api/lastfm/user/' + window.userId, function (err, response, body) {
+        var userInfo = JSON.parse(body);
+        var picture = userInfo.image[1]['#text'];
+        var playcount = userInfo.playcount;
+    });
+    /**
+     *
+     * Last FM User's Friends
+     * @desc grab the last fm user's friends
+     *
+     */
+    request('/api/lastfm/friends/' + window.userId, function (err, response, body) {
+        var userInfo = JSON.parse(body);
+    });
+}

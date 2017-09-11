@@ -1,5 +1,3 @@
-/// <reference path='../typings/tsd.d.ts'/>
-
 import {TrackQuery, ArtistQuery} from '../interfaces/VideoQuery';
 import {Tracks as TrackResponse, Track as LastFmTrack, User as UserResponse,
     Friends as FriendResponse, Artist as LastFmArtist, Artists as ArtistResponse}

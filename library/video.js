@@ -1,5 +1,4 @@
 "use strict";
-/// <reference path='../typings/tsd.d.ts'/>
 exports.__esModule = true;
 var Q = require('q');
 var config = require('../config.json');

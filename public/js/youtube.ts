@@ -1,5 +1,3 @@
-/// <reference path='../../typings/tsd.d.ts'/>
-
 declare var require: NodeRequire;
 
 // KJG how would i use this interface?
@@ -27,8 +25,8 @@ window.onYouTubeIframeAPIReady = function() {
         width: '640',
         videoId: window.id !== '' ? window.id : 'M7lc1UVf-VE',
         events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            onReady: onPlayerReady,
+            onStateChange: onPlayerStateChange
         }
     });
 }
@@ -52,12 +50,26 @@ function stopVideo() {
     //player.stopVideo();
 }
 
-request('/api/lastfm/user/' + window.userId, function (err: any, response: any, body: any){
-    const userInfo = JSON.parse(body);
-    const picture = userInfo.image[1]['#text'];
-    const playcount: string = userInfo.playcount;
-});
-// make async request for user info
-// http://www.last.fm/api/show/user.getInfo
-// show their friends too
-// http://www.last.fm/api/show/user.getFriends
+if (window.userId.length) {
+    /**
+     *
+     * Last FM User
+     * @desc grab the last fm user info and display
+     *
+     */
+    request('/api/lastfm/user/' + window.userId, function (err: any, response: any, body: any){
+        const userInfo = JSON.parse(body);
+        const picture = userInfo.image[1]['#text'];
+        const playcount: string = userInfo.playcount;
+    });
+
+    /**
+     *
+     * Last FM User's Friends
+     * @desc grab the last fm user's friends
+     *
+     */
+    request('/api/lastfm/friends/' + window.userId, function (err: any, response: any, body: any){
+        const userInfo = JSON.parse(body);
+    });
+}

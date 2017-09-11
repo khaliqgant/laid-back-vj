@@ -1,12 +1,14 @@
+@import "./settings";
+
 header {
     height: 100px;
     color: white;
 
     &.spotify {
-        background-color: #00a651;
+        background-color: $spotify;
     }
     &.lastfm {
-        background-color: #c5001a;
+        background-color: $lastFm;
     }
 
     .container {

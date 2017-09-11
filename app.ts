@@ -1,5 +1,3 @@
-/// <reference path='./typings/tsd.d.ts'/>
-
 import {Request, Response} from 'express';
 var express = require('express');
 var path = require('path');

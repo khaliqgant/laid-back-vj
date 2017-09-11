@@ -1,5 +1,4 @@
 "use strict";
-/// <reference path='../typings/tsd.d.ts'/>
 exports.__esModule = true;
 var Q = require('q');
 var config = require('../config.json');
@@ -13,7 +12,6 @@ youTube.setKey(config.youtube.apiKey);
  * Search
  * @desc run a youtube search based on a query string
  * @see https://developers.google.com/youtube/v3/docs/search/list
- * @access private
  *
  */
 function search(search) {
@@ -35,3 +33,31 @@ function search(search) {
     });
 }
 exports.search = search;
+/**
+ *
+ * Popular
+ * @desc grab the most popular music videos and return back the ids
+ */
+function popular() {
+    var query = 'music videos vevo';
+    var numResults = 25;
+    var params = {
+        type: 'video',
+        order: 'viewCount'
+    };
+    return Q.Promise(function (resolve, reject) {
+        youTube.search(query, numResults, params, function (error, result) {
+            if (error) {
+                reject(error);
+            }
+            else {
+                var videoObjects = result.items;
+                var videoIds = videoObjects.map(function (vid, i) {
+                    return vid.id.videoId;
+                });
+                resolve(videoIds);
+            }
+        });
+    });
+}
+exports.popular = popular;
