@@ -1,0 +1,29 @@
+version: "2"
+
+services:
+  nginx:
+    image: nginx:1.13
+    build:
+      context: .
+      dockerfile: ./provision/nginx/Dockerfile
+    ports:
+      - 80:80
+    networks:
+      - node-nginx
+    restart: always
+
+  node:
+    image: node:8
+    build:
+      context: .
+      dockerfile: ./provision/node/Dockerfile
+    environment:
+      NODE_ENV: production
+    networks:
+      - node-nginx
+    expose:
+      - 3000
+
+networks:
+  node-nginx:
+    driver: bridge
