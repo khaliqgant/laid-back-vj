@@ -1,0 +1,19 @@
+version: "2"
+
+services:
+  nginx:
+    image: nginx:1.13
+    build:
+      context: .
+      dockerfile: ./provision/nginx/Dockerfile
+    ports:
+      - "8081:80"
+
+  node:
+    image: node:8
+    build:
+      context: .
+      dockerfile: ./provision/node/Dockerfile
+    environment:
+      NODE_ENV: production
+

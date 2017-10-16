@@ -1,13 +1,8 @@
 FROM node:8
 
-# Install nodemon
-RUN npm install -g nodemon
+COPY . /srv/app
+WORKDIR /srv/app
 
-ADD package.json /lbv/package.json
-RUN cd /lbv && npm install --production
-RUN mkdir -p /src && cp -a /lbv/node_modules /src/
+RUN npm i
 
-WORKDIR /src
-ADD . /src
-
-CMD ["nodemon", "/src/bin/www"]
+CMD ["node", "/srv/app/bin/www"]

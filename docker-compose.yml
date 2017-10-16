@@ -2,28 +2,29 @@ version: "2"
 
 services:
   nginx:
-    image: nginx:1.13
-    build:
-      context: .
-      dockerfile: ./provision/nginx/Dockerfile
+    mem_limit: 524288000
+    image: 568063086568.dkr.ecr.us-east-1.amazonaws.com/lbv-nginx:0.2
+    cpu_shares: 100
     ports:
-      - 80:80
-    networks:
-      - node-nginx
-    restart: always
+      - "80:80"
+    links:
+      - node
+    logging:
+      driver: "awslogs"
+      options:
+        awslogs-region: "us-east-1"
+        awslogs-group: "lbv"
+        awslogs-stream-prefix: "nginx"
 
   node:
-    image: node:8
-    build:
-      context: .
-      dockerfile: ./provision/node/Dockerfile
+    image: 568063086568.dkr.ecr.us-east-1.amazonaws.com/lbv-node:0.8
+    mem_limit: 524288000
+    cpu_shares: 100
+    logging:
+      driver: "awslogs"
+      options:
+        awslogs-region: "us-east-1"
+        awslogs-group: "lbv"
+        awslogs-stream-prefix: "node"
     environment:
       NODE_ENV: production
-    networks:
-      - node-nginx
-    expose:
-      - 3000
-
-networks:
-  node-nginx:
-    driver: bridge
