@@ -5,4 +5,4 @@ WORKDIR /srv/app
 
 RUN npm i
 
-CMD ["node", "/srv/app/bin/www"]
+CMD ["/srv/app/node_modules/nodemon/bin/nodemon.js", "srv/app/bin/www"]
