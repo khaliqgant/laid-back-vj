@@ -26,6 +26,10 @@ export function search(search: ArtistQuery|TrackQuery): Q.Promise<any> {
             if (error) {
                 reject(error);
             } else {
+                if (result.items.length < 0) {
+                    reject(error);
+                    return;
+                }
                 let videoId = result.items[0].id.videoId;
                 let videoTitle = result.items[0].snippet.title;
 

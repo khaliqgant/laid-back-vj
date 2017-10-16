@@ -22,6 +22,10 @@ function search(search) {
                 reject(error);
             }
             else {
+                if (result.items.length < 0) {
+                    reject(error);
+                    return;
+                }
                 var videoId = result.items[0].id.videoId;
                 var videoTitle = result.items[0].snippet.title;
                 // perform some kind of similarity check?
