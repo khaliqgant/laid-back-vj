@@ -2,9 +2,8 @@ version: "2"
 
 services:
   nginx:
-    mem_limit: 524288000
-    image: 568063086568.dkr.ecr.us-east-1.amazonaws.com/lbv-nginx:0.2
-    cpu_shares: 100
+    mem_limit: 52428800
+    image: 568063086568.dkr.ecr.eu-west-1.amazonaws.com/lbv-nginx:latest
     ports:
       - "80:80"
     links:
@@ -12,18 +11,17 @@ services:
     logging:
       driver: "awslogs"
       options:
-        awslogs-region: "us-east-1"
+        awslogs-region: "eu-west-1"
         awslogs-group: "lbv"
         awslogs-stream-prefix: "nginx"
 
   node:
-    image: 568063086568.dkr.ecr.us-east-1.amazonaws.com/lbv-node:0.8
-    mem_limit: 524288000
-    cpu_shares: 100
+    image: 568063086568.dkr.ecr.eu-west-1.amazonaws.com/lbv-node:latest
+    mem_limit: 52428800
     logging:
       driver: "awslogs"
       options:
-        awslogs-region: "us-east-1"
+        awslogs-region: "eu-west-1"
         awslogs-group: "lbv"
         awslogs-stream-prefix: "node"
     environment:
