@@ -31,8 +31,11 @@ create-repositories:
 get-login:
 	aws ecr get-login --no-include-email --region $(AWS_REGION) --profile $(AWS_PROFILE)
 
-.PHONY: create-cluster
-create-cluster:
+.PHONY: configure
+configure:
 	ecs-cli configure --cluster $(AWS_CLUSTER) --profile $(AWS_PROFILE)
+
+.PHONY: create-cluster
+create-cluster: configure
 	ecs-cli up --keypair $(AWS_KEYPAIR) --force --capability-iam --size 1 --cluster $(AWS_CLUSTER)
 

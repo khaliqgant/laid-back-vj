@@ -22,7 +22,7 @@ function search(search) {
                 reject(error);
             }
             else {
-                if (result.items.length < 0) {
+                if (result.items.length <= 0) {
                     reject(error);
                     return;
                 }

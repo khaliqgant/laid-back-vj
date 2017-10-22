@@ -2,8 +2,8 @@ version: "2"
 
 services:
   nginx:
-    mem_limit: 52428800
-    image: 568063086568.dkr.ecr.eu-west-1.amazonaws.com/lbv-nginx:latest
+    mem_limit: 26214400
+    image: 568063086568.dkr.ecr.eu-west-1.amazonaws.com/lbv-nginx
     ports:
       - "80:80"
     links:
@@ -16,7 +16,7 @@ services:
         awslogs-stream-prefix: "nginx"
 
   node:
-    image: 568063086568.dkr.ecr.eu-west-1.amazonaws.com/lbv-node:latest
+    image: 568063086568.dkr.ecr.eu-west-1.amazonaws.com/lbv-node
     mem_limit: 52428800
     logging:
       driver: "awslogs"

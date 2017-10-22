@@ -26,7 +26,7 @@ export function search(search: ArtistQuery|TrackQuery): Q.Promise<any> {
             if (error) {
                 reject(error);
             } else {
-                if (result.items.length < 0) {
+                if (result.items.length <= 0) {
                     reject(error);
                     return;
                 }
