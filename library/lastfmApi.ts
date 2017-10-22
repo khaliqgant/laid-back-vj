@@ -79,10 +79,10 @@ export function topTracks(params: any): Q.Promise<any> {
                 for (let i = 0; i < topTracks.track.length; i++)
                 {
                     let track: LastFmTrack = topTracks.track[i];
-                    let search = track.artist['#text'] + ' ' + track.name + ' VEVO';
+                    let search = track.artist.name + ' ' + track.name + ' VEVO';
                     const trackQuery: TrackQuery = {
                         query: search,
-                        artist: track.artist['#text'],
+                        artist: track.artist.name,
                         title: track.name
                     };
                     searches.push(trackQuery);
@@ -113,10 +113,10 @@ export function recentTracks(params: any): Q.Promise<any> {
                 for (let i = 0; i < topTracks.track.length; i++)
                 {
                     let track: LastFmTrack = topTracks.track[i];
-                    let search = track.artist['#text'] + ' ' + track.name + ' VEVO';
+                    let search = track.artist.name + ' ' + track.name + ' VEVO';
                     const trackQuery: TrackQuery = {
                         query: search,
-                        artist: track.artist['#text'],
+                        artist: track.artist.name,
                         title: track.name
                     };
                     searches.push(trackQuery);

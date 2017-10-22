@@ -69,10 +69,10 @@ function topTracks(params) {
                 var searches = [];
                 for (var i = 0; i < topTracks.track.length; i++) {
                     var track = topTracks.track[i];
-                    var search = track.artist['#text'] + ' ' + track.name + ' VEVO';
+                    var search = track.artist.name + ' ' + track.name + ' VEVO';
                     var trackQuery = {
                         query: search,
-                        artist: track.artist['#text'],
+                        artist: track.artist.name,
                         title: track.name
                     };
                     searches.push(trackQuery);
@@ -101,10 +101,10 @@ function recentTracks(params) {
                 var searches = [];
                 for (var i = 0; i < topTracks.track.length; i++) {
                     var track = topTracks.track[i];
-                    var search = track.artist['#text'] + ' ' + track.name + ' VEVO';
+                    var search = track.artist.name + ' ' + track.name + ' VEVO';
                     var trackQuery = {
                         query: search,
-                        artist: track.artist['#text'],
+                        artist: track.artist.name,
                         title: track.name
                     };
                     searches.push(trackQuery);
