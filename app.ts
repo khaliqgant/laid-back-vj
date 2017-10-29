@@ -1,15 +1,20 @@
 import {Request, Response} from 'express';
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var lastfm = require('./routes/lastfm');
-var api = require('./routes/api');
-var app = express();
+const routes = require('./routes/index');
+const lastfm = require('./routes/lastfm');
+const api = require('./routes/api');
+const app = express();
+
+const config = require('./config.json');
+const rollbar = require('rollbar');
+
+rollbar.init(config.rollbar);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +30,7 @@ app.engine('hbs', hbs({
       }
   }
 }));
+
 app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public

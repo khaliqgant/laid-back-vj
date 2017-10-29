@@ -10,6 +10,9 @@ var routes = require('./routes/index');
 var lastfm = require('./routes/lastfm');
 var api = require('./routes/api');
 var app = express();
+var config = require('./config.json');
+var rollbar = require('rollbar');
+rollbar.init(config.rollbar);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 var hbs = require("express-handlebars");
