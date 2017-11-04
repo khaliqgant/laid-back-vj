@@ -1,4 +1,4 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -18,18 +18,21 @@ rollbar.init(config.rollbar);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-let hbs = require("express-handlebars");
+let hbs = require('express-handlebars');
 
-app.engine('hbs', hbs({
-  extname: '.hbs',
-  defaultLayout: 'layout.hbs',
-  layoutsDir: 'views',
-  helpers : {
-      json: function(obj: any){
-          return (obj) ? JSON.stringify(obj) : '{}';
+app.engine(
+  'hbs',
+  hbs({
+    extname: '.hbs',
+    defaultLayout: 'layout.hbs',
+    layoutsDir: 'views',
+    helpers: {
+      json: function(obj: any) {
+        return obj ? JSON.stringify(obj) : '{}';
       }
-  }
-}));
+    }
+  })
+);
 
 app.set('view engine', 'hbs');
 
@@ -75,6 +78,5 @@ app.use(function(err: any, req: Request, res: Response, next: Function) {
     error: {}
   });
 });
-
 
 module.exports = app;
