@@ -16,22 +16,25 @@ export function recentTracks(params: any): Q.Promise<any> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
         LastfmAPI.recentTracks(params)
-         .then(function(searches: TrackQuery[]) {
-            let result = [];
-            for (let i = 0; i < searches.length; i++) (function(i) {
-                result.push(YoutubeAPI.search(searches[i])
-                    .then(function(id: string) {
+        .then((searches: TrackQuery[]) => {
+            const result: any = [];
+            for (let i = 0; i < searches.length; i++) {
+                result.push(
+                    YoutubeAPI.search(searches[i])
+                    .then((id: string) => {
                         return id;
-                    }));
-            })(i);
+                    }),
+                );
+            }
 
             resolve(Q.all(result));
-         })
-         .catch(function(error: any) {
-            reject(error);
-         });
-    })
 
+        })
+        .catch ((error: any) => {
+            reject(error);
+        });
+
+    });
 }
 
 
@@ -40,19 +43,24 @@ export function recentArtists(params: any): Q.Promise<any> {
     return Q.Promise((resolve: Function, reject: Function) => {
         LastfmAPI.recentArtists(params)
          .then(function(searches: ArtistQuery[]) {
-            let result = [];
-            for (let i = 0; i < searches.length; i++) (function(i) {
+            const result = [];
+            for (let i = 0; i < searches.length; i++) (function(i) { { { { { {
                 result.push(YoutubeAPI.search(searches[i])
                     .then(function(id: string) {
                         return id;
                     }));
             })(i);
+            };
+            };
+            }
+            }
+            }
 
-            resolve(Q.all(result));
+resolve(Q.all(result));
          })
-         .catch(function(error: any) {
+         . catch ( function(error: any) {
             reject(error);
-         });
+         })
     })
 
 }
@@ -69,19 +77,24 @@ export function topTracks(params: any): Q.Promise<any> {
     return Q.Promise((resolve: Function, reject: Function) => {
         LastfmAPI.topTracks(params)
          .then(function(searches: TrackQuery[]) {
-            let result = [];
-            for (let i = 0; i < searches.length; i++) (function(i) {
+            const result = [];
+            for (let i = 0; i < searches.length; i++) (function(i) { { { { { {
                 result.push(YoutubeAPI.search(searches[i])
                     .then(function(id: string) {
                         return id;
                     }));
             })(i);
+            };
+            };
+            }
+            }
+            }
 
-            resolve(Q.all(result));
+resolve(Q.all(result));
          })
-         .catch(function(error: any) {
+         . catch ( function(error: any) {
             reject(error);
-         });
+         })
     })
 
 }

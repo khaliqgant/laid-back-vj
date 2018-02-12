@@ -1,52 +1,64 @@
 "use strict";
-exports.__esModule = true;
-var Q = require('q');
-var config = require('../config.json');
-var LastfmAPI = require('../library/lastfmApi');
-var YoutubeAPI = require('../library/youtubeApi');
+Object.defineProperty(exports, "__esModule", { value: true });
+const Q = require('q');
+const config = require('../config.json');
+const LastfmAPI = require('../library/lastfmApi');
+const YoutubeAPI = require('../library/youtubeApi');
 /**
  *
  * Recent Tracks
  *
  */
 function recentTracks(params) {
-    return Q.Promise(function (resolve, reject) {
+    return Q.Promise((resolve, reject) => {
         LastfmAPI.recentTracks(params)
-            .then(function (searches) {
-            var result = [];
-            for (var i = 0; i < searches.length; i++)
-                (function (i) {
-                    result.push(YoutubeAPI.search(searches[i])
-                        .then(function (id) {
-                        return id;
-                    }));
-                })(i);
+            .then((searches) => {
+            const result = [];
+            for (let i = 0; i < searches.length; i++) {
+                result.push(YoutubeAPI.search(searches[i])
+                    .then((id) => {
+                    return id;
+                }));
+            }
             resolve(Q.all(result));
-        })["catch"](function (error) {
+        })
+            .catch((error) => {
             reject(error);
         });
     });
 }
 exports.recentTracks = recentTracks;
 function recentArtists(params) {
-    return Q.Promise(function (resolve, reject) {
+    return Q.Promise((resolve, reject) => {
         LastfmAPI.recentArtists(params)
             .then(function (searches) {
-            var result = [];
-            for (var i = 0; i < searches.length; i++)
+            const result = [];
+            for (let i = 0; i < searches.length; i++)
                 (function (i) {
-                    result.push(YoutubeAPI.search(searches[i])
-                        .then(function (id) {
-                        return id;
-                    }));
+                    {
+                        {
+                            {
+                                {
+                                    result.push(YoutubeAPI.search(searches[i])
+                                        .then(function (id) {
+                                        return id;
+                                    }));
+                                }
+                            }
+                        }
+                    }
                 })(i);
-            resolve(Q.all(result));
-        })["catch"](function (error) {
-            reject(error);
         });
     });
 }
 exports.recentArtists = recentArtists;
+;
+resolve(Q.all(result));
+try { }
+catch ( = function (error) {
+    reject(error);
+}) {
+}
 /**
  *
  * Top Tracks
@@ -55,21 +67,34 @@ exports.recentArtists = recentArtists;
  */
 function topTracks(params) {
     // implement caching for top tracks overall
-    return Q.Promise(function (resolve, reject) {
+    return Q.Promise((resolve, reject) => {
         LastfmAPI.topTracks(params)
             .then(function (searches) {
-            var result = [];
-            for (var i = 0; i < searches.length; i++)
+            const result = [];
+            for (let i = 0; i < searches.length; i++)
                 (function (i) {
-                    result.push(YoutubeAPI.search(searches[i])
-                        .then(function (id) {
-                        return id;
-                    }));
+                    {
+                        {
+                            {
+                                {
+                                    result.push(YoutubeAPI.search(searches[i])
+                                        .then(function (id) {
+                                        return id;
+                                    }));
+                                }
+                            }
+                        }
+                    }
                 })(i);
-            resolve(Q.all(result));
-        })["catch"](function (error) {
-            reject(error);
         });
     });
 }
 exports.topTracks = topTracks;
+;
+resolve(Q.all(result));
+try { }
+catch ( = function (error) {
+    reject(error);
+}) {
+}
+//# sourceMappingURL=video.js.map

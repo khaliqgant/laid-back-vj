@@ -1,19 +1,21 @@
 "use strict";
-exports.__esModule = true;
-var YoutubeAPI = require("../library/youtubeApi");
-var express = require('express');
-var router = express.Router();
-router.get('/', function (req, res, next) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const YoutubeAPI = require("../library/youtubeApi");
+const express = require('express');
+const router = express.Router();
+router.get('/', (req, res, next) => {
     YoutubeAPI.popular()
-        .then(function (videos) {
+        .then((videos) => {
         res.render('index', {
             title: 'Prep For Relaxation',
             intro: 'Authenticate via Spotify or Lastfm or just watch some videos right away',
             auth: true,
-            videos: videos
+            videos,
         });
-    })["catch"](function (error) {
+    })
+        .catch((error) => {
         res.json(error);
     });
 });
 module.exports = router;
+//# sourceMappingURL=index.js.map

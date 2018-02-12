@@ -1,34 +1,34 @@
 "use strict";
-exports.__esModule = true;
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var routes = require('./routes/index');
-var lastfm = require('./routes/lastfm');
-var api = require('./routes/api');
-var app = express();
-var config = require('./config.json');
-var rollbar = require('rollbar');
+Object.defineProperty(exports, "__esModule", { value: true });
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const routes = require('./routes/index');
+const lastfm = require('./routes/lastfm');
+const api = require('./routes/api');
+const app = express();
+const config = require('./config.json');
+const rollbar = require('rollbar');
 rollbar.init(config.rollbar);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-var hbs = require("express-handlebars");
+const hbs = require('express-handlebars');
 app.engine('hbs', hbs({
-    extname: '.hbs',
     defaultLayout: 'layout.hbs',
-    layoutsDir: 'views',
+    extname: '.hbs',
     helpers: {
-        json: function (obj) {
-            return (obj) ? JSON.stringify(obj) : '{}';
-        }
-    }
+        json(obj) {
+            return obj ? JSON.stringify(obj) : '{}';
+        },
+    },
+    layoutsDir: 'views',
 }));
 app.set('view engine', 'hbs');
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,8 +38,8 @@ app.use('/', routes);
 app.use('/lastfm', lastfm);
 app.use('/api', api);
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    var err = new Error('Not Found');
+app.use((req, res, next) => {
+    const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
@@ -47,21 +47,22 @@ app.use(function (req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function (err, req, res, next) {
+    app.use((err, req, res, next) => {
         res.status(err.status || 500);
         res.render('error', {
+            error: err,
             message: err.message,
-            error: err
         });
     });
 }
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', {
+        error: {},
         message: err.message,
-        error: {}
     });
 });
 module.exports = app;
+//# sourceMappingURL=app.js.map

@@ -1,11 +1,11 @@
 "use strict";
-exports.__esModule = true;
-var Q = require('q');
-var config = require('../config.json');
-var YoutubeAPI = require('../library/youtubeApi');
+Object.defineProperty(exports, "__esModule", { value: true });
+const Q = require('q');
+const config = require('../config.json');
+const YoutubeAPI = require('../library/youtubeApi');
 // @see https://github.com/nodenica/youtube-node
-var YouTube = require('youtube-node');
-var youTube = new YouTube();
+const YouTube = require('youtube-node');
+const youTube = new YouTube();
 youTube.setKey(config.youtube.apiKey);
 /**
  *
@@ -15,9 +15,9 @@ youTube.setKey(config.youtube.apiKey);
  *
  */
 function search(search) {
-    return Q.Promise(function (resolve, reject) {
-        var numResults = 1;
-        youTube.search(search.query, numResults, { type: 'video' }, function (error, result) {
+    return Q.Promise((resolve, reject) => {
+        const numResults = 1;
+        youTube.search(search.query, numResults, { type: 'video' }, (error, result) => {
             if (error) {
                 reject(error);
             }
@@ -26,11 +26,10 @@ function search(search) {
                     reject(error);
                     return;
                 }
-                var videoId = result.items[0].id.videoId;
-                var videoTitle = result.items[0].snippet.title;
+                const videoId = result.items[0].id.videoId;
+                const videoTitle = result.items[0].snippet.title;
                 // perform some kind of similarity check?
-                var artist = videoTitle.slice(0, videoTitle.indexOf('-'));
-                ;
+                const artist = videoTitle.slice(0, videoTitle.indexOf('-'));
                 resolve(videoId);
             }
         });
@@ -43,25 +42,24 @@ exports.search = search;
  * @desc grab the most popular music videos and return back the ids
  */
 function popular() {
-    var query = 'music videos vevo';
-    var numResults = 25;
-    var params = {
+    const query = 'music videos vevo';
+    const numResults = 25;
+    const params = {
         type: 'video',
-        order: 'viewCount'
+        order: 'viewCount',
     };
-    return Q.Promise(function (resolve, reject) {
-        youTube.search(query, numResults, params, function (error, result) {
+    return Q.Promise((resolve, reject) => {
+        youTube.search(query, numResults, params, (error, result) => {
             if (error) {
                 reject(error);
             }
             else {
-                var videoObjects = result.items;
-                var videoIds = videoObjects.map(function (vid, i) {
-                    return vid.id.videoId;
-                });
+                const videoObjects = result.items;
+                const videoIds = videoObjects.map((vid, i) => vid.id.videoId);
                 resolve(videoIds);
             }
         });
     });
 }
 exports.popular = popular;
+//# sourceMappingURL=youtubeApi.js.map

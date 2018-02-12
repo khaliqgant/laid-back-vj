@@ -1,12 +1,12 @@
 "use strict";
-exports.__esModule = true;
-var Q = require('q');
-var config = require('../config.json');
+Object.defineProperty(exports, "__esModule", { value: true });
+const Q = require('q');
+const config = require('../config.json');
 // @see https://github.com/maxkueng/node-lastfmapi
-var LastfmAPI = require('lastfmapi');
-var lfm = new LastfmAPI({
-    'api_key': config.lastfm.apiKey,
-    'secret': config.lastfm.secret
+const LastfmAPI = require('lastfmapi');
+const lfm = new LastfmAPI({
+    api_key: config.lastfm.apiKey,
+    secret: config.lastfm.secret,
 });
 /**
  *
@@ -17,8 +17,8 @@ var lfm = new LastfmAPI({
  *
  */
 function user(userId) {
-    return Q.Promise(function (resolve, reject) {
-        lfm.user.getInfo(userId, function (error, userInfo) {
+    return Q.Promise((resolve, reject) => {
+        lfm.user.getInfo(userId, (error, userInfo) => {
             if (error !== null) {
                 reject(error);
             }
@@ -38,8 +38,8 @@ exports.user = user;
  *
  */
 function friends(userId) {
-    return Q.Promise(function (resolve, reject) {
-        lfm.user.getFriends({ user: userId }, function (error, friendInfo) {
+    return Q.Promise((resolve, reject) => {
+        lfm.user.getFriends({ user: userId }, (error, friendInfo) => {
             if (error !== null) {
                 reject(error);
             }
@@ -60,20 +60,20 @@ exports.friends = friends;
  *
  */
 function topTracks(params) {
-    return Q.Promise(function (resolve, reject) {
-        lfm.user.getTopTracks(params, function (error, topTracks) {
+    return Q.Promise((resolve, reject) => {
+        lfm.user.getTopTracks(params, (error, topTracksResponse) => {
             if (error !== null) {
                 reject(error);
             }
             else {
-                var searches = [];
-                for (var i = 0; i < topTracks.track.length; i++) {
-                    var track = topTracks.track[i];
-                    var search = track.artist.name + ' ' + track.name + ' VEVO';
-                    var trackQuery = {
-                        query: search,
+                const searches = [];
+                for (let i = 0; i < topTracksResponse.track.length; i++) {
+                    const track = topTracksResponse.track[i];
+                    const search = `${track.artist.name} ${track.name} VEVO`;
+                    const trackQuery = {
                         artist: track.artist.name,
-                        title: track.name
+                        query: search,
+                        title: track.name,
                     };
                     searches.push(trackQuery);
                 }
@@ -92,20 +92,20 @@ exports.topTracks = topTracks;
  *
  */
 function recentTracks(params) {
-    return Q.Promise(function (resolve, reject) {
-        lfm.user.getRecentTracks(params, function (error, topTracks) {
+    return Q.Promise((resolve, reject) => {
+        lfm.user.getRecentTracks(params, (error, topTracksResponse) => {
             if (error !== null) {
                 reject(error);
             }
             else {
-                var searches = [];
-                for (var i = 0; i < topTracks.track.length; i++) {
-                    var track = topTracks.track[i];
-                    var search = track.artist.name + ' ' + track.name + ' VEVO';
-                    var trackQuery = {
-                        query: search,
+                const searches = [];
+                for (let i = 0; i < topTracksResponse.track.length; i++) {
+                    const track = topTracksResponse.track[i];
+                    const search = `${track.artist.name} ${track.name} VEVO`;
+                    const trackQuery = {
                         artist: track.artist.name,
-                        title: track.name
+                        query: search,
+                        title: track.name,
                     };
                     searches.push(trackQuery);
                 }
@@ -123,20 +123,20 @@ exports.recentTracks = recentTracks;
  *
  */
 function recentArtists(params) {
-    return Q.Promise(function (resolve, reject) {
-        lfm.user.getTopArtists(params, function (error, topArtists) {
+    return Q.Promise((resolve, reject) => {
+        lfm.user.getTopArtists(params, (error, topArtists) => {
             if (error !== null) {
                 reject(error);
             }
             else {
-                var searches = [];
-                for (var i = 0; i < topArtists.artist.length; i++) {
-                    var artist = topArtists.artist[i];
-                    var search = artist.name + ' VEVO';
-                    var artistQuery = {
-                        query: search,
+                const searches = [];
+                for (let i = 0; i < topArtists.artist.length; i++) {
+                    const artist = topArtists.artist[i];
+                    const search = `${artist.name} VEVO`;
+                    const artistQuery = {
                         artist: artist.name,
-                        ranking: artist["@attr"].rank
+                        query: search,
+                        ranking: artist['@attr'].rank,
                     };
                     searches.push(artistQuery);
                 }
@@ -146,3 +146,4 @@ function recentArtists(params) {
     });
 }
 exports.recentArtists = recentArtists;
+//# sourceMappingURL=lastfmApi.js.map
