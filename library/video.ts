@@ -1,4 +1,4 @@
-import {TrackQuery, ArtistQuery} from '../interfaces/VideoQuery';
+import { TrackQuery, ArtistQuery } from '../interfaces/VideoQuery';
 
 const Q = require('q');
 const config = require('../config.json');
@@ -14,54 +14,60 @@ const YoutubeAPI = require('../library/youtubeApi');
  */
 export function recentTracks(params: any): Q.Promise<any> {
 
-    return Q.Promise((resolve: Function, reject: Function) => {
-        LastfmAPI.recentTracks(params)
-        .then((searches: TrackQuery[]) => {
-            const result: any = [];
-            for (let i = 0; i < searches.length; i++) {
-                result.push(
-                    YoutubeAPI.search(searches[i])
-                    .then((id: string) => {
-                        return id;
-                    }),
-                );
-            }
+  return Q.Promise((resolve: Function, reject: Function) => {
 
-            resolve(Q.all(result));
+    LastfmAPI.recentTracks(params)
+      .then((searches: TrackQuery[]) => {
 
-        })
-        .catch ((error: any) => {
-            reject(error);
-        });
+        const result: any = [];
+        for (const search of searches) {
 
-    });
+          result.push(YoutubeAPI.search(search)
+            .then((id: string) => id));
+
+        }
+
+        resolve(Q.all(result));
+
+      })
+      .catch((error: any) => {
+
+        reject(error);
+
+      });
+
+  });
+
 }
 
 
 export function recentArtists(params: any): Q.Promise<any> {
 
-    return Q.Promise((resolve: Function, reject: Function) => {
-        LastfmAPI.recentArtists(params)
-         .then(function(searches: ArtistQuery[]) {
-            const result = [];
-            for (let i = 0; i < searches.length; i++) (function(i) { { { { { {
-                result.push(YoutubeAPI.search(searches[i])
-                    .then(function(id: string) {
-                        return id;
-                    }));
-            })(i);
-            };
-            };
-            }
-            }
-            }
+  return Q.Promise((resolve: Function, reject: Function) => {
 
-resolve(Q.all(result));
-         })
-         . catch ( function(error: any) {
-            reject(error);
-         })
-    })
+    LastfmAPI.recentArtists(params)
+      .then((searches: ArtistQuery[]) => {
+
+        const result = [];
+
+        for (const search of searches) {
+
+          result.push(YoutubeAPI.search(search)
+            .then((id: string) => id));
+
+        }
+
+        resolve(Q.all(result));
+
+      })
+
+      .catch((error: any) => {
+
+        reject(error);
+
+      });
+
+  });
 
 }
 
@@ -73,28 +79,30 @@ resolve(Q.all(result));
  */
 export function topTracks(params: any): Q.Promise<any> {
 
-    // implement caching for top tracks overall
-    return Q.Promise((resolve: Function, reject: Function) => {
-        LastfmAPI.topTracks(params)
-         .then(function(searches: TrackQuery[]) {
-            const result = [];
-            for (let i = 0; i < searches.length; i++) (function(i) { { { { { {
-                result.push(YoutubeAPI.search(searches[i])
-                    .then(function(id: string) {
-                        return id;
-                    }));
-            })(i);
-            };
-            };
-            }
-            }
-            }
+  return Q.Promise((resolve: Function, reject: Function) => {
 
-resolve(Q.all(result));
-         })
-         . catch ( function(error: any) {
-            reject(error);
-         })
-    })
+    LastfmAPI.topTracks(params)
+      .then((searches: TrackQuery[]) => {
+
+        const result = [];
+
+        for (const search of searches) {
+
+          result.push(YoutubeAPI.search(search)
+            .then((id: string) => id));
+
+        }
+
+        resolve(Q.all(result));
+
+      })
+
+      .catch((error: any) => {
+
+        reject(error);
+
+      });
+
+  });
 
 }

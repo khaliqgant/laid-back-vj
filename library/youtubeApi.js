@@ -14,10 +14,10 @@ youTube.setKey(config.youtube.apiKey);
  * @see https://developers.google.com/youtube/v3/docs/search/list
  *
  */
-function search(search) {
+function search(searchOb) {
     return Q.Promise((resolve, reject) => {
         const numResults = 1;
-        youTube.search(search.query, numResults, { type: 'video' }, (error, result) => {
+        youTube.search(searchOb.query, numResults, { type: 'video' }, (error, result) => {
             if (error) {
                 reject(error);
             }
@@ -45,8 +45,8 @@ function popular() {
     const query = 'music videos vevo';
     const numResults = 25;
     const params = {
-        type: 'video',
         order: 'viewCount',
+        type: 'video',
     };
     return Q.Promise((resolve, reject) => {
         youTube.search(query, numResults, params, (error, result) => {

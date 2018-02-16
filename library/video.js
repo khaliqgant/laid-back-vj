@@ -14,11 +14,9 @@ function recentTracks(params) {
         LastfmAPI.recentTracks(params)
             .then((searches) => {
             const result = [];
-            for (let i = 0; i < searches.length; i++) {
-                result.push(YoutubeAPI.search(searches[i])
-                    .then((id) => {
-                    return id;
-                }));
+            for (const search of searches) {
+                result.push(YoutubeAPI.search(search)
+                    .then((id) => id));
             }
             resolve(Q.all(result));
         })
@@ -31,34 +29,20 @@ exports.recentTracks = recentTracks;
 function recentArtists(params) {
     return Q.Promise((resolve, reject) => {
         LastfmAPI.recentArtists(params)
-            .then(function (searches) {
+            .then((searches) => {
             const result = [];
-            for (let i = 0; i < searches.length; i++)
-                (function (i) {
-                    {
-                        {
-                            {
-                                {
-                                    result.push(YoutubeAPI.search(searches[i])
-                                        .then(function (id) {
-                                        return id;
-                                    }));
-                                }
-                            }
-                        }
-                    }
-                })(i);
+            for (const search of searches) {
+                result.push(YoutubeAPI.search(search)
+                    .then((id) => id));
+            }
+            resolve(Q.all(result));
+        })
+            .catch((error) => {
+            reject(error);
         });
     });
 }
 exports.recentArtists = recentArtists;
-;
-resolve(Q.all(result));
-try { }
-catch ( = function (error) {
-    reject(error);
-}) {
-}
 /**
  *
  * Top Tracks
@@ -66,35 +50,20 @@ catch ( = function (error) {
  *
  */
 function topTracks(params) {
-    // implement caching for top tracks overall
     return Q.Promise((resolve, reject) => {
         LastfmAPI.topTracks(params)
-            .then(function (searches) {
+            .then((searches) => {
             const result = [];
-            for (let i = 0; i < searches.length; i++)
-                (function (i) {
-                    {
-                        {
-                            {
-                                {
-                                    result.push(YoutubeAPI.search(searches[i])
-                                        .then(function (id) {
-                                        return id;
-                                    }));
-                                }
-                            }
-                        }
-                    }
-                })(i);
+            for (const search of searches) {
+                result.push(YoutubeAPI.search(search)
+                    .then((id) => id));
+            }
+            resolve(Q.all(result));
+        })
+            .catch((error) => {
+            reject(error);
         });
     });
 }
 exports.topTracks = topTracks;
-;
-resolve(Q.all(result));
-try { }
-catch ( = function (error) {
-    reject(error);
-}) {
-}
 //# sourceMappingURL=video.js.map
