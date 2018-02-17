@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { User as UserResponse, Friends as FriendResponse } from '../interfaces/Lastfm';
+import { User as UserResponse,
+  Friends as FriendResponse } from '../interfaces/Lastfm';
 
 import LastfmApi = require('../library/lastfmApi');
 
@@ -7,41 +8,47 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/lastfm/user/:userId', (req: Request, res: Response, next: Function) => {
+router.get(
+  '/lastfm/user/:userId',
+  (req: Request, res: Response, next: Function) => {
 
-  const userId = req.params.userId;
+    const userId = req.params.userId;
 
-  LastfmApi.user(userId)
-    .then((userInfo: UserResponse) => {
+    LastfmApi.user(userId)
+      .then((userInfo: UserResponse) => {
 
-      res.json(userInfo);
+        res.json(userInfo);
 
-    })
-    .catch((error: any) => {
+      })
+      .catch((error: any) => {
 
-      res.json(error);
+        res.json(error);
 
-    });
+      });
 
-});
+  },
+);
 
-router.get('/lastfm/friends/:userId', (req: Request, res: Response, next: Function) => {
+router.get(
+  '/lastfm/friends/:userId',
+  (req: Request, res: Response, next: Function) => {
 
-  const userId = req.params.userId;
+    const userId = req.params.userId;
 
-  LastfmApi.friends(userId)
-    .then((friends: FriendResponse) => {
+    LastfmApi.friends(userId)
+      .then((friends: FriendResponse) => {
 
-      res.json(friends);
+        res.json(friends);
 
-    })
-    .catch((error: any) => {
+      })
+      .catch((error: any) => {
 
-      res.json(error);
+        res.json(error);
 
-    });
+      });
 
-});
+  },
+);
 
 module.exports = router;
 

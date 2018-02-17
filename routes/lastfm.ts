@@ -12,7 +12,7 @@ const LIMIT = 25;
 router.get('/test', (req: Request, res: Response, next: Function) => {
 
   res.render('index', {
-    title: 'Laid Back VJ' + ' - test',
+    title: 'Laid Back VJ - test',
     userId: 'khaliqgant',
     videos: ['5483ImCMSfQ', 'OFjQMDtwAbg'],
   });
@@ -39,7 +39,7 @@ router.get('/:userId/year', (req: Request, res: Response, next: Function) => {
 
       res.render('index', {
         filter: 'Last Years Favorites',
-        title: `${'Laid Back VJ' + ' - '}${userId}`,
+        title: `Laid Back VJ - ${userId}`,
         userId,
         videos: videoIds,
       });
@@ -76,7 +76,7 @@ router.get('/:userId/month', (req: Request, res: Response, next: Function) => {
 
       res.render('index', {
         filter: 'Last Months Favorites',
-        title: `${'Laid Back VJ' + ' - '}${userId}`,
+        title: `Laid Back VJ - ${userId}`,
         userId,
         videos: videoIds,
       });
@@ -112,7 +112,7 @@ router.get('/:userId/recent', (req: Request, res: Response, next: Function) => {
 
       res.render('index', {
         filter: 'Last Months Favorites',
-        title: `${'Laid Back VJ' + ' - '}${userId}`,
+        title: `Laid Back VJ - ${userId}`,
         userId,
         videos: videoIds,
       });
@@ -130,149 +130,167 @@ router.get('/:userId/recent', (req: Request, res: Response, next: Function) => {
 });
 
 
-router.get('/:userId/artists/week', (req: Request, res: Response, next: Function) => {
+router.get(
+  '/:userId/artists/week',
+  (req: Request, res: Response, next: Function) => {
 
-  const userId = req.params.userId;
-  const params = {
-    limit: LIMIT,
-    period: '7day',
-    user: userId,
-  };
+    const userId = req.params.userId;
+    const params = {
+      limit: LIMIT,
+      period: '7day',
+      user: userId,
+    };
 
-  Video.recentArtists(params)
-    .then((videoIds: string[]) => {
+    Video.recentArtists(params)
+      .then((videoIds: string[]) => {
 
-      res.render('index', {
-        filter: 'Last Months Favorites',
-        title: `${'Laid Back VJ' + ' - '}${userId}`,
-        userId,
-        videos: videoIds,
+        res.render('index', {
+          filter: 'Last Months Favorites',
+          title: `Laid Back VJ - ${userId}`,
+          userId,
+          videos: videoIds,
+        });
+
+      })
+      .catch((error: any) => {
+
+        res.render('notFound', {
+          error,
+          title: 'Laid Back VJ',
+        });
+
       });
 
-    })
-    .catch((error: any) => {
+  },
+);
 
-      res.render('notFound', {
-        error,
-        title: 'Laid Back VJ',
+router.get(
+  '/:userId/artists/month',
+  (req: Request, res: Response, next: Function) => {
+
+    const userId = req.params.userId;
+    const params = {
+      limit: LIMIT,
+      period: '1month',
+      user: userId,
+    };
+
+    Video.recentArtists(params)
+      .then((videoIds: string[]) => {
+
+        res.render('index', {
+          filter: 'Last Months Favorites',
+          title: `Laid Back VJ - ${userId}`,
+          userId,
+          videos: videoIds,
+        });
+
+      })
+      .catch((error: any) => {
+
+        res.render('notFound', {
+          error,
+          title: 'Laid Back VJ',
+        });
+
       });
 
-    });
+  },
+);
 
-});
+router.get(
+  '/:userId/artists/three-month',
+  (req: Request, res: Response, next: Function) => {
 
-router.get('/:userId/artists/month', (req: Request, res: Response, next: Function) => {
+    const userId = req.params.userId;
+    const params = {
+      limit: LIMIT,
+      period: '3month',
+      user: userId,
+    };
 
-  const userId = req.params.userId;
-  const params = {
-    limit: LIMIT,
-    period: '1month',
-    user: userId,
-  };
+    Video.recentArtists(params)
+      .then((videoIds: string[]) => {
 
-  Video.recentArtists(params)
-    .then((videoIds: string[]) => {
+        res.render('index', {
+          filter: 'Last Months Favorites',
+          title: `Laid Back VJ - ${userId}`,
+          userId,
+          videos: videoIds,
+        });
 
-      res.render('index', {
-        filter: 'Last Months Favorites',
-        title: `${'Laid Back VJ' + ' - '}${userId}`,
-        userId,
-        videos: videoIds,
+      })
+      .catch((error: any) => {
+
+        res.render('notFound', {
+          error,
+          title: 'Laid Back VJ',
+        });
+
       });
 
-    })
-    .catch((error: any) => {
+  },
+);
 
-      res.render('notFound', {
-        error,
-        title: 'Laid Back VJ',
+router.get(
+  '/:userId/artists/year',
+  (req: Request, res: Response, next: Function) => {
+
+    const userId = req.params.userId;
+    const params = {
+      limit: LIMIT,
+      period: '12month',
+      user: userId,
+    };
+
+    Video.recentArtists(params)
+      .then((videoIds: string[]) => {
+
+        res.render('index', {
+          filter: 'Last Months Favorites',
+          title: `Laid Back VJ - ${userId}`,
+          userId,
+          videos: videoIds,
+        });
+
+      })
+      .catch((error: any) => {
+
+        res.render('notFound', {
+          error,
+          title: 'Laid Back VJ',
+        });
+
       });
 
-    });
+  },
+);
 
-});
-
-router.get('/:userId/artists/three-month', (req: Request, res: Response, next: Function) => {
-
-  const userId = req.params.userId;
-  const params = {
-    limit: LIMIT,
-    period: '3month',
-    user: userId,
-  };
-
-  Video.recentArtists(params)
-    .then((videoIds: string[]) => {
-
-      res.render('index', {
-        filter: 'Last Months Favorites',
-        title: `${'Laid Back VJ' + ' - '}${userId}`,
-        userId,
-        videos: videoIds,
-      });
-
-    })
-    .catch((error: any) => {
-
-      res.render('notFound', {
-        error,
-        title: 'Laid Back VJ',
-      });
-
-    });
-
-});
-
-router.get('/:userId/artists/year', (req: Request, res: Response, next: Function) => {
-
-  const userId = req.params.userId;
-  const params = {
-    limit: LIMIT,
-    period: '12month',
-    user: userId,
-  };
-
-  Video.recentArtists(params)
-    .then((videoIds: string[]) => {
-
-      res.render('index', {
-        filter: 'Last Months Favorites',
-        title: `${'Laid Back VJ' + ' - '}${userId}`,
-        userId,
-        videos: videoIds,
-      });
-
-    })
-    .catch((error: any) => {
-
-      res.render('notFound', {
-        error,
-        title: 'Laid Back VJ',
-      });
-
-    });
-
-});
-
-router.get('/:userId/recommended', (req: Request, res: Response, next: Function) => {
+router.get(
+  '/:userId/recommended',
+  (req: Request, res: Response, next: Function) => {
 
   // http://www.last.fm/api/show/track.getSimilar
-  res.render('notFound', {
-    error: { message: 'not implemented' },
-    title: 'Laid Back VJ',
-  });
+    res.render('notFound', {
+      error: { message: 'not implemented' },
+      title: 'Laid Back VJ',
+    });
 
-});
+  },
+);
 
-router.get('/:userId/friends-videos', (req: Request, res: Response, next: Function) => {
+router.get(
+  '/:userId/friends-videos',
+  (req: Request, res: Response, next: Function) => {
 
   // http://www.last.fm/api/show/user.getFriends
-  res.render('notFound', {
-    error: { message: 'not implemented' },
-    title: 'Laid Back VJ',
-  });
+    res.render('notFound', {
+      error: { message: 'not implemented' },
+      title: 'Laid Back VJ',
+    });
 
-});
+  },
+);
 
 /**
  *
@@ -293,7 +311,7 @@ router.get('/*', (req: Request, res: Response, next: Function) => {
 
       res.render('index', {
         filter: 'All Time Favorites',
-        title: `${'Laid Back VJ' + ' - '}${userId}`,
+        title: `Laid Back VJ - ${userId}`,
         videos: videoIds,
       });
 

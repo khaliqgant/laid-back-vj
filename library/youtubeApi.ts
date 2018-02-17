@@ -24,30 +24,34 @@ export function search(searchOb: ArtistQuery|TrackQuery): Q.Promise<any> {
   return Q.Promise((resolve: Function, reject: Function) => {
 
     const numResults: number = 1;
-    youTube.search(searchOb.query, numResults, { type: 'video' }, (error: any, result: YoutubeResponse) => {
+    youTube.search(
+      searchOb.query, numResults,
+      { type: 'video' },
+      (error: any, result: YoutubeResponse) => {
 
-      if (error) {
-
-        reject(error);
-
-      } else {
-
-        if (result.items.length <= 0) {
+        if (error) {
 
           reject(error);
-          return;
+
+        } else {
+
+          if (result.items.length <= 0) {
+
+            reject(error);
+            return;
+
+          }
+          const videoId = result.items[0].id.videoId;
+          const videoTitle = result.items[0].snippet.title;
+
+          // perform some kind of similarity check?
+          const artist = videoTitle.slice(0, videoTitle.indexOf('-'));
+          resolve(videoId);
 
         }
-        const videoId = result.items[0].id.videoId;
-        const videoTitle = result.items[0].snippet.title;
 
-        // perform some kind of similarity check?
-        const artist = videoTitle.slice(0, videoTitle.indexOf('-'));
-        resolve(videoId);
-
-      }
-
-    });
+      },
+    );
 
   });
 
@@ -69,22 +73,27 @@ export function popular(): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
-    youTube.search(query, numResults, params, (error: any, result: YoutubeResponse) => {
+    youTube.search(
+      query,
+      numResults,
+      params,
+      (error: any, result: YoutubeResponse) => {
 
-      if (error) {
+        if (error) {
 
-        reject(error);
+          reject(error);
 
-      } else {
+        } else {
 
-        const videoObjects = result.items;
-        const videoIds = videoObjects.map((vid, i) => vid.id.videoId);
+          const videoObjects = result.items;
+          const videoIds = videoObjects.map((vid, i) => vid.id.videoId);
 
-        resolve(videoIds);
+          resolve(videoIds);
 
-      }
+        }
 
-    });
+      },
+    );
 
   });
 

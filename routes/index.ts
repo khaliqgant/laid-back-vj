@@ -14,7 +14,8 @@ router.get('/', (req: Request, res: Response, next: Function) => {
 
       res.render('index', {
         auth: true,
-        intro: 'Authenticate via Spotify or Lastfm or just watch some videos right away',
+        intro: 'Authenticate via Spotify or Lastfm or just ' +
+        'watch some videos right away',
         title: 'Prep For Relaxation',
         videos,
       });

@@ -1,6 +1,9 @@
 import { TrackQuery, ArtistQuery } from '../interfaces/VideoQuery';
-import { Tracks as TrackResponse, Track as LastFmTrack, User as UserResponse,
-  Friends as FriendResponse, Artist as LastFmArtist, Artists as ArtistResponse } from '../interfaces/Lastfm';
+import { Tracks as TrackResponse,
+  Track as LastFmTrack, User as UserResponse,
+  Friends as FriendResponse,
+  Artist as LastFmArtist,
+  Artists as ArtistResponse } from '../interfaces/Lastfm';
 import { Response as YoutubeResponse } from '../interfaces/Youtube';
 
 const Q = require('q');
@@ -57,19 +60,22 @@ export function friends(userId: string): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
-    lfm.user.getFriends({ user: userId }, (error: any, friendInfo: FriendResponse) => {
+    lfm.user.getFriends(
+      { user: userId },
+      (error: any, friendInfo: FriendResponse) => {
 
-      if (error !== null) {
+        if (error !== null) {
 
-        reject(error);
+          reject(error);
 
-      } else {
+        } else {
 
-        resolve(friendInfo);
+          resolve(friendInfo);
 
-      }
+        }
 
-    });
+      },
+    );
 
   });
 
@@ -88,32 +94,35 @@ export function topTracks(params: any): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
-    lfm.user.getTopTracks(params, (error: any, topTracksResponse: TrackResponse) => {
+    lfm.user.getTopTracks(
+      params,
+      (error: any, topTracksResponse: TrackResponse) => {
 
-      if (error !== null) {
+        if (error !== null) {
 
-        reject(error);
+          reject(error);
 
-      } else {
+        } else {
 
-        const searches = [];
-        for (let i = 0; i < topTracksResponse.track.length; i++) {
+          const searches = [];
+          for (let i = 0; i < topTracksResponse.track.length; i++) {
 
-          const track: LastFmTrack = topTracksResponse.track[i];
-          const search = `${track.artist.name} ${track.name} VEVO`;
-          const trackQuery: TrackQuery = {
-            artist: track.artist.name,
-            query: search,
-            title: track.name,
-          };
-          searches.push(trackQuery);
+            const track: LastFmTrack = topTracksResponse.track[i];
+            const search = `${track.artist.name} ${track.name} VEVO`;
+            const trackQuery: TrackQuery = {
+              artist: track.artist.name,
+              query: search,
+              title: track.name,
+            };
+            searches.push(trackQuery);
+
+          }
+          resolve(searches);
 
         }
-        resolve(searches);
 
-      }
-
-    });
+      },
+    );
 
   });
 
@@ -131,32 +140,35 @@ export function recentTracks(params: any): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
-    lfm.user.getRecentTracks(params, (error: any, topTracksResponse: TrackResponse) => {
+    lfm.user.getRecentTracks(
+      params,
+      (error: any, topTracksResponse: TrackResponse) => {
 
-      if (error !== null) {
+        if (error !== null) {
 
-        reject(error);
+          reject(error);
 
-      } else {
+        } else {
 
-        const searches = [];
-        for (let i = 0; i < topTracksResponse.track.length; i++) {
+          const searches = [];
+          for (let i = 0; i < topTracksResponse.track.length; i++) {
 
-          const track: LastFmTrack = topTracksResponse.track[i];
-          const search = `${track.artist.name} ${track.name} VEVO`;
-          const trackQuery: TrackQuery = {
-            artist: track.artist.name,
-            query: search,
-            title: track.name,
-          };
-          searches.push(trackQuery);
+            const track: LastFmTrack = topTracksResponse.track[i];
+            const search = `${track.artist.name} ${track.name} VEVO`;
+            const trackQuery: TrackQuery = {
+              artist: track.artist.name,
+              query: search,
+              title: track.name,
+            };
+            searches.push(trackQuery);
+
+          }
+          resolve(searches);
 
         }
-        resolve(searches);
 
-      }
-
-    });
+      },
+    );
 
   });
 
