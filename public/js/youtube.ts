@@ -1,5 +1,3 @@
-let require: NodeRequire;
-
 // KJG how would i use this interface?
 // import {User} from './Lastfm';
 // const User = require('../../interfaces/Lastfm');
@@ -59,7 +57,8 @@ function stopVideo() {
   // player.stopVideo();
 }
 
-if (Object.prototype.hasOwnProperty.call(window, 'userId')) {
+if (Object.prototype.hasOwnProperty.call(window, 'userId') &&
+    window.userId.length) {
 
   /**
    *
