@@ -59,7 +59,7 @@ function stopVideo() {
   // player.stopVideo();
 }
 
-if (window.userId.length) {
+if (Object.prototype.hasOwnProperty.call(window, 'userId')) {
 
   /**
    *
@@ -67,13 +67,16 @@ if (window.userId.length) {
    * @desc grab the last fm user info and display
    *
    */
-  request(`/api/lastfm/user/${window.userId}`, (err: any, response: any, body: any) => {
+  request(
+    `/api/lastfm/user/${window.userId}`,
+    (err: any, response: any, body: any) => {
 
-    const userInfo = JSON.parse(body);
-    const picture = userInfo.image[1]['#text'];
-    const playcount: string = userInfo.playcount;
+      const userInfo = JSON.parse(body);
+      const picture = userInfo.image[1]['#text'];
+      const playcount: string = userInfo.playcount;
 
-  });
+    },
+  );
 
   /**
    *
@@ -81,10 +84,13 @@ if (window.userId.length) {
    * @desc grab the last fm user's friends
    *
    */
-  request(`/api/lastfm/friends/${window.userId}`, (err: any, response: any, body: any) => {
+  request(
+    `/api/lastfm/friends/${window.userId}`,
+    (err: any, response: any, body: any) => {
 
-    const userInfo = JSON.parse(body);
+      const userInfo = JSON.parse(body);
 
-  });
+    },
+  );
 
 }
