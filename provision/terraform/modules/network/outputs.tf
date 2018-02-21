@@ -3,7 +3,7 @@ output "app_vpc_id" {
 }
 
 output "app_subnet_id" {
-    value = "${aws_subnet.app_subnet.id}"
+    value = "${aws_subnet.app_subnet.*.id}"
 }
 
 output "app_security_groups" {

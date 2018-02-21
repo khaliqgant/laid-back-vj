@@ -7,6 +7,7 @@ variable "vpc_id" {
 }
 
 variable "subnet_id" {
+  type        = "list"
   description = "The number of ec2 instances to run in the ECS Cluster"
 }
 

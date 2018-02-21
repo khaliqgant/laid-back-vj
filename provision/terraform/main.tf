@@ -5,11 +5,17 @@ provider "aws" {
 }
 
 module "network" {
-  source = "./network"
+  source = "./modules/network"
+
+  cidr_block             = "${var.cidr_block}"
+  app_user_ips           = "${var.app_user_ips}"
+  destination_cidr_block = "${var.destination_cidr_block}"
+  availability_zones = "${var.availability_zones}"
+  cidrs                  = "${var.public_cidrs}"
 }
 
 module "ecs-cluster" {
-  source = "./ecs-cluster"
+  source = "./modules/ecs-cluster"
 
   name          = "${var.app}-cluster"
   instance_size = "${var.instance_number}"
@@ -26,17 +32,17 @@ module "ecs-cluster" {
 
 # Custom ECR Image for each required
 module "nginx_ecr_repository" {
-  source = "./ecr-repository"
+  source = "./modules/ecr-repository"
   name   = "nginx"
 }
 
 module "app_ecr_repository" {
-  source = "./ecr-repository"
+  source = "./modules/ecr-repository"
   name   = "app"
 }
 
 module "ecs-service-elb" {
-  source = "./elb"
+  source = "./modules/elb"
 
   name = "${var.app}-elb"
 
@@ -54,7 +60,7 @@ module "ecs-service-elb" {
 }
 
 module "ecs-service" {
-  source = "./ecs-service"
+  source = "./modules/ecs-service"
 
   name           = "${var.app}-service"
   ecs_cluster_id = "${module.ecs-cluster.app_ecs_cluster_id}"

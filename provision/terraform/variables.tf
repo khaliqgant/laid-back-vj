@@ -3,11 +3,43 @@ variable "app" {
 }
 
 variable "instance_number" {
-    default = 2
+    default = 1
+}
+
+variable "lb_healthy_threshold" {
+    default = "2"
+}
+
+variable "lb_unhealthy_threshold" {
+    default = "2"
+}
+
+variable "app_user_ips" {
+    type    = "list"
+    default = ["82.164.129.73/32"]
 }
 
 variable "instance_type" {
     default = "t2.micro"
+}
+
+variable "cidr_block" {
+    default     =  "10.0.0.0/16"
+}
+
+variable "public_cidrs" {
+    type    = "list"
+    default = ["10.0.0.0/24", "10.0.1.0/24"]
+}
+
+variable "availability_zones" {
+    type    = "list"
+    default = ["eu-west-1a","eu-west-1b","eu-west-1c"]
+}
+
+variable "destination_cidr_block" {
+  default     = "0.0.0.0/0"
+  description = "Specify all traffic to be routed either trough Internet Gateway or NAT to access the internet"
 }
 
 variable "profile" {
@@ -45,14 +77,6 @@ variable "lb_protocol" {
     default = "HTTP"
 }
 
-variable "lb_healthy_threshold" {
-    default = "2"
-}
-
-variable "lb_unhealthy_threshold" {
-    default = "2"
-}
-
 variable "lb_timeout" {
     default = "5"
 }
@@ -79,9 +103,11 @@ variable "app_cpu" {
 variable "app_num_env_vars" {
     default = "1"
 }
+
 variable "app_env_vars" {
     type = "map"
     default = {
         NODE_ENV = "production"
     }
 }
+

@@ -19,6 +19,7 @@ variable "vpc_id" {
 }
 
 variable "subnet_id" {
+  type        = "list"
   description = "The subnet IDs in which to deploy the EC2 Instances of the ECS Cluster."
 }
 
@@ -27,5 +28,5 @@ variable "security_groups" {
 }
 
 variable "elb" {
-    description = "Name of the ELB the cluster should attach to"
+  description = "Name of the ELB the cluster should attach to"
 }
