@@ -9,3 +9,9 @@ npm-debug.log
 *.js
 *.js.map
 config.json
+
+# Terraform provisioning
+.terraform
+*.tfstate
+*.tfstate.backup
+*.plan
