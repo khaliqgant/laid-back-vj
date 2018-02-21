@@ -1,5 +1,5 @@
-variable "cidr_block" {
-    description = "The CIDR block for the VPC"
+variable "name" {
+    description = "The name to set for the Network based resources"
 }
 
 variable "app_user_ips" {
@@ -9,6 +9,10 @@ variable "app_user_ips" {
 
 variable "destination_cidr_block" {
     description = "Access for the CIDR Block"
+}
+
+variable "cidr_block" {
+    description = "Base CIDR block for the VPC"
 }
 
 variable "cidrs" {

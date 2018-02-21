@@ -12,23 +12,28 @@ resource "aws_internet_gateway" "igw" {
 # Multiple subets example: https://github.com/devops-recipes/provision-ecs-cluster-terraform/blob/master/provision-cluster/vpc.tf#L23
 resource "aws_subnet" "app_subnet" {
   vpc_id                  = "${aws_vpc.default.id}"
-  cidr_block              = "${aws_vpc.default.cidr_block}"
+  cidr_block              = "${element(var.cidrs, count.index)}"
+  availability_zone       = "${element(var.availability_zones, count.index)}"
+  count                   = "${length(var.cidrs)}"
   map_public_ip_on_launch = true
 }
 
-resource "aws_route_table" "public-route-table" {
+resource "aws_route_table" "subnet" {
   vpc_id = "${aws_vpc.default.id}"
-
-  route {
-    cidr_block = "${var.destination_cidr_block}"
-    gateway_id = "${aws_internet_gateway.igw.id}"
-  }
+  count  = "${length(var.cidrs)}"
 }
 
 resource "aws_route_table_association" "public-rtb" {
-  count          = "${length(var.availability_zones)}"
   subnet_id      = "${element(aws_subnet.app_subnet.*.id, count.index)}"
-  route_table_id = "${aws_route_table.public-route-table.id}"
+  route_table_id = "${element(aws_route_table.subnet.*.id, count.index)}"
+  count          = "${length(var.cidrs)}"
+}
+
+resource "aws_route" "public_igw_route" {
+  count                  = "${length(var.cidrs)}"
+  route_table_id         = "${element(aws_route_table.subnet.*.id, count.index)}"
+  gateway_id             = "${aws_internet_gateway.igw.id}"
+  destination_cidr_block = "${var.destination_cidr_block}"
 }
 
 # https://www.terraform.io/docs/providers/aws/d/security_group.html

@@ -7,10 +7,11 @@ provider "aws" {
 module "network" {
   source = "./modules/network"
 
+  name                   = "${var.app}-network"
   cidr_block             = "${var.cidr_block}"
   app_user_ips           = "${var.app_user_ips}"
   destination_cidr_block = "${var.destination_cidr_block}"
-  availability_zones = "${var.availability_zones}"
+  availability_zones     = "${var.availability_zones}"
   cidrs                  = "${var.public_cidrs}"
 }
 
@@ -27,7 +28,6 @@ module "ecs-cluster" {
   subnet_id       = "${module.network.app_subnet_id}"
   security_groups = "${module.network.app_security_groups}"
   elb             = "${var.app}-elb"
-
 }
 
 # Custom ECR Image for each required
@@ -68,11 +68,11 @@ module "ecs-service" {
   nginx_image  = "${module.nginx_ecr_repository.ecr_url}"
   nginx_memory = "${var.app_nginx_memory}"
 
-  image_version  = "${var.app_image_version}"
-  app_image      = "${module.nginx_ecr_repository.ecr_url}"
-  cpu            = "${var.app_cpu}"
-  memory         = "${var.app_memory}"
-  desired_count  = "${var.instance_number}"
+  image_version = "${var.app_image_version}"
+  app_image     = "${module.nginx_ecr_repository.ecr_url}"
+  cpu           = "${var.app_cpu}"
+  memory        = "${var.app_memory}"
+  desired_count = "${var.instance_number}"
 
   app_port       = "${var.app_port}"
   host_port      = "${var.lb_port}"
