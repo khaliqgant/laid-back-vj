@@ -1,3 +1,4 @@
 resource "aws_ecr_repository" "repository" {
-  name = "${var.name}"
+  count = "${length(var.repositories)}"
+  name  = "${element(var.repositories, count.index)}"
 }

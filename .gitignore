@@ -15,3 +15,4 @@ config.json
 *.tfstate
 *.tfstate.backup
 *.plan
+provision/terraform/app.tfvars

@@ -1,3 +1,4 @@
-variable "name" {
-  description = "Name of ECR repository to add"
+variable "repositories" {
+  type        = "list"
+  description = "Name of ECR repositories to add"
 }

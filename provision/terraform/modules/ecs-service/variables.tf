@@ -11,28 +11,17 @@ variable "ecs_cluster_id" {
   description = "The ID of the ECS Cluster this ECS Service should run in."
 }
 
-variable "nginx_image" {
+variable "app_images" {
   description = "The Docker image to run in the ECS Task (e.g. foo/bar)."
+  type        = "list"
 }
 
-variable "app_image" {
-  description = "The Docker image to run in the ECS Task (e.g. foo/bar)."
-}
-
-variable "image_version" {
+variable "app_image_version" {
   description = "The version of the Docker image to run in the ECS Task. This is the the tag on the Docker image (e.g. latest or v3)."
 }
 
-variable "cpu" {
-  description = "The number of CPU units to give the ECS Task, where 1024 represents one vCPU."
-}
-
-variable "memory" {
-  description = "The amount of memory, in MB, to give the ECS Task."
-}
-
-variable "nginx_memory" {
-    description = "The amount of memory, in MB, to give to the nginx ECS task"
+variable "repositories" {
+  type = "list"
 }
 
 variable "container_port" {
@@ -59,17 +48,6 @@ variable "elb_name" {
 # OPTIONAL MODULE PARAMETERS
 # These variables have defaults, but may be overridden by the operator.
 # ---------------------------------------------------------------------------------------------------------------------
-
-variable "env_vars" {
-  description = "The environment variables to make available in each ECS Task. Any time you update this variable, make sure to update var.num_env_vars too!"
-  type = "map"
-  default = {}
-}
-
-variable "num_env_vars" {
-  description = "The number of environment variables in var.env_vars. We should be able to compute this automatically, but can't due to a limitation where Terraform cannot compute count on dynamic data: https://github.com/hashicorp/terraform/issues/12570."
-  default = 0
-}
 
 variable "deployment_maximum_percent" {
   description = "The upper limit, as a percentage of var.desired_count, of the number of running ECS Tasks that can be running in a service during a deployment. Setting this to more than 100 means that during deployment, ECS will deploy new instances of a Task before undeploying the old ones."

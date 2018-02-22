@@ -24,17 +24,16 @@ resource "aws_ecs_service" "service" {
 
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE AN ECS TASK TO RUN A DOCKER CONTAINER
+# This creates a dummy task definition to allow only the cluster to be created.
+# The task definition should be fully fleshed out on a deployment
 # ---------------------------------------------------------------------------------------------------------------------
-
 resource "aws_ecs_task_definition" "task" {
-  family = "${var.name}"
+  family                = "${var.name}"
   container_definitions = <<EOF
-[
+  [
     {
-    "name": "${var.name}",
-    "image": "${var.nginx_image}:${var.image_version}",
-    "cpu": ${var.cpu},
-    "memory": ${var.nginx_memory},
+    "name": "${var.name}"
+    "image" "${element(var.app_images, 0)}:${var.app_image_version}",
     "essential": true,
     "portMappings": [
       {
@@ -42,40 +41,9 @@ resource "aws_ecs_task_definition" "task" {
         "hostPort": ${var.host_port},
         "protocol": "tcp"
       }
-    ],
-    "environment": [${join(",", data.template_file.env_vars.*.rendered)}]
-  },
-  {
-    "name": "${var.name}_app",
-    "image": "${var.app_image}:${var.image_version}",
-    "cpu": ${var.cpu},
-    "memory": ${var.memory},
-    "essential": true,
-    "portMappings": [
-      {
-        "containerPort": ${var.app_port},
-        "hostPort": 0,
-        "protocol": "tcp"
-      }
-    ],
-    "environment": [${join(",", data.template_file.env_vars.*.rendered)}]
+    ]
   }
-]
-EOF
-}
-
-# Convert the environment variables the user passed-in into the format expected for for an ECS Task:
-#
-# "environment": [
-#    {"name": "NAME", "value": "VALUE"},
-#    {"name": "NAME", "value": "VALUE"},
-#    ...
-# ]
-#
-data "template_file" "env_vars" {
-  count = "${var.num_env_vars}"
-  template = <<EOF
-{"name": "${element(keys(var.env_vars), count.index)}", "value": "${lookup(var.env_vars, element(keys(var.env_vars), count.index))}"}
+  ]
 EOF
 }
 
