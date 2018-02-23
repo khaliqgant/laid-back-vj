@@ -14,6 +14,10 @@ provision:
 provision-plan:
 	cd ./provision/terraform && terraform plan -var-file="app.tfvars"
 
+.PHONY: jenkins
+jenkins:
+	docker-compose -f docker-compose.jenkins.yml up
+
 
 .PHONY: show-config
 show-config:

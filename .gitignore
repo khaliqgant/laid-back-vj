@@ -17,3 +17,5 @@ config.json
 *.tfstate.backup
 *.plan
 provision/terraform/app.tfvars
+
+/docker/data/
