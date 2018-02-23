@@ -20,9 +20,9 @@ export function recentTracks(params: any): Q.Promise<any> {
       .then((searches: TrackQuery[]) => {
 
         getSearches(searches)
-          .then((searchIds: string[]) => {
+          .then((youtubeIds: string[]) => {
 
-            resolve(searchIds);
+            resolve(youtubeIds);
 
           })
           .catch((error: any) => {
@@ -88,9 +88,9 @@ export function topTracks(params: any): Q.Promise<any> {
       .then((searches: TrackQuery[]) => {
 
         getSearches(searches)
-          .then((searchIds: string[]) => {
+          .then((youtubeIds: string[]) => {
 
-            resolve(searchIds);
+            resolve(youtubeIds);
 
           })
           .catch((error: any) => {
@@ -111,6 +111,13 @@ export function topTracks(params: any): Q.Promise<any> {
 
 }
 
+/**
+ *
+ * Get Searches
+ * @desc given an array of search queries, run a youtube search of each
+ * and resolve the ids after making sure it has a result
+ *
+ */
 function getSearches(searches: ArtistQuery[]|TrackQuery[]): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
