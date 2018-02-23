@@ -6,4 +6,13 @@
 /bower_components/
 /build/bower_components/
 npm-debug.log
+*.js
+*.js.map
 config.json
+
+# Terraform provisioning
+.terraform
+*.tfstate
+*.tfstate.backup
+*.plan
+provision/terraform/app.tfvars

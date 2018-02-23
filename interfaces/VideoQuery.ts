@@ -11,5 +11,5 @@ interface TrackQuery extends Query {
     title: string;
 }
 
-export {TrackQuery, ArtistQuery};
+export { TrackQuery, ArtistQuery };
 

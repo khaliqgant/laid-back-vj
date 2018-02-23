@@ -1,5 +1,5 @@
-import {TrackQuery, ArtistQuery} from '../interfaces/VideoQuery';
-import {Response as YoutubeResponse} from '../interfaces/Youtube';
+import { TrackQuery, ArtistQuery } from '../interfaces/VideoQuery';
+import { Response as YoutubeResponse } from '../interfaces/Youtube';
 
 const Q = require('q');
 const config = require('../config.json');
@@ -7,8 +7,9 @@ const config = require('../config.json');
 const YoutubeAPI = require('../library/youtubeApi');
 
 // @see https://github.com/nodenica/youtube-node
-var YouTube = require('youtube-node');
-var youTube = new YouTube();
+const YouTube = require('youtube-node');
+
+const youTube = new YouTube();
 youTube.setKey(config.youtube.apiKey);
 
 /**
@@ -18,27 +19,41 @@ youTube.setKey(config.youtube.apiKey);
  * @see https://developers.google.com/youtube/v3/docs/search/list
  *
  */
-export function search(search: ArtistQuery|TrackQuery): Q.Promise<any> {
+export function search(searchOb: ArtistQuery|TrackQuery): Q.Promise<any> {
 
-    return Q.Promise((resolve: Function, reject: Function) => {
-        const numResults: number = 1;
-        youTube.search(search.query, numResults, {type: 'video'}, function(error: any, result: YoutubeResponse) {
-            if (error) {
-                reject(error);
-            } else {
-                if (result.items.length <= 0) {
-                    reject(error);
-                    return;
-                }
-                let videoId = result.items[0].id.videoId;
-                let videoTitle = result.items[0].snippet.title;
+  return Q.Promise((resolve: Function, reject: Function) => {
 
-                // perform some kind of similarity check?
-                let artist = videoTitle.slice(0, videoTitle.indexOf('-'));;
-                resolve(videoId);
-            }
-        });
-    });
+    const numResults: number = 1;
+    youTube.search(
+      searchOb.query, numResults,
+      { type: 'video' },
+      (error: any, result: YoutubeResponse) => {
+
+        if (error) {
+
+          reject(error);
+
+        } else {
+
+          if (result.items.length === 0) {
+
+            resolve();
+            return;
+
+          }
+          const videoId = result.items[0].id.videoId;
+          const videoTitle = result.items[0].snippet.title;
+
+          // perform some kind of similarity check?
+          const artist = videoTitle.slice(0, videoTitle.indexOf('-'));
+          resolve(videoId);
+
+        }
+
+      },
+    );
+
+  });
 
 }
 
@@ -49,25 +64,37 @@ export function search(search: ArtistQuery|TrackQuery): Q.Promise<any> {
  */
 export function popular(): Q.Promise<any> {
 
-    const query: string = 'music videos vevo';
-    const numResults: number = 25;
-    const params = {
-        type: 'video',
-        order: 'viewCount'
-    };
+  const query: string = 'music videos vevo';
+  const numResults: number = 25;
+  const params = {
+    order: 'viewCount',
+    type: 'video',
+  };
 
-    return Q.Promise((resolve: Function, reject: Function) => {
-        youTube.search(query, numResults, params, function (error: any, result: YoutubeResponse) {
-            if (error) {
-                reject(error);
-            } else {
-                let videoObjects = result.items;
-                var videoIds = videoObjects.map(function (vid, i) {
-                    return vid.id.videoId;
-                });
+  return Q.Promise((resolve: Function, reject: Function) => {
 
-                resolve(videoIds);
-            }
-        });
-    });
+    youTube.search(
+      query,
+      numResults,
+      params,
+      (error: any, result: YoutubeResponse) => {
+
+        if (error) {
+
+          reject(error);
+
+        } else {
+
+          const videoObjects = result.items;
+          const videoIds = videoObjects.map((vid, i) => vid.id.videoId);
+
+          resolve(videoIds);
+
+        }
+
+      },
+    );
+
+  });
+
 }

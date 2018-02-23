@@ -1,5 +1,5 @@
 interface Image {
-    "#text": string;
+    '#text': string;
     size: string;
 }
 
@@ -12,18 +12,18 @@ interface Track {
     streamable: {
         text: string;
         fulltrack: string
-    }
+    };
     artist: {
         name: string;
         mbid: string;
         url: string;
-        "#text": string;
-    }
+        '#text': string;
+    };
     image: Image[];
 }
 
 interface Tracks {
-    track: Track[]
+    track: Track[];
 }
 
 
@@ -34,15 +34,15 @@ interface User {
     url: string;
     country: string;
     age: string;
-    gender: string
+    gender: string;
     subscriber: string;
     playcount: string;
     playlists: string;
     bootstrap: string;
     registered: {
-        "#text": number;
+        '#text': number;
         unixtime: string
-    }
+    };
     type: string;
 }
 
@@ -57,13 +57,14 @@ interface Artist {
     url: string;
     streamable: string;
     image: Image[];
-    "@attr": {
-        rank: "string"
+    '#text': string;
+    '@attr': {
+        rank: 'string',
     };
 }
 
 interface Artists {
-    artist: Artist[]
+    artist: Artist[];
 }
 
-export {Tracks, Track, User, Friends, Artists, Artist};
+export { Tracks, Track, User, Friends, Artists, Artist };

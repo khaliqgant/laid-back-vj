@@ -14,7 +14,7 @@ interface Snippet {
         default: Thumb;
         high: Thumb;
         medium: Thumb;
-    }
+    };
     title: string;
 }
 
@@ -23,7 +23,7 @@ interface Item {
     id: {
         kind: string;
         videoId: string;
-    }
+    };
     kind: string;
     snippet: Snippet;
 }
@@ -33,4 +33,4 @@ interface Response {
     items: Item[];
 }
 
-export {Response};
+export { Response };

@@ -5,6 +5,16 @@ AWS_KEYPAIR := $(shell aws configure get keypair --profile $(AWS_PROFILE))
 NGINX_REPO = 568063086568.dkr.ecr.eu-west-1.amazonaws.com
 NODE_REPO = 568063086568.dkr.ecr.eu-west-1.amazonaws.com
 
+.PHONY: provision
+provision:
+	cd ./provision/terraform
+	terraform apply -var-file="app.tfvars"
+
+.PHONY: provision-plan
+provision-plan:
+	cd ./provision/terraform && terraform plan -var-file="app.tfvars"
+
+
 .PHONY: show-config
 show-config:
 	@echo $(AWS_PROFILE)
