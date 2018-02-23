@@ -24,11 +24,13 @@ variable "instance_type" {
 }
 
 variable "cidr_block" {
+  default     = "10.0.0.0/16"
   description = "CIDR block for the VPC"
 }
 
 variable "public_cidrs" {
   type        = "list"
+  default     = ["10.0.0.0/24", "10.0.1.0/24", "10.0.3.0/24"]
   description = "Public CIDR block for the VPC"
 }
 
@@ -39,6 +41,7 @@ variable "availability_zones" {
 
 variable "destination_cidr_block" {
   description = "Specify all traffic to be routed either trough Internet Gateway or NAT to access the internet"
+  default     = "0.0.0.0/0"
 }
 
 variable "aws_profile" {
@@ -50,12 +53,12 @@ variable "aws_region" {
 }
 
 variable "aws_key_pair" {
-  default     = "lokai-ecs"
   description = "AWS key pair to use when creating your ecs instance"
 }
 
 variable "app_port" {
-  default = "80"
+  default     = "80"
+  description = "Port to run the application off of"
 }
 
 variable "lb_health_check_path" {
@@ -68,6 +71,7 @@ variable "lb_port" {
 
 variable "lb_protocol" {
   description = "Protocol used when checking the LB"
+  default     = "HTTP"
 }
 
 variable "lb_timeout" {
@@ -80,6 +84,7 @@ variable "lb_interval" {
 
 variable "app_image_version" {
   description = "Repository version to use when provisoning the app"
+  default     = "latest"
 }
 
 variable "app_repositories" {
