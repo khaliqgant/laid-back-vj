@@ -9,3 +9,9 @@ and [arminc/terraform-ecs](https://github.com/arminc/terraform-ecs)
 * All configuration is handled in the top level variables.tf file for
 organizational purposes. Dynamically filled in variables are nested
 in the individual modules
+
+# Provision
+* To provision run
+```
+    make provision
+```

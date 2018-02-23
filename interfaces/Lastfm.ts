@@ -57,6 +57,7 @@ interface Artist {
     url: string;
     streamable: string;
     image: Image[];
+    '#text': string;
     '@attr': {
         rank: 'string',
     };

@@ -35,9 +35,9 @@ export function search(searchOb: ArtistQuery|TrackQuery): Q.Promise<any> {
 
         } else {
 
-          if (result.items.length <= 0) {
+          if (result.items.length === 0) {
 
-            reject(error);
+            resolve();
             return;
 
           }

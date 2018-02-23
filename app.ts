@@ -88,6 +88,17 @@ app.use((err: any, req: Request, res: Response, next: Function) => {
 
 });
 
+// handle any uncaught
+// https://nodejs.org/api/process.html#process_event_unhandledrejection
+process.on('unhandledRejection', (error: Error, promise: any) => {
+
+  // eslint-disable-next-line no-console
+  console.error('error', 'Unhandled Rejection from a promise', error);
+  // eslint-disable-next-line no-console
+  console.error(promise);
+
+});
+
 app.listen(process.env.PORT || '3000');
 
 module.exports = app;

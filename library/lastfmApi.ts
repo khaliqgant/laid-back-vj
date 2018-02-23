@@ -1,9 +1,11 @@
 import { TrackQuery, ArtistQuery } from '../interfaces/VideoQuery';
-import { Tracks as TrackResponse,
+import {
+  Tracks as TrackResponse,
   Track as LastFmTrack, User as UserResponse,
   Friends as FriendResponse,
   Artist as LastFmArtist,
-  Artists as ArtistResponse } from '../interfaces/Lastfm';
+  Artists as ArtistResponse,
+} from '../interfaces/Lastfm';
 import { Response as YoutubeResponse } from '../interfaces/Youtube';
 
 const Q = require('q');
@@ -117,6 +119,7 @@ export function topTracks(params: any): Q.Promise<any> {
             searches.push(trackQuery);
 
           }
+
           resolve(searches);
 
         }
@@ -154,9 +157,10 @@ export function recentTracks(params: any): Q.Promise<any> {
           for (let i = 0; i < topTracksResponse.track.length; i++) {
 
             const track: LastFmTrack = topTracksResponse.track[i];
-            const search = `${track.artist.name} ${track.name} VEVO`;
+            const artist = track.artist['#text'];
+            const search = `${artist} ${track.name} VEVO`;
             const trackQuery: TrackQuery = {
-              artist: track.artist.name,
+              artist,
               query: search,
               title: track.name,
             };
@@ -199,7 +203,7 @@ export function recentArtists(params: any): Q.Promise<any> {
           const artist: LastFmArtist = topArtists.artist[i];
           const search = `${artist.name} VEVO`;
           const artistQuery: ArtistQuery = {
-            artist: artist.name,
+            artist: artist['#text'],
             query: search,
             ranking: artist['@attr'].rank,
           };
