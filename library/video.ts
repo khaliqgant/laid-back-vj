@@ -1,4 +1,4 @@
-import {TrackQuery, ArtistQuery} from '../interfaces/VideoQuery';
+import { TrackQuery, ArtistQuery } from '../interfaces/VideoQuery';
 
 const Q = require('q');
 const config = require('../config.json');
@@ -14,46 +14,63 @@ const YoutubeAPI = require('../library/youtubeApi');
  */
 export function recentTracks(params: any): Q.Promise<any> {
 
-    return Q.Promise((resolve: Function, reject: Function) => {
-        LastfmAPI.recentTracks(params)
-         .then(function(searches: TrackQuery[]) {
-            let result = [];
-            for (let i = 0; i < searches.length; i++) (function(i) {
-                result.push(YoutubeAPI.search(searches[i])
-                    .then(function(id: string) {
-                        return id;
-                    }));
-            })(i);
+  return Q.Promise((resolve: Function, reject: Function) => {
 
-            resolve(Q.all(result));
-         })
-         .catch(function(error: any) {
+    LastfmAPI.recentTracks(params)
+      .then((searches: TrackQuery[]) => {
+
+        getSearches(searches)
+          .then((youtubeIds: string[]) => {
+
+            resolve(youtubeIds);
+
+          })
+          .catch((error: any) => {
+
             reject(error);
-         });
-    })
+
+          });
+
+      })
+      .catch((error: any) => {
+
+        reject(error);
+
+      });
+
+  });
 
 }
 
 
 export function recentArtists(params: any): Q.Promise<any> {
 
-    return Q.Promise((resolve: Function, reject: Function) => {
-        LastfmAPI.recentArtists(params)
-         .then(function(searches: ArtistQuery[]) {
-            let result = [];
-            for (let i = 0; i < searches.length; i++) (function(i) {
-                result.push(YoutubeAPI.search(searches[i])
-                    .then(function(id: string) {
-                        return id;
-                    }));
-            })(i);
+  return Q.Promise((resolve: Function, reject: Function) => {
 
-            resolve(Q.all(result));
-         })
-         .catch(function(error: any) {
+    LastfmAPI.recentArtists(params)
+      .then((searches: ArtistQuery[]) => {
+
+        getSearches(searches)
+          .then((searchIds: string[]) => {
+
+            resolve(searchIds);
+
+          })
+          .catch((error: any) => {
+
             reject(error);
-         });
-    })
+
+          });
+
+      })
+
+      .catch((error: any) => {
+
+        reject(error);
+
+      });
+
+  });
 
 }
 
@@ -65,23 +82,67 @@ export function recentArtists(params: any): Q.Promise<any> {
  */
 export function topTracks(params: any): Q.Promise<any> {
 
-    // implement caching for top tracks overall
-    return Q.Promise((resolve: Function, reject: Function) => {
-        LastfmAPI.topTracks(params)
-         .then(function(searches: TrackQuery[]) {
-            let result = [];
-            for (let i = 0; i < searches.length; i++) (function(i) {
-                result.push(YoutubeAPI.search(searches[i])
-                    .then(function(id: string) {
-                        return id;
-                    }));
-            })(i);
+  return Q.Promise((resolve: Function, reject: Function) => {
 
-            resolve(Q.all(result));
-         })
-         .catch(function(error: any) {
+    LastfmAPI.topTracks(params)
+      .then((searches: TrackQuery[]) => {
+
+        getSearches(searches)
+          .then((youtubeIds: string[]) => {
+
+            resolve(youtubeIds);
+
+          })
+          .catch((error: any) => {
+
             reject(error);
-         });
-    })
+
+          });
+
+      })
+
+      .catch((error: any) => {
+
+        reject(error);
+
+      });
+
+  });
+
+}
+
+/**
+ *
+ * Get Searches
+ * @desc given an array of search queries, run a youtube search of each
+ * and resolve the ids after making sure it has a result
+ *
+ */
+function getSearches(searches: ArtistQuery[]|TrackQuery[]): Q.Promise<any> {
+
+  return Q.Promise((resolve: Function, reject: Function) => {
+
+    const promises = [];
+    for (const search of searches) {
+
+      promises.push(YoutubeAPI.search(search));
+
+    }
+
+    Q.Promise.all(promises)
+      .then((ids: string[]) => {
+
+        const youtubeIds: string[] = ids.filter((n: any) => n !== undefined);
+
+        resolve(youtubeIds);
+
+      })
+      .catch((error: any) => {
+
+        reject(error);
+
+      });
+
+  });
 
 }
