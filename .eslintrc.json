@@ -4,6 +4,7 @@
   ],
   "parser": "typescript-eslint-parser",
   "rules": {
+    "import/extensions": 0,
     "import/no-unresolved": 0,
     "no-use-before-define": 0,
     "no-undef": 0,

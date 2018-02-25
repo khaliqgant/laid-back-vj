@@ -7,8 +7,7 @@ NODE_REPO = 568063086568.dkr.ecr.eu-west-1.amazonaws.com
 
 .PHONY: provision
 provision:
-	cd ./provision/terraform
-	terraform apply -var-file="app.tfvars"
+	cd ./provision/terraform && terraform apply -var-file="app.tfvars"
 
 .PHONY: provision-plan
 provision-plan:
