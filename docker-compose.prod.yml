@@ -1,0 +1,22 @@
+version: "2"
+
+services:
+  nginx:
+    mem_limit: 26214400
+    build:
+      context: .
+      dockerfile: ./provision/nginx/Dockerfile
+    links:
+      - node
+    ports:
+      - "80:80"
+
+  node:
+    mem_limit: 52428800
+    build:
+      context: .
+      dockerfile: ./provision/node/Dockerfile
+    environment:
+      NODE_ENV: production
+
+

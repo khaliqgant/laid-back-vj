@@ -8,6 +8,7 @@
 npm-debug.log
 *.js
 !webpack.config.js
+!gulpfile.js
 *.js.map
 config.json
 
@@ -16,6 +17,5 @@ config.json
 *.tfstate
 *.tfstate.backup
 *.plan
-provision/terraform/app.tfvars
 
 /docker/data/

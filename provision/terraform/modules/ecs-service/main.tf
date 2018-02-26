@@ -32,9 +32,10 @@ resource "aws_ecs_task_definition" "task" {
   container_definitions = <<EOF
   [
     {
-    "name": "${var.name}"
-    "image" "${element(var.app_images, 0)}:${var.app_image_version}",
+    "name": "${var.name}",
+    "image": "${element(var.app_images, 0)}:${var.app_image_version}",
     "essential": true,
+    "memory": 50,
     "portMappings": [
       {
         "containerPort": ${var.container_port},
@@ -42,8 +43,8 @@ resource "aws_ecs_task_definition" "task" {
         "protocol": "tcp"
       }
     ]
-  }
-  ]
+    }
+ ]
 EOF
 }
 

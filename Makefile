@@ -13,6 +13,10 @@ provision:
 provision-plan:
 	cd ./provision/terraform && terraform plan -var-file="app.tfvars"
 
+.PHONY: provision-destroy
+provision-destroy:
+	cd ./provision/terraform && terraform destroy -var-file="app.tfvars"
+
 .PHONY: jenkins
 jenkins:
 	docker-compose -f docker-compose.jenkins.yml up

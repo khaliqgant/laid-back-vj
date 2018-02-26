@@ -2,8 +2,11 @@ version: "3"
 
 services:
   jenkins:
-    image: jenkinsci/blueocean
+    build:
+      context: .
+      dockerfile: ./provision/jenkins/Dockerfile
     volumes:
         - ./docker/data/jenkins-data:/var/jenkins_home
+        - /var/run/docker.sock:/var/run/docker.sock
     ports:
         - 8080:8080

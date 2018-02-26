@@ -18,6 +18,8 @@
     "": ""
   },
   "scripts": {
+    "css:compile": "./node_modules/.bin/gulp sass",
+    "css:compile:watch": "./node_modules/.bin/gulp",
     "fix:tslint": "./node_modules/.bin/tslint --project ./tsconfig.json --fix --force",
     "fix:prettier-eslint": "./node_modules/.bin/prettier-eslint **.ts --write",
     "fix:eslint": "./node_modules/.bin/eslint --fix --ext .ts .; exit 0",
@@ -33,7 +35,7 @@
     "watch": "npm run clean && ./node_modules/.bin/run-p fix:watch build:watch",
     "precommit": "npm run fix",
     "serve": "./node_modules/.bin/nodemon app.js",
-    "dev": "./node_modules/.bin/run-p fix:watch build:watch serve"
+    "dev": "./node_modules/.bin/run-p css:compile:watch fix:watch build:watch serve"
   },
   "dependencies": {
     "body-parser": "^1.18.2",

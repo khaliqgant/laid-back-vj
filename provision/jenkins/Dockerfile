@@ -1,16 +1,12 @@
-FROM node:8
+FROM jenkinsci/blueocean
+
+ENV AWS_CLI_VERSION 1.11.131
 
 USER root
 
-# Install nodemon
-RUN npm install -g nodemon
+RUN apk --no-cache update && \
+    apk --no-cache add python py-pip py-setuptools ca-certificates groff less && \
+    pip --no-cache-dir install awscli==${AWS_CLI_VERSION} && \
+    rm -rf /var/cache/apk/*
 
-COPY . /src
-WORKDIR /src
-
-RUN npm install --production
-
-RUN chown -R node:node /src
-USER node
-
-CMD ["nodemon", "/src/bin/www"]
+RUN pip install awscli

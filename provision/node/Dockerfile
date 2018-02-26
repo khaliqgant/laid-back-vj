@@ -2,15 +2,15 @@ FROM node:8
 
 USER root
 
-# Install nodemon
-RUN npm install -g nodemon
+RUN npm install -g forever
 
 COPY . /src
 WORKDIR /src
 
-RUN npm install --production
+RUN npm install
+RUN npm run build
 
 RUN chown -R node:node /src
 USER node
 
-CMD ["nodemon", "/src/bin/www"]
+CMD ["forever", "/src/app.js"]
