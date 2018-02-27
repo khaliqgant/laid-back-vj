@@ -18,5 +18,13 @@ services:
       dockerfile: ./provision/node/Dockerfile
     environment:
       NODE_ENV: production
+      LASTFM_KEY: ${LASTFM_KEY}
+      LASTFM_SECRET: ${LASTFM_SECRET}
+      YOUTUBE_KEY: ${YOUTUBE_KEY}
+      ROLLBAR_KEY: ${ROLLBAR_KEY}
+      SPOTIFY_KEY: ${SPOTIFY_KEY}
+      SPOTIFY_SECRET: ${SPOTIFY_SECRET}
+
+
 
 
