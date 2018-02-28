@@ -1,8 +1,11 @@
 const LastFmButtons: HTMLCollectionOf<Element> = document
   .getElementsByClassName('js-lastfm-login');
-
 const SpotifyButtons: HTMLCollectionOf<Element> = document
   .getElementsByClassName('js-spotify-login');
+const SpotifyUndos: HTMLCollectionOf<Element> = document
+  .getElementsByClassName('js-undo-spotify');
+const LastFmUndos: HTMLCollectionOf<Element> = document
+  .getElementsByClassName('js-undo-lastfm');
 
 
 if (LastFmButtons.length > 0) {
@@ -33,6 +36,37 @@ if (SpotifyButtons.length > 0) {
 
 }
 
+if (SpotifyUndos.length > 0) {
+
+  const undo = SpotifyUndos[0];
+  undo.addEventListener('click', () => {
+
+    showButton(undo);
+
+  });
+
+}
+
+if (LastFmUndos.length > 0) {
+
+  const undo = LastFmUndos[0];
+  // click listener isn't binding
+  undo.addEventListener('click', () => {
+
+    showButton(undo);
+
+  });
+
+}
+
+function showButton(undo: any) {
+
+  undo.parentNode.style.dipslay = 'none';
+  const button = undo.parentNode.previousSibling;
+  undo.parentNode.previousSibling.style.display = 'inline';
+
+}
+
 
 function showInput(className: string) {
 
@@ -40,6 +74,6 @@ function showInput(className: string) {
     .getElementsByClassName(className);
   const input: any = inputs[0];
 
-  input.style.display = 'inline-block';
+  input.parentNode.style.display = 'inline-block';
 
 }

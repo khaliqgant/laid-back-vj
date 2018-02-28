@@ -1,11 +1,34 @@
 @import "./settings";
 
+.spotify {
+    color: $spotify;
+}
+
+.lastFm {
+    color: $lastFm;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
 .auth {
     height: 60px;
 }
 
-.service-input {
+.login {
     display: none;
+}
+
+.service-input {
+    border: 2px solid;
+    display: inline-block;
+    &.lastFm {
+        border-color: $lastFm;
+    }
+    &.spotify {
+        border-color: $spotify;
+    }
 }
 
 .spotify-button {

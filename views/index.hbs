@@ -3,9 +3,17 @@
 {{#if auth}}
     <div class="auth">
         <a class="spotify-button js-spotify-login">Login With Spotify</a>
-        <input type="text" class="service-input js-spotify-input">
+        <div class="login">
+            <input type="text" class="service-input spotify js-spotify-input">
+            <i class="fas fa-check-circle spotify pointer js-confirm-spotify"></i>
+            <i class="fas fa-undo spotify pointer js-undo-spotify"></i>
+        </div>
         <a class="lastfm-button js-lastfm-login">Login With LastFM</a>
-        <input type="text" class="service-input js-last-input">
+        <div class="login">
+            <input type="text" class="service-input lastFm js-last-input">
+            <i class="fas fa-check-circle lastFm pointer js-confirm-lastfm"></i>
+            <i class="fas fa-undo lastFm pointer js-undo-lastfm"></i>
+        </div>
     </div>
 {{/if}}
 
