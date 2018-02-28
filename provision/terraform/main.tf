@@ -15,6 +15,24 @@ module "network" {
   cidrs                  = "${var.public_cidrs}"
 }
 
+module "ecs-service-elb" {
+  source = "./modules/elb"
+
+  name = "${var.app}-elb"
+
+  vpc_id          = "${module.network.app_vpc_id}"
+  subnet_id       = "${module.network.app_subnet_id}"
+  security_groups = "${module.network.app_security_groups}"
+
+  healthy_threshold   = "${var.lb_healthy_threshold}"
+  unhealthy_threshold = "${var.lb_unhealthy_threshold}"
+  timeout             = "${var.lb_timeout}"
+  interval            = "${var.lb_interval}"
+  port                = "${var.lb_port}"
+  health_check_path   = "${var.lb_health_check_path}"
+  protocol            = "${var.lb_protocol}"
+}
+
 module "ecs-cluster" {
   source = "./modules/ecs-cluster"
 
@@ -34,24 +52,6 @@ module "ecs-cluster" {
 module "ecr_repositories" {
   source       = "./modules/ecr-repository/"
   repositories = "${var.app_repositories}"
-}
-
-module "ecs-service-elb" {
-  source = "./modules/elb"
-
-  name = "${var.app}-elb"
-
-  vpc_id          = "${module.network.app_vpc_id}"
-  subnet_id       = "${module.network.app_subnet_id}"
-  security_groups = "${module.network.app_security_groups}"
-
-  healthy_threshold   = "${var.lb_healthy_threshold}"
-  unhealthy_threshold = "${var.lb_unhealthy_threshold}"
-  timeout             = "${var.lb_timeout}"
-  interval            = "${var.lb_interval}"
-  port                = "${var.lb_port}"
-  health_check_path   = "${var.lb_health_check_path}"
-  protocol            = "${var.lb_protocol}"
 }
 
 module "ecs-service" {
