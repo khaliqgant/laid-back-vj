@@ -3,9 +3,7 @@ version: "2"
 services:
   nginx:
     mem_limit: 26214400
-    build:
-      context: .
-      dockerfile: ./provision/nginx/Dockerfile
+    image: 568063086568.dkr.ecr.eu-west-1.amazonaws.com/nginx
     links:
       - node
     ports:
@@ -13,9 +11,7 @@ services:
 
   node:
     mem_limit: 52428800
-    build:
-      context: .
-      dockerfile: ./provision/node/Dockerfile
+    image: 568063086568.dkr.ecr.eu-west-1.amazonaws.com/node
     environment:
       NODE_ENV: production
       LASTFM_KEY: ${LASTFM_KEY}
