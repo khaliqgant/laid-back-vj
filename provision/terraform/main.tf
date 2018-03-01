@@ -62,11 +62,13 @@ module "ecs-service" {
 
   repositories = "${var.app_repositories}"
 
-  app_image_version = "${var.app_image_version}"
-  app_images        = "${module.ecr_repositories.ecr_url}"
-  desired_count     = "${var.instance_number}"
-  app_port          = "${var.app_port}"
-  host_port         = "${var.lb_port}"
-  container_port    = "${var.lb_port}"
-  elb_name          = "${var.app}-elb"
+  app_image_version       = "${var.app_image_version}"
+  app_images              = "${module.ecr_repositories.ecr_url}"
+  app_memory_repositories = "${var.app_memory_repositories}"
+  app_ports               = "${var.app_ports}"
+  desired_count           = "${var.instance_number}"
+  app_port                = "${var.app_port}"
+  host_port               = "${var.lb_port}"
+  container_port          = "${var.lb_port}"
+  elb_name                = "${var.app}-elb"
 }

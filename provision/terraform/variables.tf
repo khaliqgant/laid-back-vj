@@ -91,3 +91,13 @@ variable "app_repositories" {
   type        = "list"
   description = "ECR repositories to create when making the app"
 }
+
+variable "app_ports" {
+    type        = "list"
+    description = "The ports for each repository in the app"
+}
+
+variable "app_memory_repositories" {
+    type        = "list"
+    description = "The memory required for each repository"
+}
