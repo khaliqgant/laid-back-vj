@@ -18,13 +18,12 @@ const rollbar = require('rollbar');
 rollbar.init(process.env.ROLLBAR_KEY);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
 const hbs = require('express-handlebars');
 
 app.engine(
   'hbs',
   hbs({
-    defaultLayout: 'layout',
+    defaultLayout: 'base',
     extname: '.hbs',
     helpers: {
       json(obj: any) {
@@ -33,11 +32,12 @@ app.engine(
 
       },
     },
-    layoutsDir: 'views',
+    layoutsDir: path.join(__dirname, 'templates/layouts'),
   }),
 );
 
-app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'templates/views'));
+app.set('view engine', '.hbs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
