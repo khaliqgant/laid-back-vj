@@ -2,7 +2,6 @@ import { TrackQuery, ArtistQuery } from '../interfaces/VideoQuery';
 import { Response as YoutubeResponse } from '../interfaces/Youtube';
 
 const Q = require('q');
-const config = require('../config.json');
 
 const YoutubeAPI = require('../library/youtubeApi');
 
@@ -10,7 +9,7 @@ const YoutubeAPI = require('../library/youtubeApi');
 const YouTube = require('youtube-node');
 
 const youTube = new YouTube();
-youTube.setKey(config.youtube.apiKey);
+youTube.setKey(process.env.YOUTUBE_KEY);
 
 /**
  *

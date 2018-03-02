@@ -24,6 +24,14 @@ variable "repositories" {
   type = "list"
 }
 
+variable "app_ports" {
+    type = "list"
+}
+
+variable "app_memory_repositories" {
+    type = "list"
+}
+
 variable "container_port" {
   description = "The port the Docker container in the ECS Task is listening on."
 }

@@ -11,6 +11,13 @@
         <!-- Place favicon.ico in the root directory -->
 
         <link rel="stylesheet" href="/css/app.css">
+
+        <script>
+            var tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        </script>
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -36,9 +43,6 @@
         </main>
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-        <script src="https://www.youtube.com/iframe_api"></script>
         <script src="/js/dist/app.js"></script>
     </body>
 </html>
-
-

@@ -9,14 +9,13 @@ import {
 import { Response as YoutubeResponse } from '../interfaces/Youtube';
 
 const Q = require('q');
-const config = require('../config.json');
 
 // @see https://github.com/maxkueng/node-lastfmapi
 const LastfmAPI = require('lastfmapi');
 
 const lfm = new LastfmAPI({
-  api_key: config.lastfm.apiKey,
-  secret: config.lastfm.secret,
+  api_key: process.env.LASTFM_KEY,
+  secret: process.env.LASTFM_SECRET,
 });
 
 

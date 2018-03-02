@@ -10,6 +10,10 @@ ssh_ips = ["82.164.129.73/32"]
 
 app_repositories = ["nginx", "node"]
 
+app_ports = [80,3000]
+
+app_memory_repositories = [25, 50]
+
 instance_type = "t2.micro"
 
 instance_number = 1

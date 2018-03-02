@@ -10,6 +10,15 @@ const express = require('express');
 
 const router = express.Router();
 
+router.get('/', (req: Request, res: Response, next: Function) => {
+
+  res.json({
+    title: `Laid Back VJ: Watch your favorite
+    music videos that you didn’t know existed`,
+  });
+
+});
+
 router.get(
   '/lastfm/user/:userId',
   (req: Request, res: Response, next: Function) => {

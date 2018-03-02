@@ -15,7 +15,7 @@ resource "aws_ecs_service" "service" {
 
   load_balancer {
     elb_name = "${var.elb_name}"
-    container_name = "${var.name}"
+    container_name = "${element(var.repositories, 0)}"
     container_port = "${var.container_port}"
   }
 
@@ -30,23 +30,28 @@ resource "aws_ecs_service" "service" {
 resource "aws_ecs_task_definition" "task" {
   family                = "${var.name}"
   container_definitions = <<EOF
-  [
-    {
-    "name": "${var.name}",
-    "image": "${element(var.app_images, 0)}:${var.app_image_version}",
-    "essential": true,
-    "memory": 50,
-    "portMappings": [
-      {
-        "containerPort": ${var.container_port},
-        "hostPort": ${var.host_port},
-        "protocol": "tcp"
-      }
-    ]
-    }
- ]
+[${join(",", data.template_file.repos.*.rendered)}]
 EOF
 }
+
+data "template_file" "repos" {
+    count    = "${length(var.repositories)}"
+    template = <<EOF
+{
+"name": "${element(var.repositories, count.index)}",
+"image": "${element(var.app_images, count.index)}",
+"essential": true,
+"memory": ${element(var.app_memory_repositories, count.index)},
+"portMappings": [{
+"containerPort": ${element(var.app_ports, count.index)},
+"hostPort": ${element(var.app_ports, count.index)},
+"protocol": "tcp"
+}]
+}
+EOF
+}
+
+#"portMappings": [{"containerPort": ${var.container_port}, "hostPort": ${var.host_port}, "protocol": "tcp"}]}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE AN IAM ROLE FOR THE ECS SERVICE
@@ -84,11 +89,13 @@ data "aws_iam_policy_document" "ecs_service_policy" {
     effect = "Allow"
     resources = ["*"]
     actions = [
-      "elasticloadbalancing:Describe*",
-      "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
-      "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
-      "ec2:Describe*",
-      "ec2:AuthorizeSecurityGroupIngress"
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:Describe*",
+        "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
+        "elasticloadbalancing:DeregisterTargets",
+        "elasticloadbalancing:Describe*",
+        "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
+        "elasticloadbalancing:RegisterTargets"
     ]
   }
 }
