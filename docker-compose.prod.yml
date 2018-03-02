@@ -8,6 +8,12 @@ services:
       - node
     ports:
       - "80:80"
+    logging:
+      driver: "awslogs"
+      options:
+        awslogs-region: "eu-west-1"
+        awslogs-group: "lbv"
+        awslogs-stream-prefix: "nginx"
 
   node:
     mem_limit: 52428800
@@ -20,6 +26,12 @@ services:
       ROLLBAR_KEY: ${ROLLBAR_KEY}
       SPOTIFY_KEY: ${SPOTIFY_KEY}
       SPOTIFY_SECRET: ${SPOTIFY_SECRET}
+    logging:
+      driver: "awslogs"
+      options:
+        awslogs-region: "eu-west-1"
+        awslogs-group: "lbv"
+        awslogs-stream-prefix: "node"
 
 
 

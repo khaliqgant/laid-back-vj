@@ -45,7 +45,7 @@ module "ecs-cluster" {
   vpc_id          = "${module.network.app_vpc_id}"
   subnet_id       = "${module.network.app_subnet_id}"
   security_groups = "${module.network.app_security_groups}"
-  elb             = "${var.app}-elb"
+  elb             = "${module.ecs-service-elb.app_elb_name}"
 }
 
 # Custom ECR Image for each required
@@ -70,5 +70,5 @@ module "ecs-service" {
   app_port                = "${var.app_port}"
   host_port               = "${var.lb_port}"
   container_port          = "${var.lb_port}"
-  elb_name                = "${var.app}-elb"
+  elb_name                = "${module.ecs-service-elb.app_elb_name}"
 }
