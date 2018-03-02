@@ -24,7 +24,7 @@ const hbs = require('express-handlebars');
 app.engine(
   'hbs',
   hbs({
-    defaultLayout: 'layout.hbs',
+    defaultLayout: 'layout',
     extname: '.hbs',
     helpers: {
       json(obj: any) {

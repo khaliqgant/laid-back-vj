@@ -121,6 +121,10 @@ data "aws_iam_policy_document" "ecs_cluster_permissions" {
         "ecr:BatchGetImage",
         "ecr:GetDownloadUrlForLayer",
         "ecr:GetAuthorizationToken",
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "logs:DescribeLogStreams",
     ]
   }
 }

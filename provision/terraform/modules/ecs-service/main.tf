@@ -28,7 +28,7 @@ resource "aws_ecs_service" "service" {
 # The task definition should be fully fleshed out on a deployment
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_ecs_task_definition" "task" {
-  family                = "${var.name}-task"
+  family                = "${var.name}"
   container_definitions = <<EOF
 [${join(",", data.template_file.repos.*.rendered)}]
 EOF
