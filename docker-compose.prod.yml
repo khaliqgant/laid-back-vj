@@ -16,6 +16,7 @@ services:
         awslogs-stream-prefix: "nginx"
 
   node:
+    # https://github.com/aws/amazon-ecs-cli/issues/1
     mem_limit: 750M
     image: 568063086568.dkr.ecr.eu-west-1.amazonaws.com/node
     environment:
