@@ -1,7 +1,6 @@
 import { TrackQuery, ArtistQuery } from '../interfaces/VideoQuery';
 
 const Q = require('q');
-const config = require('../config.json');
 
 const LastfmAPI = require('../library/lastfmApi');
 const YoutubeAPI = require('../library/youtubeApi');

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
@@ -12,10 +13,9 @@ const api = require('./routes/api');
 
 const app = express();
 
-const config = require('./config.json');
 const rollbar = require('rollbar');
 
-rollbar.init(config.rollbar);
+rollbar.init(process.env.ROLLBAR_KEY);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
