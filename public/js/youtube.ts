@@ -19,6 +19,7 @@ interface Window {
  */
 window.onYouTubeIframeAPIReady = () => {
 
+  console.log('player ready');
   const player = new window.YT.Player('player', {
     events: {
       onReady: onPlayerReady,
@@ -34,6 +35,7 @@ window.onYouTubeIframeAPIReady = () => {
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event: any) {
 
+  console.log(window.videos);
   event.target.loadPlaylist(window.videos);
 
 }
