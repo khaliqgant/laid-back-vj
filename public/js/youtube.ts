@@ -15,9 +15,12 @@ interface Window {
  * On YouTubeIframeAPIReady
  * @desc
  * bind to the window to make sure it is evoked globally
+ * @see https://developers.google.com/youtube/iframe_api_reference
  * @see https://stackoverflow.com/questions/12256382/youtube-iframe-api-not-triggering-onyoutubeiframeapiready
  */
 window.onYouTubeIframeAPIReady = () => {
+
+  console.log('iframe api ready');
 
   const player = new window.YT.Player('player', {
     events: {
