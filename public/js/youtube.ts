@@ -8,42 +8,24 @@ interface Window {
     userId: string;
     videos: string[];
     onYouTubeIframeAPIReady: Function;
+    onPlayerReady: Function;
+    onPlayerStateChange: Function;
     YT: any;
 }
 
-/**
- * On YouTubeIframeAPIReady
- * @desc
- * bind to the window to make sure it is evoked globally
- * @see https://stackoverflow.com/questions/12256382/youtube-iframe-api-not-triggering-onyoutubeiframeapiready
- */
-window.onYouTubeIframeAPIReady = () => {
-
-  const player = new window.YT.Player('player', {
-    events: {
-      onReady: onPlayerReady,
-      onStateChange: onPlayerStateChange,
-    },
-    height: '390',
-    videoId: window.id !== '' ? window.id : 'M7lc1UVf-VE',
-    width: '640',
-  });
-
-};
-
 // 4. The API will call this function when the video player is ready.
-function onPlayerReady(event: any) {
+window.onPlayerReady = (event: any) => {
 
   event.target.loadPlaylist(window.videos);
 
-}
+};
 
 // 5. The API calls this function when the player's state changes.
 //    The function indicates that when playing a video (state=1),
 //    the player should play for six seconds and then stop.
 let done = false;
 
-function onPlayerStateChange(event: any) {
+window.onPlayerStateChange = (event: any) => {
 
   if (event.data === window.YT.PlayerState.PLAYING && !done) {
 
@@ -52,7 +34,8 @@ function onPlayerStateChange(event: any) {
 
   }
 
-}
+};
+
 function stopVideo() {
   // player.stopVideo();
 }

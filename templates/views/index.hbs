@@ -28,6 +28,38 @@
 
 <div id="player"></div>
 
+<script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    let player;
+    window.player = player;
+
+    /**
+     * On YouTubeIframeAPIReady
+     * @desc
+     * bind to the window to make sure it is evoked globally
+     * @see https://developers.google.com/youtube/iframe_api_reference
+     * @see https://stackoverflow.com/questions/12256382/youtube-iframe-api-not-triggering-onyoutubeiframeapiready
+     * https://stackoverflow.com/questions/19732363/youtube-iframe-api-behavior-is-inconsistent-nondeterministic
+     */
+    function onYouTubeIframeAPIReady () {
+
+        player = new window.YT.Player('player', {
+            events: {
+                onReady: window.onPlayerReady,
+                onStateChange: window.onPlayerStateChange,
+            },
+            height: '390',
+            videoId: window.id !== '' ? window.id : 'M7lc1UVf-VE',
+            width: '640',
+        });
+
+    };
+</script>
+
 {{#unless auth}}
     <div class="sidebar indie">
         <ul class="links">
