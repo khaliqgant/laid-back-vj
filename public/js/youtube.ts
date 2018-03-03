@@ -1,7 +1,7 @@
 // KJG how would i use this interface?
 // import {User} from './Lastfm';
 // const User = require('../../interfaces/Lastfm');
-const request = require('browser-request');
+const LastFmApi = require('./lastfm');
 
 interface Window {
     id: string;
@@ -60,36 +60,18 @@ function stopVideo() {
 if (Object.prototype.hasOwnProperty.call(window, 'userId') &&
     window.userId.length) {
 
-  /**
-   *
-   * Last FM User
-   * @desc grab the last fm user info and display
-   *
-   */
-  request(
-    `/api/lastfm/user/${window.userId}`,
-    (err: any, response: any, body: any) => {
+  LastFmApi.user(window.userId).then((userInfo: any) => {
 
-      const userInfo = JSON.parse(body);
-      const picture = userInfo.image[1]['#text'];
-      const playcount: string = userInfo.playcount;
+    const picture = userInfo.image[1]['#text'];
+    const playcount: string = userInfo.playcount;
 
-    },
-  );
+  });
 
-  /**
-   *
-   * Last FM User's Friends
-   * @desc grab the last fm user's friends
-   *
-   */
-  request(
-    `/api/lastfm/friends/${window.userId}`,
-    (err: any, response: any, body: any) => {
+  LastFmApi.friends(window.userId).then((userInfo: any) => {
 
-      const userInfo = JSON.parse(body);
+    const picture = userInfo.image[1]['#text'];
+    const playcount: string = userInfo.playcount;
 
-    },
-  );
+  });
 
 }

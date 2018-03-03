@@ -1,13 +1,10 @@
 require('./effects');
+const LastFm = require('./lastfm');
 
 const LastFmButtons: HTMLCollectionOf<Element> = document
   .getElementsByClassName('js-lastfm-login');
 const SpotifyButtons: HTMLCollectionOf<Element> = document
   .getElementsByClassName('js-spotify-login');
-const SpotifyUndos: HTMLCollectionOf<Element> = document
-  .getElementsByClassName('js-undo-spotify');
-const LastFmUndos: HTMLCollectionOf<Element> = document
-  .getElementsByClassName('js-undo-lastfm');
 
 if (LastFmButtons.length > 0) {
 
@@ -18,6 +15,10 @@ if (LastFmButtons.length > 0) {
     // replace the button with an input area so the user can put in their user name
     LastFmButton.style.display = 'none';
     showInput('js-last-input');
+
+    const Confirm: any = document
+      .getElementsByClassName('js-confirm-lastfm')[0];
+    Confirm.addEventListener('click', checkUser);
 
   });
 
@@ -37,26 +38,39 @@ if (SpotifyButtons.length > 0) {
 
 }
 
-if (SpotifyUndos.length > 0) {
+function checkUser(e: KeyboardEvent) {
 
-  const undo = SpotifyUndos[0];
-  undo.addEventListener('click', () => {
+  const noUser: any = document
+    .getElementsByClassName('js-no-user')[0];
+  noUser.classList.add('none');
 
-    showButton(undo);
+  if (e.type === 'click' || e.charCode === 13) {
 
-  });
+    const input: any = document
+      .getElementsByClassName('js-last-input')[0];
+    const username: string = input.value.toString();
+    LastFm.user(username)
+      .then((userInfo: any) => {
 
-}
+        if (Object.prototype.hasOwnProperty.call(userInfo, 'error')) {
 
-if (LastFmUndos.length > 0) {
+          noUser.classList.remove('none');
 
-  const undo = LastFmUndos[0];
-  // click listener isn't binding
-  undo.addEventListener('click', () => {
+        } else {
 
-    showButton(undo);
+          window.location.href = `/lastfm/${username}`;
 
-  });
+        }
+
+      })
+      .catch((error: any) => {
+
+        noUser.classList.remove('none');
+
+      });
+
+
+  }
 
 }
 
@@ -74,6 +88,7 @@ function showInput(className: string) {
   const inputs: HTMLCollectionOf<Element> = document
     .getElementsByClassName(className);
   const input: any = inputs[0];
+  input.addEventListener('keypress', checkUser);
 
   input.parentNode.style.display = 'inline-block';
 

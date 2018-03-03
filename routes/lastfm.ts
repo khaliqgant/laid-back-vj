@@ -337,6 +337,7 @@ router.get('/*', (req: Request, res: Response, next: Function) => {
         links: Controller.getLinks('allTime'),
         service,
         title: `Laid Back VJ - ${userId}`,
+        userId,
         videos: videoIds,
       });
 

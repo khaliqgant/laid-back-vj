@@ -7,19 +7,19 @@ export function getRoutes(): any {
     },
     artists: {
       month: {
-        filter: 'This Months Most Listened to Artists',
+        filter: 'This Month\'s Most Listened To Artists',
         link: 'artists/month',
       },
       threeMonth: {
-        filter: 'Last Three Months Most Listened to Artists',
+        filter: 'Last Three Month\'s Most Listened To Artists',
         link: 'artists/three-month',
       },
       week: {
-        filter: 'This Weeks Most Listened to Artists',
+        filter: 'This Week\'s Most Listened To Artists',
         link: 'artists/week',
       },
       year: {
-        filter: 'This Year Most Listened to Artists',
+        filter: 'This Year\'s Most Listened To Artists',
         link: 'artists/year',
       },
     },
@@ -28,7 +28,7 @@ export function getRoutes(): any {
       link: 'friends',
     },
     month: {
-      filter: 'This Months Favorites',
+      filter: 'This Month\'s Favorites',
       link: 'month',
     },
     recent: {
@@ -40,7 +40,7 @@ export function getRoutes(): any {
       link: 'recommended',
     },
     year: {
-      filter: 'This Years Favorites',
+      filter: 'This Year\'s Favorites',
       link: 'year',
     },
   };

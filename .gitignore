@@ -8,6 +8,7 @@
 /build/bower_components/
 npm-debug.log
 *.js
+*.css
 !webpack.config.js
 !gulpfile.js
 *.js.map

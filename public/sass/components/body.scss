@@ -12,6 +12,10 @@
     cursor: pointer;
 }
 
+.none {
+    display: none;
+}
+
 .auth {
     height: 60px;
 }
@@ -38,7 +42,7 @@
 
         }
         &.lastfm {
-            width: 5%;
+            width: 15%;
         }
     }
 }
