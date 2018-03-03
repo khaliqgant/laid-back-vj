@@ -1,3 +1,5 @@
+require('./effects');
+
 const LastFmButtons: HTMLCollectionOf<Element> = document
   .getElementsByClassName('js-lastfm-login');
 const SpotifyButtons: HTMLCollectionOf<Element> = document
@@ -6,7 +8,6 @@ const SpotifyUndos: HTMLCollectionOf<Element> = document
   .getElementsByClassName('js-undo-spotify');
 const LastFmUndos: HTMLCollectionOf<Element> = document
   .getElementsByClassName('js-undo-lastfm');
-
 
 if (LastFmButtons.length > 0) {
 

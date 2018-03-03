@@ -10,12 +10,18 @@
         </div>
         <a class="lastfm-button js-lastfm-login">Login With LastFM</a>
         <div class="login">
-            <input type="text" class="service-input lastFm js-last-input">
-            <i class="fas fa-check-circle lastFm pointer js-confirm-lastfm"></i>
-            <i class="fas fa-undo lastFm pointer js-undo-lastfm"></i>
+            <input type="text" class="service-input lastfm js-last-input">
+            <i class="fas fa-check-circle lastfm pointer js-confirm-lastfm"></i>
+            <i class="fas fa-undo lastfm pointer js-undo-lastfm"></i>
         </div>
     </div>
 {{/if}}
+
+<div class="now-playing">
+    <div><img class="playing-logo {{service}}" src="/img/{{service}}.png" alt="{{service}} icon"></div>
+    <i class="fas fa-volume-up {{service}}"></i>
+    <span>{{filter}}: {{userId}}</span>
+</div>
 
 <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 <div id="player"></div>

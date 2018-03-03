@@ -4,8 +4,8 @@
     color: $spotify;
 }
 
-.lastFm {
-    color: $lastFm;
+.lastfm {
+    color: $lastfm;
 }
 
 .pointer {
@@ -23,11 +23,23 @@
 .service-input {
     border: 2px solid;
     display: inline-block;
-    &.lastFm {
-        border-color: $lastFm;
+    &.lastfm {
+        border-color: $lastfm;
     }
     &.spotify {
         border-color: $spotify;
+    }
+}
+
+.now-playing {
+    padding-bottom: 10px;
+    .playing-logo {
+        &.spotify {
+
+        }
+        &.lastfm {
+            width: 5%;
+        }
     }
 }
 
@@ -63,7 +75,7 @@
   font-family: Arial;
   color: #ffffff;
   font-size: 20px;
-  background: $lastFm;
+  background: $lastfm;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
   &:hover {

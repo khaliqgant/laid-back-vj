@@ -116,7 +116,7 @@ router.get('/:userId/recent', (req: Request, res: Response, next: Function) => {
     .then((videoIds: string[]) => {
 
       res.render('index', {
-        filter: 'Last Months Favorites',
+        filter: 'Most Recently Listened To',
         service,
         title: `Laid Back VJ - ${userId}`,
         userId,
@@ -186,7 +186,7 @@ router.get(
       .then((videoIds: string[]) => {
 
         res.render('index', {
-          filter: 'Last Months Favorites',
+          filter: 'Last Months Most Listened to Artists',
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
@@ -221,7 +221,7 @@ router.get(
       .then((videoIds: string[]) => {
 
         res.render('index', {
-          filter: 'Last Months Favorites',
+          filter: 'Last Three Months Most Listened to Artists',
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
@@ -256,7 +256,7 @@ router.get(
       .then((videoIds: string[]) => {
 
         res.render('index', {
-          filter: 'Last Months Favorites',
+          filter: 'Last Year Most Listened to Artists',
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
