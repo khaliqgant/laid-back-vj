@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import Video = require('../library/video');
+import Controller = require('../controllers/lastfm');
 
 const express = require('express');
 
@@ -10,10 +11,13 @@ const LIMIT = 25;
 
 const service = 'lastfm';
 
+const routes = Controller.getRoutes();
 
 router.get('/test', (req: Request, res: Response, next: Function) => {
 
   res.render('index', {
+    filter: routes.recent.filter,
+    links: Controller.getLinks('recent'),
     service,
     title: 'Laid Back VJ - test',
     userId: 'khaliqgant',
@@ -41,7 +45,8 @@ router.get('/:userId/year', (req: Request, res: Response, next: Function) => {
     .then((videoIds: string[]) => {
 
       res.render('index', {
-        filter: 'Last Years Favorites',
+        filter: routes.year.filter,
+        links: Controller.getLinks('year'),
         service,
         title: `Laid Back VJ - ${userId}`,
         userId,
@@ -79,7 +84,8 @@ router.get('/:userId/month', (req: Request, res: Response, next: Function) => {
     .then((videoIds: string[]) => {
 
       res.render('index', {
-        filter: 'Last Months Favorites',
+        filter: routes.month.filter,
+        links: Controller.getLinks('month'),
         service,
         title: `Laid Back VJ - ${userId}`,
         userId,
@@ -116,7 +122,8 @@ router.get('/:userId/recent', (req: Request, res: Response, next: Function) => {
     .then((videoIds: string[]) => {
 
       res.render('index', {
-        filter: 'Most Recently Listened To',
+        filter: routes.recent.filter,
+        links: Controller.getLinks('recent'),
         service,
         title: `Laid Back VJ - ${userId}`,
         userId,
@@ -151,7 +158,8 @@ router.get(
       .then((videoIds: string[]) => {
 
         res.render('index', {
-          filter: 'Last Months Favorites',
+          filter: routes.artists.week.filter,
+          links: Controller.getLinks('artists', 'week'),
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
@@ -186,7 +194,8 @@ router.get(
       .then((videoIds: string[]) => {
 
         res.render('index', {
-          filter: 'Last Months Most Listened to Artists',
+          filter: routes.artists.month.filter,
+          links: Controller.getLinks('artists', 'month'),
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
@@ -221,7 +230,8 @@ router.get(
       .then((videoIds: string[]) => {
 
         res.render('index', {
-          filter: 'Last Three Months Most Listened to Artists',
+          filter: routes.artists.threeMonth.filter,
+          links: Controller.getLinks('artists', 'threeMonth'),
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
@@ -256,7 +266,8 @@ router.get(
       .then((videoIds: string[]) => {
 
         res.render('index', {
-          filter: 'Last Year Most Listened to Artists',
+          filter: routes.artists.year.filter,
+          links: Controller.getLinks('artists', 'year'),
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
@@ -322,7 +333,8 @@ router.get('/*', (req: Request, res: Response, next: Function) => {
     .then((videoIds: string[]) => {
 
       res.render('index', {
-        filter: 'All Time Favorites',
+        filter: routes.allTime.filter,
+        links: Controller.getLinks('allTime'),
         service,
         title: `Laid Back VJ - ${userId}`,
         videos: videoIds,

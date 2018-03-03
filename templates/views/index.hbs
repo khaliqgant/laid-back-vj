@@ -1,4 +1,6 @@
-<h1>{{intro}}</h1>
+{{#if intro}}
+    <h1>{{intro}}</h1>
+{{/if}}
 
 {{#if auth}}
     <div class="auth">
@@ -25,8 +27,24 @@
     </div>
 {{/unless}}
 
-<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 <div id="player"></div>
+
+{{#unless auth}}
+    <div class="sidebar">
+        <ul class="links">
+        {{#each links}}
+            <li>
+                <a class="link" href="/{{../service}}/{{../userId}}/{{this.link}}">
+                    <i class="{{../service}} fab fa-youtube fa-3x"></i>
+                    <span class="link-text">{{this.filter}}</span>
+                </a>
+            </li>
+        {{/each}}
+        </ul>
+    </div>
+
+{{/unless}}
+
 {{#if tracks}}
     <div class="tracks">
         {{tracks.artist}} - {{tracks.name}}

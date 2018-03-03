@@ -43,6 +43,42 @@
     }
 }
 
+.sidebar {
+    float: right;
+    width: 45%;
+    .fa-youtube {
+        position: absolute;
+        &:hover {
+            opacity: .5;
+        }
+    }
+    .links {
+        a {
+            text-decoration: none;
+        }
+        margin: 0;
+        padding: 0;
+        li {
+            .link {
+                &:hover {
+                    opacity: .7;
+                }
+            }
+            .link-text {
+                left: 60px;
+                top: 15px;
+                position: relative;
+                color: black;
+                &:hover {
+                }
+            }
+            display: block;
+            position: relative;
+            height: 50px;
+        }
+    }
+}
+
 .spotify-button {
   background: $spotify;
   cursor: pointer;
