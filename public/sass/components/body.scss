@@ -1,4 +1,12 @@
 @import "./settings";
+@import "./components/sidebar";
+
+input {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    padding: 10px;
+}
 
 .spotify {
     color: $spotify;
@@ -43,42 +51,6 @@
         }
         &.lastfm {
             width: 15%;
-        }
-    }
-}
-
-.sidebar {
-    float: right;
-    width: 45%;
-    .fa-youtube {
-        position: absolute;
-        &:hover {
-            opacity: .5;
-        }
-    }
-    .links {
-        a {
-            text-decoration: none;
-        }
-        margin: 0;
-        padding: 0;
-        li {
-            .link {
-                &:hover {
-                    opacity: .7;
-                }
-            }
-            .link-text {
-                left: 60px;
-                top: 15px;
-                position: relative;
-                color: black;
-                &:hover {
-                }
-            }
-            display: block;
-            position: relative;
-            height: 50px;
         }
     }
 }

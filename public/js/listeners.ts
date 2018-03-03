@@ -49,6 +49,13 @@ function checkUser(e: KeyboardEvent) {
     const input: any = document
       .getElementsByClassName('js-last-input')[0];
     const username: string = input.value.toString();
+
+    if (username === '') {
+
+      return;
+
+    }
+
     LastFm.user(username)
       .then((userInfo: any) => {
 

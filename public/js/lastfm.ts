@@ -1,5 +1,28 @@
+declare let Promise: any;
+
 const request = require('browser-request');
 
+export function template(): Promise<any> {
+
+  return new Promise((resolve: Function, reject: Function) => {
+
+    request(
+      '/templates/lastfm.html',
+      (err: any, response: any, body: any) => {
+
+        if (err) {
+
+          reject(err);
+
+        }
+        resolve(body);
+
+      },
+    );
+
+  });
+
+}
 /**
  *
  * Last FM User

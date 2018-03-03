@@ -1,5 +1,8 @@
 {{#if intro}}
-    <h1>{{intro}}</h1>
+    <h1 class="indie">Authenticate via
+        <span class="spotify">Spotify</span> or
+        <span class="lastfm">Lastfm</span>
+        or just watch some videos right away</h1>
 {{/if}}
 
 {{#if auth}}
@@ -9,7 +12,7 @@
             <input type="text" class="service-input spotify js-spotify-input">
             <i class="fas fa-check-circle spotify pointer js-confirm-spotify"></i>
         </div>
-        <a class="lastfm-button js-lastfm-login">Login With LastFM</a>
+        <a class="lastfm-button js-lastfm-login">Input Lastfm Username</a>
         <div class="login">
             <input type="text" class="service-input lastfm js-last-input">
             <i class="fas fa-check-circle lastfm pointer js-confirm-lastfm"></i>
@@ -62,6 +65,7 @@
 
 {{#unless auth}}
     <div class="sidebar indie">
+        <div class="js-profile profile"></div>
         <ul class="links">
         {{#each links}}
             <li>
