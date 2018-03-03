@@ -8,10 +8,13 @@ const router = express.Router();
 
 const LIMIT = 25;
 
+const service = 'lastfm';
+
 
 router.get('/test', (req: Request, res: Response, next: Function) => {
 
   res.render('index', {
+    service,
     title: 'Laid Back VJ - test',
     userId: 'khaliqgant',
     videos: ['5483ImCMSfQ', 'OFjQMDtwAbg'],
@@ -39,6 +42,7 @@ router.get('/:userId/year', (req: Request, res: Response, next: Function) => {
 
       res.render('index', {
         filter: 'Last Years Favorites',
+        service,
         title: `Laid Back VJ - ${userId}`,
         userId,
         videos: videoIds,
@@ -76,6 +80,7 @@ router.get('/:userId/month', (req: Request, res: Response, next: Function) => {
 
       res.render('index', {
         filter: 'Last Months Favorites',
+        service,
         title: `Laid Back VJ - ${userId}`,
         userId,
         videos: videoIds,
@@ -112,6 +117,7 @@ router.get('/:userId/recent', (req: Request, res: Response, next: Function) => {
 
       res.render('index', {
         filter: 'Last Months Favorites',
+        service,
         title: `Laid Back VJ - ${userId}`,
         userId,
         videos: videoIds,
@@ -146,6 +152,7 @@ router.get(
 
         res.render('index', {
           filter: 'Last Months Favorites',
+          service,
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos: videoIds,
@@ -180,6 +187,7 @@ router.get(
 
         res.render('index', {
           filter: 'Last Months Favorites',
+          service,
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos: videoIds,
@@ -214,6 +222,7 @@ router.get(
 
         res.render('index', {
           filter: 'Last Months Favorites',
+          service,
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos: videoIds,
@@ -248,6 +257,7 @@ router.get(
 
         res.render('index', {
           filter: 'Last Months Favorites',
+          service,
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos: videoIds,
@@ -273,6 +283,7 @@ router.get(
   // http://www.last.fm/api/show/track.getSimilar
     res.render('notFound', {
       error: { message: 'not implemented' },
+      service,
       title: 'Laid Back VJ',
     });
 
@@ -286,6 +297,7 @@ router.get(
   // http://www.last.fm/api/show/user.getFriends
     res.render('notFound', {
       error: { message: 'not implemented' },
+      service,
       title: 'Laid Back VJ',
     });
 
@@ -311,6 +323,7 @@ router.get('/*', (req: Request, res: Response, next: Function) => {
 
       res.render('index', {
         filter: 'All Time Favorites',
+        service,
         title: `Laid Back VJ - ${userId}`,
         videos: videoIds,
       });
