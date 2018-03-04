@@ -18,8 +18,6 @@
     "": ""
   },
   "scripts": {
-    "css:compile": "./node_modules/.bin/gulp sass",
-    "css:compile:watch": "./node_modules/.bin/gulp",
     "fix:tslint": "./node_modules/.bin/tslint --project ./tsconfig.json --fix --force",
     "fix:prettier-eslint": "./node_modules/.bin/prettier-eslint **.ts --write",
     "fix:eslint": "./node_modules/.bin/eslint --fix --ext .ts .; exit 0",
@@ -29,13 +27,16 @@
     "build": "npm run fix && npm run build:tsc && npm run build:fe",
     "build:watch:ts": "./node_modules/.bin/tsc -w",
     "build:watch:fe": "./node_modules/.bin/webpack --progress --config ./webpack.config.js -w",
+    "build:watch:css": "./node_modules/.bin/gulp",
     "build:watch": "./node_modules/.bin/run-p build:watch:ts build:watch:fe",
-    "build:fe": "./node_modules/.bin/webpack --progress --config ./webpack.config.js",
+    "build:fe:css": "./node_modules/.bin/gulp sass",
+    "build:fe:js": "./node_modules/.bin/webpack --progress --config ./webpack.config.js",
+    "build:fe": "npm run build:fe:js && npm run build:fe:css",
     "clean": "./node_modules/.bin/rimraf **.js **.js.map",
     "watch": "npm run clean && ./node_modules/.bin/run-p fix:watch build:watch",
     "precommit": "npm run fix",
     "serve": "./node_modules/.bin/nodemon app.js",
-    "dev": "./node_modules/.bin/run-p css:compile:watch fix:watch build:watch serve"
+    "dev": "./node_modules/.bin/run-p build:watch:css fix:watch build:watch serve"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
