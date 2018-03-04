@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import Video = require('../library/video');
+import Controller = require('../controllers/lastfm');
 
 const express = require('express');
 
@@ -8,10 +9,16 @@ const router = express.Router();
 
 const LIMIT = 25;
 
+const service = 'lastfm';
+
+const routes = Controller.getRoutes();
 
 router.get('/test', (req: Request, res: Response, next: Function) => {
 
   res.render('index', {
+    filter: routes.recent.filter,
+    links: Controller.getLinks('recent'),
+    service,
     title: 'Laid Back VJ - test',
     userId: 'khaliqgant',
     videos: ['5483ImCMSfQ', 'OFjQMDtwAbg'],
@@ -38,7 +45,9 @@ router.get('/:userId/year', (req: Request, res: Response, next: Function) => {
     .then((videoIds: string[]) => {
 
       res.render('index', {
-        filter: 'Last Years Favorites',
+        filter: routes.year.filter,
+        links: Controller.getLinks('year'),
+        service,
         title: `Laid Back VJ - ${userId}`,
         userId,
         videos: videoIds,
@@ -75,7 +84,9 @@ router.get('/:userId/month', (req: Request, res: Response, next: Function) => {
     .then((videoIds: string[]) => {
 
       res.render('index', {
-        filter: 'Last Months Favorites',
+        filter: routes.month.filter,
+        links: Controller.getLinks('month'),
+        service,
         title: `Laid Back VJ - ${userId}`,
         userId,
         videos: videoIds,
@@ -111,7 +122,9 @@ router.get('/:userId/recent', (req: Request, res: Response, next: Function) => {
     .then((videoIds: string[]) => {
 
       res.render('index', {
-        filter: 'Last Months Favorites',
+        filter: routes.recent.filter,
+        links: Controller.getLinks('recent'),
+        service,
         title: `Laid Back VJ - ${userId}`,
         userId,
         videos: videoIds,
@@ -145,7 +158,9 @@ router.get(
       .then((videoIds: string[]) => {
 
         res.render('index', {
-          filter: 'Last Months Favorites',
+          filter: routes.artists.week.filter,
+          links: Controller.getLinks('artists', 'week'),
+          service,
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos: videoIds,
@@ -179,7 +194,9 @@ router.get(
       .then((videoIds: string[]) => {
 
         res.render('index', {
-          filter: 'Last Months Favorites',
+          filter: routes.artists.month.filter,
+          links: Controller.getLinks('artists', 'month'),
+          service,
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos: videoIds,
@@ -213,7 +230,9 @@ router.get(
       .then((videoIds: string[]) => {
 
         res.render('index', {
-          filter: 'Last Months Favorites',
+          filter: routes.artists.threeMonth.filter,
+          links: Controller.getLinks('artists', 'threeMonth'),
+          service,
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos: videoIds,
@@ -247,7 +266,9 @@ router.get(
       .then((videoIds: string[]) => {
 
         res.render('index', {
-          filter: 'Last Months Favorites',
+          filter: routes.artists.year.filter,
+          links: Controller.getLinks('artists', 'year'),
+          service,
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos: videoIds,
@@ -273,6 +294,7 @@ router.get(
   // http://www.last.fm/api/show/track.getSimilar
     res.render('notFound', {
       error: { message: 'not implemented' },
+      service,
       title: 'Laid Back VJ',
     });
 
@@ -286,6 +308,7 @@ router.get(
   // http://www.last.fm/api/show/user.getFriends
     res.render('notFound', {
       error: { message: 'not implemented' },
+      service,
       title: 'Laid Back VJ',
     });
 
@@ -310,8 +333,11 @@ router.get('/*', (req: Request, res: Response, next: Function) => {
     .then((videoIds: string[]) => {
 
       res.render('index', {
-        filter: 'All Time Favorites',
+        filter: routes.allTime.filter,
+        links: Controller.getLinks('allTime'),
+        service,
         title: `Laid Back VJ - ${userId}`,
+        userId,
         videos: videoIds,
       });
 

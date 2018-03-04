@@ -1,11 +1,58 @@
 @import "./settings";
+@import "./components/sidebar";
+
+input {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    padding: 10px;
+}
+
+.spotify {
+    color: $spotify;
+}
+
+.lastfm {
+    color: $lastfm;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.none {
+    display: none;
+}
 
 .auth {
     height: 60px;
 }
 
-.service-input {
+.login {
     display: none;
+}
+
+.service-input {
+    border: 2px solid;
+    display: inline-block;
+    &.lastfm {
+        border-color: $lastfm;
+    }
+    &.spotify {
+        border-color: $spotify;
+    }
+}
+
+.now-playing {
+    padding-bottom: 10px;
+    .playing-logo {
+        &.spotify {
+
+        }
+        &.lastfm {
+            width: 15%;
+        }
+    }
 }
 
 .spotify-button {
@@ -40,7 +87,7 @@
   font-family: Arial;
   color: #ffffff;
   font-size: 20px;
-  background: $lastFm;
+  background: $lastfm;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
   &:hover {

@@ -1,12 +1,12 @@
-// KJG how would i use this interface?
-// import {User} from './Lastfm';
-// const User = require('../../interfaces/Lastfm');
-const request = require('browser-request');
+declare let Promise: any;
+
+const LastFmApi = require('./lastfm');
 
 interface Window {
     id: string;
     userId: string;
     videos: string[];
+    Handlebars: any;
     onYouTubeIframeAPIReady: Function;
     onPlayerReady: Function;
     onPlayerStateChange: Function;
@@ -43,36 +43,29 @@ function stopVideo() {
 if (Object.prototype.hasOwnProperty.call(window, 'userId') &&
     window.userId.length) {
 
-  /**
-   *
-   * Last FM User
-   * @desc grab the last fm user info and display
-   *
-   */
-  request(
-    `/api/lastfm/user/${window.userId}`,
-    (err: any, response: any, body: any) => {
+  Promise.all([
+    LastFmApi.template(),
+    LastFmApi.user(window.userId),
+    LastFmApi.friends(window.userId),
+  ])
+  // add interface
+    .then((results: any) => {
 
-      const userInfo = JSON.parse(body);
-      const picture = userInfo.image[1]['#text'];
-      const playcount: string = userInfo.playcount;
+      const template = window.Handlebars.compile(results[0]);
+      const userInfo = results[1];
+      const friends = results[2];
+      const picture = userInfo.image[2]['#text'];
 
-    },
-  );
+      // add in friends, play count and country
+      // maybe move this to above the player?
+      const info = template({
+        picture,
+      });
+      const SidebarProfile: any = document
+        .getElementsByClassName('js-profile')[0];
+      SidebarProfile.innerHTML = info;
 
-  /**
-   *
-   * Last FM User's Friends
-   * @desc grab the last fm user's friends
-   *
-   */
-  request(
-    `/api/lastfm/friends/${window.userId}`,
-    (err: any, response: any, body: any) => {
 
-      const userInfo = JSON.parse(body);
-
-    },
-  );
+    });
 
 }

@@ -1,16 +1,36 @@
-<h1>{{intro}}</h1>
+{{#if intro}}
+    <h1 class="indie">Authenticate via
+        <span class="spotify">Spotify</span> or
+        <span class="lastfm">Lastfm</span>
+        or just watch some videos right away</h1>
+{{/if}}
 
 {{#if auth}}
     <div class="auth">
         <a class="spotify-button js-spotify-login">Login With Spotify</a>
-        <input type="text" class="service-input js-spotify-input">
-        <a class="lastfm-button js-lastfm-login">Login With LastFM</a>
-        <input type="text" class="service-input js-last-input">
+        <div class="login">
+            <input type="text" class="service-input spotify js-spotify-input">
+            <i class="fas fa-check-circle spotify pointer js-confirm-spotify"></i>
+        </div>
+        <a class="lastfm-button js-lastfm-login">Input Lastfm Username</a>
+        <div class="login">
+            <input type="text" class="service-input lastfm js-last-input">
+            <i class="fas fa-check-circle lastfm pointer js-confirm-lastfm"></i>
+            <span class="js-no-user none">Sorry! That username can't be found...</span>
+        </div>
     </div>
 {{/if}}
 
-<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+{{#unless auth}}
+    <div class="now-playing">
+        <div><img class="playing-logo {{service}}" src="/img/{{service}}.png" alt="{{service}} icon"></div>
+        <i class="fas fa-volume-up {{service}}"></i>
+        <span>{{filter}}</span>
+    </div>
+{{/unless}}
+
 <div id="player"></div>
+
 <script>
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
@@ -42,6 +62,23 @@
 
     };
 </script>
+
+{{#unless auth}}
+    <div class="sidebar indie">
+        <div class="js-profile profile"></div>
+        <ul class="links">
+        {{#each links}}
+            <li>
+                <a class="link" href="/{{../service}}/{{../userId}}/{{this.link}}">
+                    <i class="{{../service}} fab fa-youtube fa-3x"></i>
+                    <span class="link-text">{{this.filter}}</span>
+                </a>
+            </li>
+        {{/each}}
+        </ul>
+    </div>
+
+{{/unless}}
 
 {{#if tracks}}
     <div class="tracks">

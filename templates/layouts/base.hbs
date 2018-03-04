@@ -18,7 +18,7 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <header class="spotify">
+        <header class="{{service}}">
             <div class="container">
                 <div class="info">
                     <img class="logo" src="/img/video.png" alt="video icon"/>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="sources">
                     <a href="#" class="js-spotify"><img class="spotify" src="/img/spotify.png" alt="spotify icon"></a>
-                    <a href="#" class="js-lastfm lastfm"><img class="lastfm" src="/img/lastfm_black.png" alt="lastfm icon"></a>
+                    <a href="#" class="js-lastfm lastfm"><img class="lastfm" src="/img/lastfm.png" alt="lastfm icon"></a>
                 </div>
             </div>
         </header>
@@ -36,6 +36,8 @@
             {{{body}}}
         </main>
 
+        <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        <script src="/js/handlebars.min.js"></script>
         <script src="/js/dist/app.js"></script>
     </body>
 </html>
