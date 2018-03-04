@@ -3,8 +3,6 @@ const LastFm = require('./lastfm');
 
 const LastFmButtons: HTMLCollectionOf<Element> = document
   .getElementsByClassName('js-lastfm-login');
-const SpotifyButtons: HTMLCollectionOf<Element> = document
-  .getElementsByClassName('js-spotify-login');
 
 if (LastFmButtons.length > 0) {
 
@@ -19,20 +17,6 @@ if (LastFmButtons.length > 0) {
     const Confirm: any = document
       .getElementsByClassName('js-confirm-lastfm')[0];
     Confirm.addEventListener('click', checkUser);
-
-  });
-
-}
-
-if (SpotifyButtons.length > 0) {
-
-  const SpotifyButton: any = SpotifyButtons[0];
-
-  SpotifyButton.addEventListener('click', () => {
-
-    // replace the button with an input area so the user can put in their user name
-    SpotifyButton.style.display = 'none';
-    showInput('js-spotify-input');
 
   });
 

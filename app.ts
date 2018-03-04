@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 
 const routes = require('./routes/index');
 const lastfm = require('./routes/lastfm');
+const spotify = require('./routes/spotify');
 const api = require('./routes/api');
 
 const app = express();
@@ -48,6 +49,7 @@ app.use('/js', express.static(`${__dirname}/node_modules/handlebars/dist`));
 
 app.use('/', routes);
 app.use('/lastfm', lastfm);
+app.use('/spotify', spotify);
 app.use('/api', api);
 
 // catch 404 and forward to error handler
