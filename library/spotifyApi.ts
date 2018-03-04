@@ -19,4 +19,22 @@ const spotify = new SpotifyAPI({
   redirectUri: process.env.SPOTIFY_CALLBACK_URL,
 });
 
+/**
+ *
+ * Login
+ * @see Scopes: https://developer.spotify.com/web-api/using-scopes/
+ *
+ */
+export function login() {
+
+  const scopes = [
+    'user-follow-read',
+    'user-read-private',
+    'user-read-email',
+    'user-top-read',
+    'user-read-recently-played'
+  ];
+  const state = '';
+
+}
 
