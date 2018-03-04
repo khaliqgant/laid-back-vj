@@ -27,6 +27,7 @@ services:
       ROLLBAR_KEY: ${ROLLBAR_KEY}
       SPOTIFY_KEY: ${SPOTIFY_KEY}
       SPOTIFY_SECRET: ${SPOTIFY_SECRET}
+      SPOTIFY_CALLBACK_URL: ${SPOTIFY_CALLBACK_URL}
     logging:
       driver: "awslogs"
       options:
