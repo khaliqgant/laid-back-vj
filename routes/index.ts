@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { Response as YoutubeResponse } from '../interfaces/Youtube';
+import { Response as YoutubeResponse, Methods } from '../interfaces/Youtube';
+import { RouteInfo } from '../interfaces/VideoQuery';
 
 import Controller from '../controllers/youtube';
 
@@ -14,15 +15,20 @@ const routes: any = youtube.getRoutes();
 
 router.get('/', (req: Request, res: Response, next: Function) => {
 
-  YoutubeAPI.popular()
+  const route: RouteInfo = youtube.random();
+
+  const method: (keyof Methods) = route.method;
+
+  // hack for dynamic method calling
+  (YoutubeAPI as any)[method]()
     .then((videos: string[]) => {
 
       res.render('index', {
         auth: true,
-        filter: routes.popular.filter,
+        filter: route.filter,
         intro: true,
-        links: youtube.getLinks('popular'),
-        service: '',
+        links: youtube.getLinks(route.method),
+        service: 'youtube',
         title: 'Prep For Relaxation',
         videos,
       });
@@ -35,106 +41,5 @@ router.get('/', (req: Request, res: Response, next: Function) => {
     });
 
 });
-
-router.get('/near-me', (req: Request, res: Response, next: Function) => {
-
-  const ip: any = req.headers['x-forwarded-for'] ||
-    req.connection.remoteAddress;
-  const test = '207.97.227.239';
-
-  YoutubeAPI.nearMe(test)
-    .then((videos: string[]) => {
-
-      res.render('index', {
-        auth: true,
-        filter: routes.nearMe.filter,
-        intro: true,
-        links: youtube.getLinks('nearMe'),
-        service: '',
-        title: 'Prep For Relaxation',
-        videos,
-      });
-
-    })
-    .catch((error: any) => {
-
-      res.json(error);
-
-    });
-
-});
-
-router.get('/newest', (req: Request, res: Response, next: Function) => {
-
-  YoutubeAPI.newest()
-    .then((videos: string[]) => {
-
-      res.render('index', {
-        auth: true,
-        filter: routes.newest.filter,
-        intro: true,
-        links: youtube.getLinks('newest'),
-        service: '',
-        title: 'Prep For Relaxation',
-        videos,
-      });
-
-    })
-    .catch((error: any) => {
-
-      res.json(error);
-
-    });
-
-});
-
-router.get('/year', (req: Request, res: Response, next: Function) => {
-
-  YoutubeAPI.year()
-    .then((videos: string[]) => {
-
-      res.render('index', {
-        auth: true,
-        filter: routes.year.filter,
-        intro: true,
-        links: youtube.getLinks('year'),
-        service: '',
-        title: 'Prep For Relaxation',
-        videos,
-      });
-
-    })
-    .catch((error: any) => {
-
-      res.json(error);
-
-    });
-
-});
-
-router.get('/ten-years', (req: Request, res: Response, next: Function) => {
-
-  YoutubeAPI.tenYear()
-    .then((videos: string[]) => {
-
-      res.render('index', {
-        auth: true,
-        filter: routes.tenYear.filter,
-        intro: true,
-        links: youtube.getLinks('tenYear'),
-        service: '',
-        title: 'Prep For Relaxation',
-        videos,
-      });
-
-    })
-    .catch((error: any) => {
-
-      res.json(error);
-
-    });
-
-});
-
 
 module.exports = router;

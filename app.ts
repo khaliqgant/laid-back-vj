@@ -7,7 +7,8 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-const routes = require('./routes/index');
+const index = require('./routes/index');
+const youtube = require('./routes/youtube');
 const lastfm = require('./routes/lastfm');
 const api = require('./routes/api');
 
@@ -46,7 +47,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/js', express.static(`${__dirname}/node_modules/handlebars/dist`));
 
-app.use('/', routes);
+app.use('/', index);
+app.use('/youtube', youtube);
 app.use('/lastfm', lastfm);
 app.use('/api', api);
 

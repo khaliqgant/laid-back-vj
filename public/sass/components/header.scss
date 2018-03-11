@@ -6,7 +6,7 @@ header {
     &.spotify {
         background-color: $spotify;
     }
-    &.lastfm {
+    &.lastfm, &.youtube {
         background-color: $lastfm;
     }
 

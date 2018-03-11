@@ -91,14 +91,26 @@ export function year(): Q.Promise<any> {
 
 }
 
-export function tenYear(): Q.Promise<any> {
+export function fiveYear(): Q.Promise<any> {
 
-  const tenYears: string = moment().subtract(10, 'year').format();
-
-  return time(tenYears);
+  return range(5);
 
 }
 
+export function tenYear(): Q.Promise<any> {
+
+  return range(10);
+
+}
+
+function range(years: number): Q.Promise<any> {
+
+  const period: string = moment().subtract(years, 'year').format();
+  const periodBefore: string = moment().subtract(years + 3, 'year').format();
+
+  return time(periodBefore, period, 'date');
+
+}
 
 /**
  *
@@ -122,6 +134,7 @@ export function popular(): Q.Promise<any> {
  * Near Me
  * @see https://developers.google.com/youtube/v3/docs/search/list#optional-parameters
  * TODO https://developers.google.com/youtube/v3/docs/videos/list#regionCode
+ * not used, implement a different way
  *
  */
 export function nearMe(ip: string): Q.Promise<any> {
@@ -139,14 +152,26 @@ export function nearMe(ip: string): Q.Promise<any> {
 
 }
 
-function time(period: string): Q.Promise<any> {
+function time(after: string, before?: string, order?: string): Q.Promise<any> {
 
   const query: string = 'music videos vevo';
-  const params = {
+  const params: any = {
     order: 'viewCount',
-    publishedAfter: period,
+    publishedAfter: after,
     type: 'video',
   };
+
+  if (before) {
+
+    params.publishedBefore = before;
+
+  }
+
+  if (order) {
+
+    params.order = order;
+
+  }
 
   return baseSearch(query, params, NUM_VIDEOS);
 
