@@ -17,6 +17,7 @@
     </div>
 {{/if}}
 
+<<<<<<< HEAD
 {{#unless auth}}
     {{!-- TODO show service and typeof playlist playing --}}
     <div class="now-playing">
@@ -25,6 +26,13 @@
         <span>{{filter}}</span>
     </div>
 {{/unless}}
+=======
+<div class="now-playing">
+    <div><img class="playing-logo {{service}}" src="/img/{{service}}.png" alt="{{service}} icon"></div>
+    <i class="fas fa-volume-up {{service}}"></i>
+    <span>{{filter}}</span>
+</div>
+>>>>>>> f547919b5831e4c1c04592a6c92aef46aa979cfb
 
 <div id="player"></div>
 
@@ -60,23 +68,20 @@
     };
 </script>
 
-{{#unless auth}}
-    {{!-- make publicly consumable playlists that a non logged in user can see --}}
-    <div class="sidebar indie">
-        <div class="js-profile profile"></div>
-        <ul class="links">
-        {{#each links}}
-            <li>
-                <a class="link" href="/{{../service}}/{{../userId}}/{{this.link}}">
-                    <i class="{{../service}} fab fa-youtube fa-3x"></i>
-                    <span class="link-text">{{this.filter}}</span>
-                </a>
-            </li>
-        {{/each}}
-        </ul>
-    </div>
+<div class="sidebar indie">
+    <div class="js-profile profile"></div>
+    <ul class="links">
+    {{#each links}}
+        <li>
+            <a class="link" href="/{{../service}}{{#if ../userId}}/{{../userId}}{{/if}}/{{this.link}}">
+                <i class="{{../service}} fab fa-youtube fa-3x"></i>
+                <span class="link-text">{{this.filter}}</span>
+            </a>
+        </li>
+    {{/each}}
+    </ul>
+</div>
 
-{{/unless}}
 
 {{#if tracks}}
     {{!-- add option for a user to rate the video in case it's not a good one --}}

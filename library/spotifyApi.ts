@@ -108,8 +108,8 @@ export class SpotifyAPI {
    * @desc build an initial playlist for the user
    *
    */
-  public getStarterPlaylist(): Q.Promise<any> {
+  // public getStarterPlaylist(): Q.Promise<any> {
 
-  }
+  // }
 
 }

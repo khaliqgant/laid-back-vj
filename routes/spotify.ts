@@ -1,13 +1,17 @@
 import { Request, Response } from 'express';
 
+import Controller from '../controllers/spotify';
+
 import Video = require('../library/video');
-import Controller = require('../controllers/spotify');
 
 const express = require('express');
 const querystring = require('querystring');
 
 const router = express.Router();
 const service = 'spotify';
+
+const spotify = new Controller();
+const routes = spotify.getRoutes();
 
 router.get('/test', (req: Request, res: Response, next: Function) => {
 
@@ -28,7 +32,7 @@ router.get('/callback', (req: Request, res: Response, next: Function) => {
   const code = req.query.code || null;
   const state = req.query.state || null;
 
-  const result = Controller.setAccess(code, state);
+  const result = spotify.setAccess(code, state);
 
   // handle this better
   // if (!result) {

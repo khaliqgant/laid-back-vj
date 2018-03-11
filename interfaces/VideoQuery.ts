@@ -11,5 +11,11 @@ interface TrackQuery extends Query {
     title: string;
 }
 
-export { TrackQuery, ArtistQuery };
+interface RouteInfo {
+  filter: string;
+  link: string;
+  method: string;
+}
+
+export { TrackQuery, ArtistQuery, RouteInfo };
 
