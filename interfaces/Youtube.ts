@@ -33,4 +33,8 @@ interface Response {
     items: Item[];
 }
 
-export { Response };
+interface Methods {
+  [key: string]: any;
+}
+
+export { Response, Methods };

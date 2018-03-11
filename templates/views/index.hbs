@@ -21,13 +21,11 @@
     </div>
 {{/if}}
 
-{{#unless auth}}
-    <div class="now-playing">
-        <div><img class="playing-logo {{service}}" src="/img/{{service}}.png" alt="{{service}} icon"></div>
-        <i class="fas fa-volume-up {{service}}"></i>
-        <span>{{filter}}</span>
-    </div>
-{{/unless}}
+<div class="now-playing">
+    <div><img class="playing-logo {{service}}" src="/img/{{service}}.png" alt="{{service}} icon"></div>
+    <i class="fas fa-volume-up {{service}}"></i>
+    <span>{{filter}}</span>
+</div>
 
 <div id="player"></div>
 
@@ -63,22 +61,20 @@
     };
 </script>
 
-{{#unless auth}}
-    <div class="sidebar indie">
-        <div class="js-profile profile"></div>
-        <ul class="links">
-        {{#each links}}
-            <li>
-                <a class="link" href="/{{../service}}/{{../userId}}/{{this.link}}">
-                    <i class="{{../service}} fab fa-youtube fa-3x"></i>
-                    <span class="link-text">{{this.filter}}</span>
-                </a>
-            </li>
-        {{/each}}
-        </ul>
-    </div>
+<div class="sidebar indie">
+    <div class="js-profile profile"></div>
+    <ul class="links">
+    {{#each links}}
+        <li>
+            <a class="link" href="{{#if ../service}}/{{../service}}{{/if}}{{#if ../userId}}/{{../userId}}{{/if}}/{{this.link}}">
+                <i class="{{../service}} fab fa-youtube fa-3x"></i>
+                <span class="link-text">{{this.filter}}</span>
+            </a>
+        </li>
+    {{/each}}
+    </ul>
+</div>
 
-{{/unless}}
 
 {{#if tracks}}
     <div class="tracks">

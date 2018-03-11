@@ -1,6 +1,6 @@
 import Base from './base';
 
-export default class LastFm extends Base {
+export default class Spotify extends Base {
 
   public getRoutes(): any {
 
