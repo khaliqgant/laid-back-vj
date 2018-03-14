@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import Base from './base';
 
 export default class LastFm extends Base {
@@ -48,6 +49,12 @@ export default class LastFm extends Base {
         link: 'year',
       },
     };
+
+  }
+
+  public setUser(res: Response, userId: string) {
+
+    res.cookie('LASTFM_USERNAME', userId);
 
   }
 

@@ -48,10 +48,10 @@ router.get('/:userId/year', (req: Request, res: Response, next: Function) => {
 
       res.render('index', {
         filter: routes.year.filter,
+        lastfmUserId: userId,
         links: lastFm.getLinks('year'),
         service,
         title: `Laid Back VJ - ${userId}`,
-        userId,
         videos: videoIds,
       });
 
@@ -87,10 +87,10 @@ router.get('/:userId/month', (req: Request, res: Response, next: Function) => {
 
       res.render('index', {
         filter: routes.month.filter,
+        lastfmUserId: userId,
         links: lastFm.getLinks('month'),
         service,
         title: `Laid Back VJ - ${userId}`,
-        userId,
         videos: videoIds,
       });
 
@@ -125,10 +125,10 @@ router.get('/:userId/recent', (req: Request, res: Response, next: Function) => {
 
       res.render('index', {
         filter: routes.recent.filter,
+        lastfmUserId: userId,
         links: lastFm.getLinks('recent'),
         service,
         title: `Laid Back VJ - ${userId}`,
-        userId,
         videos: videoIds,
       });
 
@@ -161,10 +161,10 @@ router.get(
 
         res.render('index', {
           filter: routes.artists.week.filter,
+          lastfmUserId: userId,
           links: lastFm.getLinks('artists', 'week'),
           service,
           title: `Laid Back VJ - ${userId}`,
-          userId,
           videos: videoIds,
         });
 
@@ -197,10 +197,10 @@ router.get(
 
         res.render('index', {
           filter: routes.artists.month.filter,
+          lastfmUserId: userId,
           links: lastFm.getLinks('artists', 'month'),
           service,
           title: `Laid Back VJ - ${userId}`,
-          userId,
           videos: videoIds,
         });
 
@@ -233,10 +233,10 @@ router.get(
 
         res.render('index', {
           filter: routes.artists.threeMonth.filter,
+          lastfmUserId: userId,
           links: lastFm.getLinks('artists', 'threeMonth'),
           service,
           title: `Laid Back VJ - ${userId}`,
-          userId,
           videos: videoIds,
         });
 
@@ -269,10 +269,10 @@ router.get(
 
         res.render('index', {
           filter: routes.artists.year.filter,
+          lastfmUserId: userId,
           links: lastFm.getLinks('artists', 'year'),
           service,
           title: `Laid Back VJ - ${userId}`,
-          userId,
           videos: videoIds,
         });
 
@@ -331,15 +331,17 @@ router.get('/*', (req: Request, res: Response, next: Function) => {
     user: userId,
   };
 
+  lastFm.setUser(res, userId);
+
   Video.topTracks(params)
     .then((videoIds: string[]) => {
 
       res.render('index', {
         filter: routes.allTime.filter,
+        lastfmUserId: userId,
         links: lastFm.getLinks('allTime'),
         service,
         title: `Laid Back VJ - ${userId}`,
-        userId,
         videos: videoIds,
       });
 

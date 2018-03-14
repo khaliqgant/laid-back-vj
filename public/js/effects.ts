@@ -25,7 +25,7 @@ function headerHovers() {
     SpotifyLogo.addEventListener('mouseleave', () => {
 
       const img = SpotifyLogo.childNodes[0];
-      img.src = '/img/spotify.png';
+      img.src = '/img/spotify_black.png';
 
     });
 

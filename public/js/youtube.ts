@@ -3,7 +3,7 @@ declare let Promise: any;
 const LastFmApi = require('./lastfm');
 
 interface Window {
-    id: string;
+    lastfmUserId: string;
     userId: string;
     videos: string[];
     Handlebars: any;
@@ -40,13 +40,13 @@ function stopVideo() {
   // player.stopVideo();
 }
 
-if (Object.prototype.hasOwnProperty.call(window, 'userId') &&
-    window.userId.length) {
+if (Object.prototype.hasOwnProperty.call(window, 'lastfmUserId') &&
+    window.lastfmUserId.length) {
 
   Promise.all([
     LastFmApi.template(),
-    LastFmApi.user(window.userId),
-    LastFmApi.friends(window.userId),
+    LastFmApi.user(window.lastfmUserId),
+    LastFmApi.friends(window.lastfmUserId),
   ])
   // add interface
     .then((results: any) => {

@@ -1,5 +1,9 @@
 import Base from './base';
+import { TrackQuery } from '../interfaces/VideoQuery';
+
 import { SpotifyAPI as spotifyApi } from '../library/spotifyApi';
+
+import Video = require('../library/video');
 
 const Q = require('q');
 
@@ -10,47 +14,13 @@ export default class Spotify extends Base {
   public getRoutes(): any {
 
     return {
-      allTime: {
-        filter: 'All Time Favorites',
-        link: '',
-      },
-      artists: {
-        month: {
-          filter: 'This Month\'s Most Listened To Artists',
-          link: 'artists/month',
-        },
-        threeMonth: {
-          filter: 'Last Three Month\'s Most Listened To Artists',
-          link: 'artists/three-month',
-        },
-        week: {
-          filter: 'This Week\'s Most Listened To Artists',
-          link: 'artists/week',
-        },
-        year: {
-          filter: 'This Year\'s Most Listened To Artists',
-          link: 'artists/year',
-        },
-      },
-      friends: {
-        filter: 'What Your Friends Are Listening To',
-        link: 'friends',
-      },
-      month: {
-        filter: 'This Month\'s Favorites',
-        link: 'month',
-      },
       recent: {
         filter: 'Most Recently Listened To',
         link: 'recent',
       },
-      recommended: {
-        filter: 'Recommended From Your History',
-        link: 'recommended',
-      },
-      year: {
-        filter: 'This Year\'s Favorites',
-        link: 'year',
+      topTracks: {
+        filter: 'Top Tracks',
+        link: '',
       },
     };
 
@@ -78,7 +48,48 @@ export default class Spotify extends Base {
     }
 
     return SpotifyAPI.setTokens(code)
-      .then(() => SpotifyAPI.getStarterPlaylist());
+      .then(() => SpotifyAPI.getInfo());
+
+  }
+
+  public recentTracks(): Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      SpotifyAPI.recents()
+        .then((queries: TrackQuery[]) => {
+
+          Video.getSearches(queries)
+            .then((youtubeIds: string[]) => {
+
+              resolve(youtubeIds);
+
+            });
+
+        });
+
+    });
+
+  }
+
+  public topTracks(): Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      SpotifyAPI.top()
+        .then((queries: TrackQuery[]) => {
+
+          Video.getSearches(queries)
+            .then((youtubeIds: string[]) => {
+
+              resolve(youtubeIds);
+
+            });
+
+        });
+
+    });
+
 
   }
 

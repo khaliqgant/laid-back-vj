@@ -1,4 +1,11 @@
-import { AuthResponse } from '../interfaces/Spotify';
+import { TrackQuery, ArtistQuery } from '../interfaces/VideoQuery';
+import {
+  AuthResponse,
+  UserResponse,
+  TrackResponse,
+  ItemResponse,
+  TrackInfo,
+} from '../interfaces/Spotify';
 import { Response as YoutubeResponse } from '../interfaces/Youtube';
 
 const Q = require('q');
@@ -102,14 +109,95 @@ export class SpotifyAPI {
 
   }
 
+  public getInfo(): Q.Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      this.api.getMe().then((info: UserResponse) => {
+
+        resolve(info.body.id);
+
+      });
+
+    });
+
+  }
+
   /**
    *
-   * Get Start Playlist
-   * @desc build an initial playlist for the user
+   * Recents
+   * @desc get the most recently played tracks by the user
+   * @see https://github.com/thelinmichael/spotify-web-api-node/blob/master/src/spotify-web-api.js#L1006
    *
    */
-  // public getStarterPlaylist(): Q.Promise<any> {
+  public recents(): Q.Promise<any> {
 
-  // }
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      this.api.getMyRecentlyPlayedTracks()
+        .then((recentTracks: TrackResponse) => {
+
+          resolve(this.formSearch(recentTracks));
+
+        })
+        .catch((error: any) => {
+
+          reject(error);
+
+        });
+
+    });
+
+  }
+
+  public top(): Q.Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      this.api.getMyTopTracks()
+        .then((recentTracks: ItemResponse) => {
+
+          resolve(this.formSearch(recentTracks));
+
+        })
+        .catch((error: any) => {
+
+          reject(error);
+
+        });
+
+    });
+
+  }
+
+  private formSearch(recentTracks: any): TrackQuery[] {
+
+    const searches = [];
+    for (const itemResponse of recentTracks.body.items) {
+
+      const item: TrackInfo = Object.prototype.hasOwnProperty
+        .call(itemResponse, 'track') ? itemResponse.track : itemResponse;
+      let artist: string;
+      for (const artistObject of item.artists) {
+
+        artist = artistObject.name;
+        break;
+
+      }
+
+      const title: string = item.name;
+      const query: string = `${artist} ${title} VEVO`;
+      const trackQuery: TrackQuery = {
+        artist,
+        query,
+        title,
+      };
+      searches.push(trackQuery);
+
+    }
+
+    return searches;
+
+  }
 
 }

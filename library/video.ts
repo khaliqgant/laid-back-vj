@@ -117,7 +117,8 @@ export function topTracks(params: any): Q.Promise<any> {
  * and resolve the ids after making sure it has a result
  *
  */
-function getSearches(searches: ArtistQuery[]|TrackQuery[]): Q.Promise<any> {
+export function getSearches(searches: ArtistQuery[]|TrackQuery[]):
+  Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 

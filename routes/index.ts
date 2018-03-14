@@ -20,6 +20,10 @@ router.get('/', (req: Request, res: Response, next: Function) => {
   const spotifyAuthUrl = spotify.getAuthorizeUrl();
   const route: RouteInfo = youtube.random();
 
+  // check for lastfm cookie
+  // TODO
+  // https://stackoverflow.com/questions/3393854/get-and-set-a-single-cookie-with-node-js-http-server
+
   const method: (keyof Methods) = route.method;
 
   // hack for dynamic method calling

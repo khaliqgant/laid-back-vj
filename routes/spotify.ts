@@ -26,7 +26,6 @@ router.get('/test', (req: Request, res: Response, next: Function) => {
 
 });
 
-
 router.get('/callback', (req: Request, res: Response, next: Function) => {
 
   const code = req.query.code || null;
@@ -34,31 +33,77 @@ router.get('/callback', (req: Request, res: Response, next: Function) => {
 
   const result = spotify.setAccess(code, state);
 
-  // handle this better
-  // if (!result) {
+  if (!result) {
 
-  // res.redirect(`/#${
-  // querystring.stringify({
-  // error: 'state_mismatch',
-  // })}`);
+    res.render('notFound', {
+      error: 'Issue logging you in via Spotify',
+    });
 
-  // }
-  result.then((info: any) => {
+    return;
 
-    // set playlists potentials server side
-    res.redirect(`/spotify/${info.username}`);
+  }
+
+  result.then((userId: any) => {
+
+    res.redirect(`/spotify/${userId}`);
 
   });
 
-  // redirect here after retrieved and prep user for videos
-  res.render('index', {
-    filter: [],
-    links: [],
-    service,
-    title: 'Laid Back VJ - test',
-    userId: 'khaliqgant',
-    videos: ['5483ImCMSfQ', 'OFjQMDtwAbg'],
-  });
+});
+
+router.get('/:userId/recent', (req: Request, res: Response, next: Function) => {
+
+  const userId = req.path.replace('/', '');
+
+  spotify.recentTracks()
+    .then((videoIds: string) => {
+
+      res.render('index', {
+        filter: routes.recent.filter,
+        links: spotify.getLinks('recent'),
+        service,
+        title: `Laid Back VJ - ${userId}`,
+        userId,
+        videos: videoIds,
+      });
+
+    })
+    .catch((error: any) => {
+
+      res.render('notFound', {
+        error,
+        title: 'Laid Back VJ',
+      });
+
+    });
+
+});
+
+router.get('/*', (req: Request, res: Response, next: Function) => {
+
+  const userId = req.path.replace('/', '');
+
+  spotify.topTracks()
+    .then((videoIds: string) => {
+
+      res.render('index', {
+        filter: routes.topTracks.filter,
+        links: spotify.getLinks('topTracks'),
+        service,
+        title: `Laid Back VJ - ${userId}`,
+        userId,
+        videos: videoIds,
+      });
+
+    })
+    .catch((error: any) => {
+
+      res.render('notFound', {
+        error,
+        title: 'Laid Back VJ',
+      });
+
+    });
 
 });
 

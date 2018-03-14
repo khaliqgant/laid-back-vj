@@ -17,22 +17,11 @@
     </div>
 {{/if}}
 
-<<<<<<< HEAD
-{{#unless auth}}
-    {{!-- TODO show service and typeof playlist playing --}}
-    <div class="now-playing">
-        <div><img class="playing-logo {{service}}" src="/img/{{service}}.png" alt="{{service}} icon"></div>
-        <i class="fas fa-volume-up {{service}}"></i>
-        <span>{{filter}}</span>
-    </div>
-{{/unless}}
-=======
 <div class="now-playing">
     <div><img class="playing-logo {{service}}" src="/img/{{service}}.png" alt="{{service}} icon"></div>
     <i class="fas fa-volume-up {{service}}"></i>
     <span>{{filter}}</span>
 </div>
->>>>>>> f547919b5831e4c1c04592a6c92aef46aa979cfb
 
 <div id="player"></div>
 
@@ -91,7 +80,7 @@
 {{/if}}
 
 <script type="text/javascript">
-    var userId = {{{json userId}}};
+    var lastfmUserId = {{{json lastfmUserId }}}
     var videos = {{{json videos}}};
 </script>
 
