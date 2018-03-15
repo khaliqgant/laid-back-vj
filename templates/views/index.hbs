@@ -33,6 +33,8 @@
 
     let player;
     window.player = player;
+    window.defaultWidth = '640';
+    window.defaultHeight = '390';
 
     /**
      * On YouTubeIframeAPIReady
@@ -49,9 +51,9 @@
                 onReady: window.onPlayerReady,
                 onStateChange: window.onPlayerStateChange,
             },
-            height: '390',
+            height: window.defaultHeight,
             videoId: window.id !== '' ? window.id : 'M7lc1UVf-VE',
-            width: '640',
+            width: window.defaultWidth,
         });
 
     };

@@ -21,17 +21,21 @@ header {
     }
 
     .sources {
-        float: right;
-        padding-right: 35px;
-        padding-top: 8px;
+        display: none;
+        @media screen and (min-width: $header-min) {
+            display: block;
+            float: right;
+            padding-right: 35px;
+            padding-top: 8px;
 
-        .spotify {
-            width: 50px;
-            padding-right: 20px;
-        }
+            .spotify {
+                width: 50px;
+                padding-right: 20px;
+            }
 
-        .lastfm {
-            width: 170px;
+            .lastfm {
+                width: 170px;
+            }
         }
     }
 

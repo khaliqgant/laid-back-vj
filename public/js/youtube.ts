@@ -1,12 +1,14 @@
 declare let Promise: any;
 
 const LastFmApi = require('./lastfm');
+const Responsive = require('./responsive');
 
 interface Window {
     lastfmUserId: string;
     userId: string;
     videos: string[];
     Handlebars: any;
+    defaultWidth: any;
     onYouTubeIframeAPIReady: Function;
     onPlayerReady: Function;
     onPlayerStateChange: Function;
@@ -16,29 +18,10 @@ interface Window {
 // 4. The API will call this function when the video player is ready.
 window.onPlayerReady = (event: any) => {
 
+  Responsive.videoWidth();
   event.target.loadPlaylist(window.videos);
 
 };
-
-// 5. The API calls this function when the player's state changes.
-//    The function indicates that when playing a video (state=1),
-//    the player should play for six seconds and then stop.
-let done = false;
-
-window.onPlayerStateChange = (event: any) => {
-
-  if (event.data === window.YT.PlayerState.PLAYING && !done) {
-
-    setTimeout(stopVideo, 6000);
-    done = true;
-
-  }
-
-};
-
-function stopVideo() {
-  // player.stopVideo();
-}
 
 if (Object.prototype.hasOwnProperty.call(window, 'lastfmUserId') &&
     window.lastfmUserId.length) {
