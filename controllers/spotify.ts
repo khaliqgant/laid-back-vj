@@ -26,7 +26,7 @@ export default class Spotify extends Base {
 
   }
 
-  public getAuthorizeUrl(): any {
+  public getAuthorizeUrl(): string {
 
     return SpotifyAPI.getAuthorizeUrl();
 
