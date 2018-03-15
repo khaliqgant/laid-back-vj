@@ -65,6 +65,7 @@ export class SpotifyAPI {
       'user-read-email',
       'user-top-read',
       'user-read-recently-played',
+      'user-library-read',
     ];
 
     const authorizeUrl: string = this.api
@@ -155,6 +156,33 @@ export class SpotifyAPI {
     return Q.Promise((resolve: Function, reject: Function) => {
 
       this.api.getMyTopTracks()
+        .then((recentTracks: ItemResponse) => {
+
+          resolve(this.formSearch(recentTracks));
+
+        })
+        .catch((error: any) => {
+
+          reject(error);
+
+        });
+
+    });
+
+  }
+
+  /**
+   *
+   * Saved
+   * @desc get the users saved tracks
+   * @see https://github.com/thelinmichael/spotify-web-api-node/blob/master/src/spotify-web-api.js#L844
+   *
+   */
+  public saved(): Q.Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      this.api.getMySavedTracks()
         .then((recentTracks: ItemResponse) => {
 
           resolve(this.formSearch(recentTracks));

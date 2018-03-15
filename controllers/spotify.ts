@@ -18,7 +18,11 @@ export default class Spotify extends Base {
         filter: 'Most Recently Listened To',
         link: 'recent',
       },
-      topTracks: {
+      saved: {
+        filter: 'Saved Tracks',
+        link: 'saved',
+      },
+      top: {
         filter: 'Top Tracks',
         link: '',
       },
@@ -90,6 +94,25 @@ export default class Spotify extends Base {
 
     });
 
+  }
+
+  public savedTracks(): Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      SpotifyAPI.saved()
+        .then((queries: TrackQuery[]) => {
+
+          Video.getSearches(queries)
+            .then((youtubeIds: string[]) => {
+
+              resolve(youtubeIds);
+
+            });
+
+        });
+
+    });
 
   }
 
