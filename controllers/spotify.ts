@@ -70,6 +70,11 @@ export default class Spotify extends Base {
 
             });
 
+        })
+        .catch((error: any) => {
+
+          reject(error);
+
         });
 
     });
@@ -90,6 +95,11 @@ export default class Spotify extends Base {
 
             });
 
+        })
+        .catch((error: any) => {
+
+          reject(error);
+
         });
 
     });
@@ -109,6 +119,11 @@ export default class Spotify extends Base {
               resolve(youtubeIds);
 
             });
+
+        })
+        .catch((error: any) => {
+
+          reject(error);
 
         });
 
