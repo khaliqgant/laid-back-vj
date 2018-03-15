@@ -4,6 +4,7 @@ import { RouteInfo } from '../interfaces/VideoQuery';
 
 import YoutubeController from '../controllers/youtube';
 import SpotifyController from '../controllers/spotify';
+import LastFmController from '../controllers/lastfm';
 
 import YoutubeAPI = require('../library/youtubeApi');
 
@@ -13,16 +14,13 @@ const router = express.Router();
 
 const youtube = new YoutubeController();
 const spotify = new SpotifyController();
+const lastfm = new LastFmController();
 const routes: any = youtube.getRoutes();
 
 router.get('/', (req: Request, res: Response, next: Function) => {
 
   const spotifyAuthUrl = spotify.getAuthorizeUrl();
   const route: RouteInfo = youtube.random();
-
-  // check for lastfm cookie
-  // TODO
-  // https://stackoverflow.com/questions/3393854/get-and-set-a-single-cookie-with-node-js-http-server
 
   const method: (keyof Methods) = route.method;
 
@@ -34,6 +32,7 @@ router.get('/', (req: Request, res: Response, next: Function) => {
         auth: true,
         filter: route.filter,
         intro: true,
+        lastfmUser: lastfm.getUser(req),
         links: youtube.getLinks(route.method),
         service: 'youtube',
         spotifyAuthUrl,

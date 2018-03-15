@@ -8,12 +8,18 @@
 {{#if auth}}
     <div class="auth">
         <a href="{{spotifyAuthUrl}}" class="spotify-button js-spotify-login">Login With Spotify</a>
-        <a class="lastfm-button js-lastfm-login">Input Lastfm Username</a>
-        <div class="login">
-            <input type="text" class="service-input lastfm js-last-input">
-            <i class="fas fa-check-circle lastfm pointer js-confirm-lastfm"></i>
-            <span class="js-no-user none">Sorry! That username can't be found...</span>
-        </div>
+        {{#if lastfmUser}}
+            <a href="/lastfm/{{lastfmUser}}" class="lastfm-button">
+                <i class="fas fa-play"></i> {{lastfmUser}}'s Videos
+            </a>
+        {{else}}
+            <a class="lastfm-button js-lastfm-login">Input Lastfm Username</a>
+            <div class="login">
+                <input type="text" class="service-input lastfm js-last-input">
+                <i class="fas fa-check-circle lastfm pointer js-confirm-lastfm"></i>
+                <span class="js-no-user none">Sorry! That username can't be found...</span>
+            </div>
+        {{/if}}
     </div>
 {{/if}}
 

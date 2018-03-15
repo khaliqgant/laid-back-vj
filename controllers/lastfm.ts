@@ -3,6 +3,8 @@ import Base from './base';
 
 export default class LastFm extends Base {
 
+  private cookieName: string = 'LASTFM_USERNAME';
+
   public getRoutes(): any {
 
     return {
@@ -54,7 +56,15 @@ export default class LastFm extends Base {
 
   public setUser(res: Response, userId: string) {
 
-    res.cookie('LASTFM_USERNAME', userId);
+    res.cookie(this.cookieName, userId);
+
+  }
+
+  public getUser(req: Request) {
+
+    const user = req.cookies[this.cookieName];
+
+    return user;
 
   }
 
