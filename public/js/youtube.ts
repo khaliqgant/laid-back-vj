@@ -18,7 +18,7 @@ interface Window {
 // 4. The API will call this function when the video player is ready.
 window.onPlayerReady = (event: any) => {
 
-  Responsive.videoWidth();
+  // Responsive.videoWidth();
   event.target.loadPlaylist(window.videos);
 
 };
