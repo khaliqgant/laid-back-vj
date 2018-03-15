@@ -52,6 +52,7 @@ router.get('/:userId/year', (req: Request, res: Response, next: Function) => {
         links: lastFm.getLinks('year'),
         service,
         title: `Laid Back VJ - ${userId}`,
+        userId,
         videos: videoIds,
       });
 
@@ -91,6 +92,7 @@ router.get('/:userId/month', (req: Request, res: Response, next: Function) => {
         links: lastFm.getLinks('month'),
         service,
         title: `Laid Back VJ - ${userId}`,
+        userId,
         videos: videoIds,
       });
 
@@ -129,6 +131,7 @@ router.get('/:userId/recent', (req: Request, res: Response, next: Function) => {
         links: lastFm.getLinks('recent'),
         service,
         title: `Laid Back VJ - ${userId}`,
+        userId,
         videos: videoIds,
       });
 
@@ -165,6 +168,7 @@ router.get(
           links: lastFm.getLinks('artists', 'week'),
           service,
           title: `Laid Back VJ - ${userId}`,
+          userId,
           videos: videoIds,
         });
 
@@ -201,6 +205,7 @@ router.get(
           links: lastFm.getLinks('artists', 'month'),
           service,
           title: `Laid Back VJ - ${userId}`,
+          userId,
           videos: videoIds,
         });
 
@@ -237,6 +242,7 @@ router.get(
           links: lastFm.getLinks('artists', 'threeMonth'),
           service,
           title: `Laid Back VJ - ${userId}`,
+          userId,
           videos: videoIds,
         });
 
@@ -273,6 +279,7 @@ router.get(
           links: lastFm.getLinks('artists', 'year'),
           service,
           title: `Laid Back VJ - ${userId}`,
+          userId,
           videos: videoIds,
         });
 
@@ -342,6 +349,7 @@ router.get('/*', (req: Request, res: Response, next: Function) => {
         links: lastFm.getLinks('allTime'),
         service,
         title: `Laid Back VJ - ${userId}`,
+        userId,
         videos: videoIds,
       });
 
