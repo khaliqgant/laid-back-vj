@@ -1,5 +1,11 @@
+@import "./settings";
+
 .sidebar {
-    float: right;
+
+    @media screen and (min-width: $sidebar-min) {
+        float: right;
+    }
+
     width: 45%;
 
     .profile {
