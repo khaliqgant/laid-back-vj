@@ -39,8 +39,13 @@
 
     let player;
     window.player = player;
-    window.defaultWidth = '640';
-    window.defaultHeight = '390';
+
+    let defaultWidth = '640';
+    let defaultHeight = '390';
+
+    if (defaultWidth * 1.15 >= window.outerWidth) {
+        defaultWidth = Number(window.outerWidth * 0.85);
+    }
 
     /**
      * On YouTubeIframeAPIReady
@@ -57,9 +62,9 @@
                 onReady: window.onPlayerReady,
                 onStateChange: window.onPlayerStateChange,
             },
-            height: window.defaultHeight,
+            height: defaultHeight,
             videoId: window.id !== '' ? window.id : 'M7lc1UVf-VE',
-            width: window.defaultWidth,
+            width: defaultWidth,
         });
 
     };
