@@ -57,6 +57,14 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # HTTP access from anywhere
+  ingress {
+    from_port   = 443
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   ingress {
     from_port = 0
     to_port   = 0

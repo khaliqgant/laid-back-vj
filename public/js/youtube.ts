@@ -1,14 +1,12 @@
 declare let Promise: any;
 
 const LastFmApi = require('./lastfm');
-const Responsive = require('./responsive');
 
 interface Window {
     lastfmUserId: string;
     userId: string;
     videos: string[];
     Handlebars: any;
-    defaultWidth: any;
     onYouTubeIframeAPIReady: Function;
     onPlayerReady: Function;
     onPlayerStateChange: Function;
@@ -18,7 +16,6 @@ interface Window {
 // 4. The API will call this function when the video player is ready.
 window.onPlayerReady = (event: any) => {
 
-  // Responsive.videoWidth();
   event.target.loadPlaylist(window.videos);
 
 };
