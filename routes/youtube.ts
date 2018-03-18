@@ -36,20 +36,16 @@ router.get('/popular', (req: Request, res: Response, next: Function) => {
 
 });
 
-router.get('/near-me', (req: Request, res: Response, next: Function) => {
+router.get('/artist', (req: Request, res: Response, next: Function) => {
 
-  const ip: any = req.headers['x-forwarded-for'] ||
-    req.connection.remoteAddress;
-  const test = '207.97.227.239';
+  const artist: string = decodeURIComponent(req.query.name);
 
-  YoutubeAPI.nearMe(test)
+  YoutubeAPI.artist(artist)
     .then((videos: string[]) => {
 
       res.render('index', {
-        auth: true,
-        filter: routes.nearMe.filter,
-        intro: true,
-        links: youtube.getLinks('nearMe'),
+        filter: routes.artist.filter,
+        links: youtube.getLinks('artist'),
         service: 'youtube',
         title: 'Prep For Relaxation',
         videos,

@@ -1,4 +1,5 @@
 import { TrackQuery, ArtistQuery } from '../interfaces/VideoQuery';
+import { SearchResult as YoutubeSearchResult } from '../interfaces/Youtube';
 
 const Q = require('q');
 
@@ -19,7 +20,7 @@ export function recentTracks(params: any): Q.Promise<any> {
       .then((searches: TrackQuery[]) => {
 
         getSearches(searches)
-          .then((youtubeIds: string[]) => {
+          .then((youtubeIds: YoutubeSearchResult[]) => {
 
             resolve(youtubeIds);
 
@@ -50,9 +51,9 @@ export function recentArtists(params: any): Q.Promise<any> {
       .then((searches: ArtistQuery[]) => {
 
         getSearches(searches)
-          .then((searchIds: string[]) => {
+          .then((youtubeIds: YoutubeSearchResult[]) => {
 
-            resolve(searchIds);
+            resolve(youtubeIds);
 
           })
           .catch((error: any) => {
@@ -87,7 +88,7 @@ export function topTracks(params: any): Q.Promise<any> {
       .then((searches: TrackQuery[]) => {
 
         getSearches(searches)
-          .then((youtubeIds: string[]) => {
+          .then((youtubeIds: YoutubeSearchResult[]) => {
 
             resolve(youtubeIds);
 

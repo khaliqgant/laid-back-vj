@@ -1,5 +1,6 @@
 import Base from './base';
 import { TrackQuery } from '../interfaces/VideoQuery';
+import { SearchResult as YoutubeSearchResult } from '../interfaces/Youtube';
 
 import { SpotifyAPI as spotifyApi } from '../library/spotifyApi';
 
@@ -64,7 +65,7 @@ export default class Spotify extends Base {
         .then((queries: TrackQuery[]) => {
 
           Video.getSearches(queries)
-            .then((youtubeIds: string[]) => {
+            .then((youtubeIds: YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);
 
@@ -89,7 +90,7 @@ export default class Spotify extends Base {
         .then((queries: TrackQuery[]) => {
 
           Video.getSearches(queries)
-            .then((youtubeIds: string[]) => {
+            .then((youtubeIds: YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);
 
@@ -114,7 +115,7 @@ export default class Spotify extends Base {
         .then((queries: TrackQuery[]) => {
 
           Video.getSearches(queries)
-            .then((youtubeIds: string[]) => {
+            .then((youtubeIds: YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);
 

@@ -37,4 +37,10 @@ interface Methods {
   [key: string]: any;
 }
 
-export { Response, Methods };
+interface SearchResult {
+  artist: string;
+  title: string;
+  videoId: string;
+}
+
+export { Response, Methods, SearchResult };

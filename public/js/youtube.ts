@@ -5,18 +5,51 @@ const LastFmApi = require('./lastfm');
 interface Window {
     lastfmUserId: string;
     userId: string;
-    videos: string[];
+    videos: any[];
     Handlebars: any;
     onYouTubeIframeAPIReady: Function;
     onPlayerReady: Function;
     onPlayerStateChange: Function;
+    onPlayerError: Function;
     YT: any;
 }
 
-// 4. The API will call this function when the video player is ready.
+/**
+ *
+ * On Player Ready
+ * @desc
+ *
+ */
 window.onPlayerReady = (event: any) => {
 
-  event.target.loadPlaylist(window.videos);
+  const videoIds: string[] = [];
+  for (const video of window.videos) {
+
+    videoIds.push(video.videoId || video);
+
+  }
+  event.target.loadPlaylist(videoIds);
+
+};
+
+/**
+ *
+ * On Player State Change
+ *
+ */
+window.onPlayerStateChange = (event: any) => {
+
+  console.log('state change');
+  console.log(event);
+  const index = event.target.getPlaylistIndex();
+  console.log(index);
+
+};
+
+window.onPlayerError = (event: any) => {
+
+  console.log('error');
+  console.log(event);
 
 };
 

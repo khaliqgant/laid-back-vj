@@ -61,6 +61,7 @@
             events: {
                 onReady: window.onPlayerReady,
                 onStateChange: window.onPlayerStateChange,
+                onError: window.onPlayerError,
             },
             height: defaultHeight,
             videoId: window.id !== '' ? window.id : 'M7lc1UVf-VE',
@@ -85,12 +86,8 @@
 </div>
 
 
-{{#if tracks}}
     {{!-- add option for a user to rate the video in case it's not a good one --}}
-    <div class="tracks">
-        {{tracks.artist}} - {{tracks.name}}
-    </div>
-{{/if}}
+<div class="tracks js-artist"></div>
 
 <script type="text/javascript">
     var lastfmUserId = {{{json lastfmUserId }}}

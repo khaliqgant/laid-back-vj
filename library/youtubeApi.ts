@@ -51,8 +51,13 @@ export function search(searchOb: ArtistQuery|TrackQuery): Q.Promise<any> {
           const videoTitle = result.items[0].snippet.title;
 
           // perform some kind of similarity check?
-          const artist = videoTitle.slice(0, videoTitle.indexOf('-'));
-          resolve(videoId);
+          const artistName = videoTitle.slice(0, videoTitle.indexOf('-'));
+
+          resolve({
+            artist: artistName,
+            title: videoTitle,
+            videoId,
+          });
 
         }
 
@@ -120,6 +125,18 @@ function range(years: number): Q.Promise<any> {
 export function popular(): Q.Promise<any> {
 
   const query: string = 'music videos vevo';
+  const params = {
+    order: 'viewCount',
+    type: 'video',
+  };
+
+  return baseSearch(query, params, NUM_VIDEOS);
+
+}
+
+export function artist(name: string): Q.Promise<any> {
+
+  const query: string = `${name} vevo`;
   const params = {
     order: 'viewCount',
     type: 'video',
