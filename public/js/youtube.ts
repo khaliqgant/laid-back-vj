@@ -27,13 +27,17 @@ interface Window {
  */
 window.onPlayerReady = (event: any) => {
 
-  const videoIds: string[] = [];
-  for (const video of window.videos) {
+  setTimeout(() => {
 
-    videoIds.push(video.videoId || video);
+    const videoIds: string[] = [];
+    for (const video of window.videos) {
 
-  }
-  event.target.loadPlaylist(videoIds);
+      videoIds.push(video.videoId || video);
+
+    }
+    event.target.loadPlaylist(videoIds);
+
+  }, 2000);
 
 };
 

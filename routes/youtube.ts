@@ -2,9 +2,9 @@ import { Request, Response } from 'express';
 import { Response as YoutubeResponse } from '../interfaces/Youtube';
 
 import Controller from '../controllers/youtube';
+import SpotifyController from '../controllers/spotify';
 
 import YoutubeAPI = require('../library/youtubeApi');
-import SpotifyController from '../controllers/spotify';
 
 const express = require('express');
 
