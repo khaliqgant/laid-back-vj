@@ -133,7 +133,13 @@ export function getSearches(searches: ArtistQuery[]|TrackQuery[]):
     Q.Promise.all(promises)
       .then((ids: string[]) => {
 
-        const youtubeIds: string[] = ids.filter((n: any) => n !== undefined);
+        let youtubeIds: string[] = ids.filter((n: any) => n !== undefined);
+
+        // remove duplicates
+        youtubeIds = youtubeIds.filter((info: any, index: number, obj: any) =>
+          index === obj.findIndex((y: any) => (
+            info.videoId === y.videoId
+          )));
 
         resolve(youtubeIds);
 

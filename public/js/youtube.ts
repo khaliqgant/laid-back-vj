@@ -1,6 +1,11 @@
 declare let Promise: any;
 
 const LastFmApi = require('./lastfm');
+const request = require('browser-request');
+
+loadArtistTemplate();
+let artistTemplate: any = null;
+let currentIndex = -1;
 
 interface Window {
     lastfmUserId: string;
@@ -39,19 +44,72 @@ window.onPlayerReady = (event: any) => {
  */
 window.onPlayerStateChange = (event: any) => {
 
-  console.log('state change');
-  console.log(event);
   const index = event.target.getPlaylistIndex();
-  console.log(index);
+  if (index !== currentIndex) {
+
+    const artistInfo = window.videos[index];
+
+    if (typeof artistInfo === 'string') {
+
+      return;
+
+    }
+
+    if (artistTemplate !== null) {
+
+      artistInfo.artistLink = encodeURIComponent(artistInfo.artist);
+      const template = window.Handlebars.compile(artistTemplate);
+      const info = template(artistInfo);
+      const Artist: any = document
+        .getElementsByClassName('js-artist')[0];
+      Artist.innerHTML = info;
+
+      const SideBarArtistLink: any = document
+        .getElementsByClassName('js-artist-fill-in');
+
+      if (SideBarArtistLink.length > 0) {
+
+        const SidebarLink = SideBarArtistLink[0];
+        const url = SidebarLink.getAttribute('href');
+        const baseUrl = url.split('?')[0];
+
+        const href = `${baseUrl}?name=${artistInfo.artistLink}`;
+
+        SidebarLink.setAttribute('href', href);
+
+      }
+
+    }
+    currentIndex = index;
+
+  }
 
 };
 
-window.onPlayerError = (event: any) => {
+// window.onPlayerError = (event: any) => {
 
-  console.log('error');
-  console.log(event);
+// console.error(event);
 
-};
+// };
+
+/**
+ *
+ * Load Artisr Template
+ * @desc load in the artist template to display a link under the video
+ *
+ */
+function loadArtistTemplate() {
+
+  request(
+    '/templates/artist.html',
+    (err: any, response: any, body: any) => {
+
+      artistTemplate = body;
+
+    },
+  );
+
+}
 
 if (Object.prototype.hasOwnProperty.call(window, 'lastfmUserId') &&
     window.lastfmUserId.length) {

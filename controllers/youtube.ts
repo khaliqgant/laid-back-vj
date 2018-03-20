@@ -7,6 +7,7 @@ export default class Youtube extends Base {
 
     return {
       artist: {
+        className: 'js-artist-fill-in',
         filter: 'Videos from a particular artist',
         link: 'artist',
         method: 'artist',

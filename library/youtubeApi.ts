@@ -51,7 +51,8 @@ export function search(searchOb: ArtistQuery|TrackQuery): Q.Promise<any> {
           const videoTitle = result.items[0].snippet.title;
 
           // perform some kind of similarity check?
-          const artistName = videoTitle.slice(0, videoTitle.indexOf('-'));
+          const artistName = videoTitle.slice(0, videoTitle.indexOf('-'))
+            .trim();
 
           resolve({
             artist: artistName,
@@ -211,8 +212,27 @@ function baseSearch(query: string, params: any, numResults: number):
 
         } else {
 
+          if (result.items.length === 0) {
+
+            resolve();
+            return;
+
+          }
+
           const videoObjects = result.items;
-          const videoIds = videoObjects.map((vid, i) => vid.id.videoId);
+          const videoIds = videoObjects.map((vid, i) => {
+
+            const videoId = vid.id.videoId;
+            const title = vid.snippet.title;
+            const artistName = title.slice(0, title.indexOf('-')).trim();
+
+            return {
+              artist: artistName,
+              title,
+              videoId,
+            };
+
+          });
 
           resolve(videoIds);
 

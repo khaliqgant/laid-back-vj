@@ -4,13 +4,18 @@ import { Response as YoutubeResponse } from '../interfaces/Youtube';
 import Controller from '../controllers/youtube';
 
 import YoutubeAPI = require('../library/youtubeApi');
+import SpotifyController from '../controllers/spotify';
 
 const express = require('express');
 
 const router = express.Router();
 
 const youtube = new Controller();
+const spotify = new SpotifyController();
 const routes: any = youtube.getRoutes();
+
+const spotifyAuthUrl = spotify.getAuthorizeUrl();
+
 
 router.get('/popular', (req: Request, res: Response, next: Function) => {
 
@@ -23,6 +28,7 @@ router.get('/popular', (req: Request, res: Response, next: Function) => {
         intro: true,
         links: youtube.getLinks('popular'),
         service: 'youtube',
+        spotifyAuthUrl,
         title: 'Prep For Relaxation',
         videos,
       });
@@ -71,6 +77,7 @@ router.get('/newest', (req: Request, res: Response, next: Function) => {
         intro: true,
         links: youtube.getLinks('newest'),
         service: 'youtube',
+        spotifyAuthUrl,
         title: 'Prep For Relaxation',
         videos,
       });
@@ -95,6 +102,7 @@ router.get('/year', (req: Request, res: Response, next: Function) => {
         intro: true,
         links: youtube.getLinks('year'),
         service: 'youtube',
+        spotifyAuthUrl,
         title: 'Prep For Relaxation',
         videos,
       });
@@ -119,6 +127,7 @@ router.get('/five-years', (req: Request, res: Response, next: Function) => {
         intro: true,
         links: youtube.getLinks('fiveYear'),
         service: 'youtube',
+        spotifyAuthUrl,
         title: 'Prep For Relaxation',
         videos,
       });

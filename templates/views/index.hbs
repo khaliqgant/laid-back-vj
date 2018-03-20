@@ -76,7 +76,7 @@
     <ul class="links">
     {{#each links}}
         <li>
-            <a class="link" href="/{{../service}}{{#if ../userId}}/{{../userId}}{{/if}}/{{this.link}}">
+            <a class="link{{#if className}} {{className}}{{/if}}" href="/{{../service}}{{#if ../userId}}/{{../userId}}{{/if}}/{{this.link}}">
                 <i class="{{../service}} fab fa-youtube fa-3x"></i>
                 <span class="link-text">{{this.filter}}</span>
             </a>
@@ -86,7 +86,7 @@
 </div>
 
 
-    {{!-- add option for a user to rate the video in case it's not a good one --}}
+{{!-- add option for a user to rate the video in case it's not a good one --}}
 <div class="tracks js-artist"></div>
 
 <script type="text/javascript">
