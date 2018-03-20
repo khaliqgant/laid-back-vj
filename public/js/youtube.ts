@@ -37,7 +37,7 @@ window.onPlayerReady = (event: any) => {
     }
     event.target.loadPlaylist(videoIds);
 
-  }, 2000);
+  }, 3000);
 
 };
 
