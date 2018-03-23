@@ -59,7 +59,7 @@
 
         player = new window.YT.Player('player', {
             events: {
-                onReady: window.onPlayerReady,
+                onReady: onPlayerReady,
                 onStateChange: window.onPlayerStateChange,
                 onError: window.onPlayerError,
             },
@@ -69,6 +69,16 @@
         });
 
     };
+
+    function onPlayerReady(event) {
+        var videoIds = [];
+
+        for (var i = 0; i < window.videos.length; i++) {
+            videoIds.push(window.videos[i].videoId);
+        }
+
+        event.target.loadPlaylist(videoIds);
+    }
 </script>
 
 <div class="sidebar indie">

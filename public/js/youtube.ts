@@ -21,28 +21,6 @@ interface Window {
 
 /**
  *
- * On Player Ready
- * @desc
- *
- */
-window.onPlayerReady = (event: any) => {
-
-  setTimeout(() => {
-
-    const videoIds: string[] = [];
-    for (const video of window.videos) {
-
-      videoIds.push(video.videoId || video);
-
-    }
-    event.target.loadPlaylist(videoIds);
-
-  }, 3000);
-
-};
-
-/**
- *
  * On Player State Change
  *
  */
