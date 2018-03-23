@@ -56,7 +56,12 @@ export default class LastFm extends Base {
 
   public setUser(res: Response, userId: string) {
 
-    res.cookie(this.cookieName, userId);
+    const ONE_DAY = 3600000 * 24;
+
+    const options = {
+      maxAge: ONE_DAY,
+    };
+    res.cookie(this.cookieName, userId, options);
 
   }
 
