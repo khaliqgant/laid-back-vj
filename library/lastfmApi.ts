@@ -207,7 +207,7 @@ export function recentArtists(params: any): Q.Promise<any> {
             const artist: _LastFmArtist = topArtists.artist[i];
             const search = `${artist.name} VEVO`;
             const artistQuery: _ArtistQuery = {
-              artist: artist['#text'],
+              artist: artist.name,
               query: search,
               ranking: artist['@attr'].rank,
             };

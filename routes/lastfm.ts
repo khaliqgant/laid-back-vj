@@ -344,7 +344,7 @@ router.get(
 
 router.get(
   '/:userId/friends-videos',
-  (req: _Request, res: _Response, _jnext: Function) => {
+  (req: _Request, res: _Response, _next: Function) => {
 
   // http://www.last.fm/api/show/user.getFriends
     res.render('notFound', {
