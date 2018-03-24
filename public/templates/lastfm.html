@@ -1,1 +1,11 @@
-<img class="profile" src={{picture}}>
+<a href="{{userInfo.url}}" target="_blank"><img class="profile" src={{picture}}></a>
+<div class="profile-info">
+	<div class="name-info">{{userInfo.realname}}: {{userInfo.playcount}} Plays</div>
+	<div class="country">{{userInfo.country}}</div>
+</div>
+<div class="friends">
+	<div>Friends:</div>
+	{{#each friends.user}}
+		<a href="/lastfm/{{this.name}}"><img class="profile" src={{this.image.[0].[#text]}}></a>
+	{{/each}}
+</div>

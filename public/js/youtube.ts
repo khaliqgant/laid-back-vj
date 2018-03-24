@@ -68,12 +68,6 @@ window.onPlayerStateChange = (event: any) => {
 
 };
 
-// window.onPlayerError = (event: any) => {
-
-// console.error(event);
-
-// };
-
 /**
  *
  * Load Artisr Template
@@ -112,7 +106,9 @@ if (Object.prototype.hasOwnProperty.call(window, 'lastfmUserId') &&
       // add in friends, play count and country
       // maybe move this to above the player?
       const info = template({
+        friends,
         picture,
+        userInfo,
       });
       const SidebarProfile: any = document
         .getElementsByClassName('js-profile')[0];
