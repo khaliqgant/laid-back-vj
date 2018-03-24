@@ -120,7 +120,7 @@ export class SpotifyAPI {
       this.api.getMe()
         .then((info: _UserResponse) => {
 
-          resolve(info.body.id);
+          resolve(info);
 
         })
         .catch((error: any) => {

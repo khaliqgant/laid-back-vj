@@ -1,53 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Amicus Settings</title>
-		<link rel="stylesheet" href="settings.css" />
-		<link rel="stylesheet" href="toggle.css" />
-	</head>
-	<body>
-		<div class="popup">
-			<!-- use active class to show/hide  Info box -->
-			<div class="about-2 ">
-					<div class="text">
-							Chrome extension does not work with google docs.<img class="info-icon-orange" src="infoIcon.png">
-					</div>
-				</div>
-			<img class="logo" src="amicus.png" />
-			<h1>Amicus <span class="inner">by Uber</span></h1>
-			<div class="can-toggle js-container">
-				<input id="e" type="checkbox" class="js-toggle">
-				<label for="e">
-					<div class="can-toggle__switch js-switch" data-checked="Off" data-unchecked="On"></div>
-				</label>
-			</div>
-			<!-- use active class to show/hide  Info box -->
-			<div class="about-1 ">
-					<div class="text">
-						Unfortunately, the Amicus chrome extension does not work with google docs. :( But you can still use Amicus with our Google Drive integration! Yay!
-						<br>
-						<a href=# class="pull-right">Learn more</a>
-					</div>
-				</div>
-			<hr class="full">
-
-			<h1 class="select-label">Scan Settings</h1>
-            <select id="scan-mode" class="js-select">
-                <option value="page">All content on page</option>
-                <option value="input">All input fields</option>
-            </select>
-			<hr>
-			<h1>Widget Setting</h1>
-            <select id="card-mode" class="js-select2">
-                <option value="report-card">Report Card</option>
-                <option value="inline">Inline</option>
-            </select>
-			<div class="footer"><img class="info-icon" src="info.png">
-				<span class="text">Are you working in a Google web app (i.e. Docs, Gmail, etc?)</span>
-			</div>
-		</div>
-         <script src="dist/styleselect.js"></script>
-        <script src="settings.js"></script>
-	</body>
-</html>
+<a href="{{userInfo.external_urls.spotify}}" target="_blank"><img class="profile--spotify" src={{picture}}></a>
+<div class="profile-info">
+	<div class="name-info">{{userInfo.display_name}}: {{userInfo.followers.total}} Followers</div>
+	<div class="country">{{userInfo.country}}</div>
+</div>

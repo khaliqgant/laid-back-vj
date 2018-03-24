@@ -1,5 +1,6 @@
 import { Request as _Request, Response as _Response } from 'express';
 
+import { UserResponse as _UserResponse } from '../interfaces/Spotify';
 import Controller from '../controllers/spotify';
 
 const express = require('express');
@@ -40,8 +41,9 @@ router.get('/callback', (req: _Request, res: _Response, _next: Function) => {
 
   }
 
-  result.then((userId: any) => {
+  result.then((user: _UserResponse) => {
 
+    const userId: string = user.body.id;
     res.redirect(`/spotify/${userId}`);
 
   });

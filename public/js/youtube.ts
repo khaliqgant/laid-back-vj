@@ -1,6 +1,7 @@
 declare let Promise: any;
 
 const LastFmApi = require('./lastfm');
+const SpotifyApi = require('./spotify');
 const request = require('browser-request');
 
 loadArtistTemplate();
@@ -9,6 +10,7 @@ let currentIndex = -1;
 
 interface Window {
     lastfmUserId: string;
+    service: string;
     userId: string;
     videos: any[];
     Handlebars: any;
@@ -95,8 +97,7 @@ if (Object.prototype.hasOwnProperty.call(window, 'lastfmUserId') &&
     LastFmApi.user(window.lastfmUserId),
     LastFmApi.friends(window.lastfmUserId),
   ])
-  // add interface
-    .then((results: any) => {
+    .then((results: any[]) => {
 
       const template = window.Handlebars.compile(results[0]);
       const userInfo = results[1];
@@ -114,6 +115,30 @@ if (Object.prototype.hasOwnProperty.call(window, 'lastfmUserId') &&
         .getElementsByClassName('js-profile')[0];
       SidebarProfile.innerHTML = info;
 
+
+    });
+
+}
+
+if (window.service === 'spotify') {
+
+  Promise.all([
+    SpotifyApi.template(),
+    SpotifyApi.user(),
+  ])
+    .then((results: any[]) => {
+
+      const template = window.Handlebars.compile(results[0]);
+      const userInfo = results[1];
+      const picture = userInfo.images[0].url || '';
+
+      const info = template({
+        picture,
+        userInfo,
+      });
+      const SidebarProfile: any = document
+        .getElementsByClassName('js-profile')[0];
+      SidebarProfile.innerHTML = info;
 
     });
 

@@ -1,10 +1,15 @@
 import { Request as _Request, Response as _Response } from 'express';
 import {
-  User as _UserResponse,
+  User as _FMUserResponse,
   Friends as _FriendResponse,
 } from '../interfaces/Lastfm';
+import { UserResponse as _SpotUserResponse } from '../interfaces/Spotify';
+
+import { SpotifyAPI as spotifyApi } from '../library/spotifyApi';
 
 import LastfmApi = require('../library/lastfmApi');
+
+const SpotifyAPI = spotifyApi.getInstance();
 
 const express = require('express');
 
@@ -26,7 +31,7 @@ router.get(
     const userId = req.params.userId;
 
     LastfmApi.user(userId)
-      .then((userInfo: _UserResponse) => {
+      .then((userInfo: _FMUserResponse) => {
 
         res.json(userInfo);
 
@@ -50,6 +55,25 @@ router.get(
       .then((friends: _FriendResponse) => {
 
         res.json(friends);
+
+      })
+      .catch((error: any) => {
+
+        res.json(error);
+
+      });
+
+  },
+);
+
+router.get(
+  '/spotify/user',
+  (req: _Request, res: _Response, _next: Function) => {
+
+    SpotifyAPI.getInfo()
+      .then((user: _SpotUserResponse) => {
+
+        res.json(user.body);
 
       })
       .catch((error: any) => {
