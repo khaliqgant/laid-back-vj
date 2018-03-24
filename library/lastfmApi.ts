@@ -383,7 +383,8 @@ function similarTrack(artist: string, trackName: string): Q.Promise<any> {
  * Reduce that array of array of objects into an array of objects
  *
  */
-function pluckQueries(nestedQueries: _TrackQuery[][], toPluck: number): _TrackQuery[] {
+function pluckQueries(nestedQueries: _TrackQuery[][], toPluck: number):
+  _TrackQuery[] {
 
   let trackQueries: _TrackQuery[] = [];
 
