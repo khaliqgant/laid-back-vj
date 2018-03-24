@@ -112,6 +112,37 @@ router.get(
   },
 );
 
+router.get(
+  '/:userId/artists',
+  (req: _Request, res: _Response, _next: Function) => {
+
+    const userId = req.params.userId;
+
+    spotify.artists()
+      .then((videoIds: string) => {
+
+        res.render('index', {
+          filter: routes.artists.filter,
+          links: spotify.getLinks('artists'),
+          service,
+          title: `Laid Back VJ - ${userId}`,
+          userId,
+          videos: videoIds,
+        });
+
+      })
+      .catch((error: any) => {
+
+        res.render('notFound', {
+          error,
+          title: 'Laid Back VJ',
+        });
+
+      });
+
+  },
+);
+
 router.get('/*', (req: _Request, res: _Response, _next: Function) => {
 
   const userId = req.path.replace('/', '');

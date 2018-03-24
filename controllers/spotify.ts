@@ -16,6 +16,10 @@ export default class Spotify extends Base {
   public getRoutes(): any {
 
     return {
+      artists: {
+        filter: 'Top Artists',
+        link: 'artists',
+      },
       recent: {
         filter: 'Most Recently Listened To',
         link: 'recent',
@@ -113,6 +117,31 @@ export default class Spotify extends Base {
     return Q.Promise((resolve: Function, reject: Function) => {
 
       SpotifyAPI.saved()
+        .then((queries: _TrackQuery[]) => {
+
+          Video.getSearches(queries)
+            .then((youtubeIds: _YoutubeSearchResult[]) => {
+
+              resolve(youtubeIds);
+
+            });
+
+        })
+        .catch((error: any) => {
+
+          reject(error);
+
+        });
+
+    });
+
+  }
+
+  public artists(): Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      SpotifyAPI.artists()
         .then((queries: _TrackQuery[]) => {
 
           Video.getSearches(queries)

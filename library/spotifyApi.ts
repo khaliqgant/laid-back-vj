@@ -8,6 +8,7 @@ import {
   TrackResponse as _TrackResponse,
   ItemResponse as _ItemResponse,
   TrackInfo as _TrackInfo,
+  ArtistResponse as _ArtistResponse,
 } from '../interfaces/Spotify';
 import { Response as _YoutubeResponse } from '../interfaces/Youtube';
 
@@ -160,6 +161,12 @@ export class SpotifyAPI {
 
   }
 
+  /**
+   *
+   * Top
+   * @see https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+   *
+   */
   public top(): Q.Promise<any> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
@@ -168,6 +175,46 @@ export class SpotifyAPI {
         .then((recentTracks: _ItemResponse) => {
 
           resolve(this.formSearch(recentTracks));
+
+        })
+        .catch((error: any) => {
+
+          reject(error);
+
+        });
+
+    });
+
+  }
+
+  /**
+   *
+   * Artists
+   * @desc get a users top artists and find videos for that artist
+   * @see https://github.com/thelinmichael/spotify-web-api-node/blob/master/src/spotify-web-api.js#L976
+   * @see https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+   *
+   */
+  public artists(): Q.Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      this.api.getMyTopArtists()
+        .then((recentArtists: _ArtistResponse) => {
+
+          const searches = [];
+          for (const artist of recentArtists.body.items) {
+
+            const search = `${artist.name} VEVO`;
+            const artistQuery: _ArtistQuery = {
+              artist: artist.name,
+              query: search,
+              ranking: artist.popularity.toString(),
+            };
+            searches.push(artistQuery);
+
+          }
+          resolve(searches);
 
         })
         .catch((error: any) => {
@@ -202,6 +249,26 @@ export class SpotifyAPI {
           reject(error);
 
         });
+
+    });
+
+  }
+
+  /**
+   *
+   * Recommendations
+   * @desc given a base of the users top artists return recommendations
+   * @see https://developer.spotify.com/web-api/get-recommendations/
+   * @see https://github.com/thelinmichael/spotify-web-api-node/blob/master/src/spotify-web-api.js#L779
+   * TODO
+   *
+   */
+  public recommendations(): Q.Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      resolve([]);
+      reject(null);
 
     });
 

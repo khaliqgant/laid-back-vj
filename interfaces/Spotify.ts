@@ -29,6 +29,12 @@ export interface UserResponse {
   headers: any;
 }
 
+export interface ArtistResponse {
+  body: {
+    items: Artist[];
+  };
+}
+
 export interface TrackResponse {
   body: {
     items: Track[];
@@ -41,6 +47,31 @@ export interface ItemResponse {
     items: TrackInfo[];
   };
   headers: any;
+}
+
+interface BaseResponse {
+    id: string;
+    images: Image[];
+    uri: string;
+    type: string;
+    name: string;
+    href: string;
+    external_urls: ExternalUrls;
+}
+
+interface Artist extends BaseResponse {
+    followers: {
+      href: any;
+      total: number;
+    };
+    genres: string[];
+    popularity: number;
+}
+
+interface AlbumInfo extends BaseResponse {
+  album_info: string;
+  artists: ArtistInfo[];
+  available_markets: string[];
 }
 
 interface Track {
@@ -74,18 +105,6 @@ export interface TrackInfo {
   url: string;
 }
 
-interface AlbumInfo {
-  album_info: string;
-  artists: ArtistInfo[];
-  available_markets: string[];
-  external_urls: ExternalUrls;
-  href: string;
-  id: string;
-  images: Image[];
-  name: string;
-  type: string;
-  uri: string;
-}
 
 interface ArtistInfo {
   external_urls: ExternalUrls;
