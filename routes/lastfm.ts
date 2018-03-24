@@ -320,7 +320,7 @@ router.get(
       .then((videoIds: string[]) => {
 
         res.render('index', {
-          filter: routes.artists.year.recommended,
+          filter: routes.recommended.filter,
           lastfmUserId: userId,
           links: lastFm.getLinks('recommended'),
           service,

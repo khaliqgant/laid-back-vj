@@ -185,7 +185,6 @@ export default class LastFm extends Base {
       LastfmAPI.recommended(params)
         .then((searches: _TrackQuery[]) => {
 
-          console.log(searches);
           Video.getSearches(searches)
             .then((youtubeIds: _YoutubeSearchResult[]) => {
 

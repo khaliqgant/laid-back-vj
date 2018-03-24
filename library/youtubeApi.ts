@@ -50,10 +50,7 @@ export function search(searchOb: _ArtistQuery|_TrackQuery): Q.Promise<any> {
           }
           const videoId = result.items[0].id.videoId;
           const videoTitle = result.items[0].snippet.title;
-
-          // perform some kind of similarity check?
-          const artistName = videoTitle.slice(0, videoTitle.indexOf('-'))
-            .trim();
+          const artistName = searchOb.artist;
 
           resolve({
             artist: artistName,

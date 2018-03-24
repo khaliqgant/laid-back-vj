@@ -228,6 +228,7 @@ export function recentArtists(params: any): Q.Promise<any> {
  *
  * Last Fm Recommended Tracks
  * @desc grab top tracks then find tracks recommended from that list
+ * then pick a subset from that list to find videos for
  * @see https://www.last.fm/api/show/track.getSimilar
  *
  */
@@ -257,9 +258,9 @@ export function recommended(params: any): Q.Promise<any> {
           }
 
           Q.all(similars)
-            .then((searches: _TrackQuery[]) => {
+            .then((searches: _TrackQuery[][]) => {
 
-              resolve(searches);
+              resolve(pluckQueries(searches));
 
             })
             .catch((searchError: any) => {
@@ -279,18 +280,15 @@ export function recommended(params: any): Q.Promise<any> {
 
 function similarTrack(artist: string, trackName: string): Q.Promise<any> {
 
-  return Q.Promise((resolve: Function, reject: Function) => {
+  return Q.Promise((resolve: Function, _reject: Function) => {
 
     lfm.track.getSimilar(
       { artist, track: trackName },
-      (error: any, track: _LastFmTrack) => {
+      (error: any, tracks: _TrackResponse) => {
 
-        if (error !== null) {
+        const queries: _TrackQuery[] = [];
 
-          // console.log(error);
-          reject(error);
-
-        } else {
+        for (const track of tracks.track) {
 
           const search = `${track.artist.name} ${track.name} VEVO`;
 
@@ -299,13 +297,72 @@ function similarTrack(artist: string, trackName: string): Q.Promise<any> {
             query: search,
             title: track.name,
           };
-          resolve(trackQuery);
+
+          queries.push(trackQuery);
 
         }
+
+        resolve(queries);
 
       },
     );
 
   });
+
+}
+
+/**
+ *
+ * Pluck Queries
+ * @desc a similar lastfm query returns a set of track for each original track.
+ * Reduce that array of array of objects into an array of objects
+ *
+ */
+function pluckQueries(similarQueries: _TrackQuery[][]): _TrackQuery[] {
+
+  let trackQueries: _TrackQuery[] = [];
+
+  for (const queries of similarQueries) {
+
+    const len: number = queries.length;
+
+    if (len > 0) {
+
+      trackQueries = trackQueries.concat(randoms(len - 1, 6, queries));
+
+    }
+
+  }
+
+  return trackQueries;
+
+}
+
+/**
+ *
+ * Randoms
+ * @desc pick a random set of elements from an array
+ * @see https://stackoverflow.com/questions/2380019/generate-unique-random-numbers-between-1-and-100
+ *
+ */
+function randoms(len: number, totalNumber: number, queries: _TrackQuery[]) {
+
+  const rands = [];
+  const picked: _TrackQuery[] = [];
+
+  while (rands.length < totalNumber) {
+
+    const num = Math.floor(Math.random() * len) + 1;
+
+    if (rands.indexOf(num) === -1) {
+
+      rands[rands.length] = num;
+      picked.push(queries[num]);
+
+    }
+
+  }
+
+  return picked;
 
 }
