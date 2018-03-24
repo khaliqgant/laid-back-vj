@@ -17,17 +17,19 @@ and queue up a bunch of videos to watch
 * `/lastfm/:userid/artists/three-month`: show videos from your favorite artist from the past three months
 * `/lastfm/:userid/artists/year`: show videos from your favorite artist from the past year
 * `/lastfm/:userid/recommended`: show users recommended videos based on their history
-* `/lastfm/:userid/friends-videos`: show the user's friends videos
+* `/lastfm/:userid/friends`: show the user's friends videos
 * `/lastfm/:userid`: show the users videos using all of their history
 
 ## Internal
 * `/api/lastfm/user/:userId/`: JSON response of the users lastfm data
 * `/api/lastfm/friends/:userId/`: JSON response of the user's friends
+* `/api/spotify/user`: JSON response of the users spotify data, if logged in
 
 
 # Roadmap
-* Integrate LastFm initially
-* Spotify after
+* ~~Integrate LastFm initially~~
+* ~~Spotify after~~
+* Users can rate videos so actual videos show instead of lyric videos
 
 # Future Ideas
 * Make categories of music videos to choose from based on your library
@@ -61,8 +63,13 @@ from a Spotify playlist
 * ~~Typescript to check all files, fe and be~~
 * ~~Webpack to pack frontend files and backend files to behave as normal~~
 * ~~Make spotify and lastfm images smaller~~
-* On initial page load make experience so user can authenticate via lastfm or
+* ~~On initial page load make experience so user can authenticate via lastfm or
 Spotiy or just watch the most recently released music videos
-https://github.com/farzaa/Spotify-Login-Button-
+https://github.com/farzaa/Spotify-Login-Button-~~
+* Cache users videos and serve if it didn't change
+* Add viewing limit for users to not use up all API calls
+* Add interstitial if a user watches > than a number of videos
+* Add in ability for a user to sign up and get their own API token to watch
+videos
 
 
