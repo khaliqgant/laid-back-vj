@@ -1,6 +1,7 @@
+import { TrackQuery as _TrackQuery } from '../interfaces/VideoQuery';
+import { SearchResult as _YoutubeSearchResult } from '../interfaces/Youtube';
+
 import Base from './base';
-import { TrackQuery } from '../interfaces/VideoQuery';
-import { SearchResult as YoutubeSearchResult } from '../interfaces/Youtube';
 
 import { SpotifyAPI as spotifyApi } from '../library/spotifyApi';
 
@@ -57,15 +58,15 @@ export default class Spotify extends Base {
 
   }
 
-  public recentTracks(): Promise<any> {
+  public recent(): Promise<any> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
       SpotifyAPI.recents()
-        .then((queries: TrackQuery[]) => {
+        .then((queries: _TrackQuery[]) => {
 
           Video.getSearches(queries)
-            .then((youtubeIds: YoutubeSearchResult[]) => {
+            .then((youtubeIds: _YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);
 
@@ -82,15 +83,15 @@ export default class Spotify extends Base {
 
   }
 
-  public topTracks(): Promise<any> {
+  public top(): Promise<any> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
       SpotifyAPI.top()
-        .then((queries: TrackQuery[]) => {
+        .then((queries: _TrackQuery[]) => {
 
           Video.getSearches(queries)
-            .then((youtubeIds: YoutubeSearchResult[]) => {
+            .then((youtubeIds: _YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);
 
@@ -107,15 +108,15 @@ export default class Spotify extends Base {
 
   }
 
-  public savedTracks(): Promise<any> {
+  public saved(): Promise<any> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
       SpotifyAPI.saved()
-        .then((queries: TrackQuery[]) => {
+        .then((queries: _TrackQuery[]) => {
 
           Video.getSearches(queries)
-            .then((youtubeIds: YoutubeSearchResult[]) => {
+            .then((youtubeIds: _YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);
 

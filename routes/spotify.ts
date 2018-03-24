@@ -1,11 +1,8 @@
-import { Request, Response } from 'express';
+import { Request as _Request, Response as _Response } from 'express';
 
 import Controller from '../controllers/spotify';
 
-import Video = require('../library/video');
-
 const express = require('express');
-const querystring = require('querystring');
 
 const router = express.Router();
 const service = 'spotify';
@@ -13,7 +10,7 @@ const service = 'spotify';
 const spotify = new Controller();
 const routes = spotify.getRoutes();
 
-router.get('/test', (req: Request, res: Response, next: Function) => {
+router.get('/test', (req: _Request, res: _Response, _next: Function) => {
 
   res.render('index', {
     filter: [],
@@ -26,7 +23,7 @@ router.get('/test', (req: Request, res: Response, next: Function) => {
 
 });
 
-router.get('/callback', (req: Request, res: Response, next: Function) => {
+router.get('/callback', (req: _Request, res: _Response, _next: Function) => {
 
   const code = req.query.code || null;
   const state = req.query.state || null;
@@ -51,67 +48,73 @@ router.get('/callback', (req: Request, res: Response, next: Function) => {
 
 });
 
-router.get('/:userId/recent', (req: Request, res: Response, next: Function) => {
+router.get(
+  '/:userId/recent',
+  (req: _Request, res: _Response, _next: Function) => {
 
-  const userId = req.params.userId;
+    const userId = req.params.userId;
 
-  spotify.recentTracks()
-    .then((videoIds: string) => {
+    spotify.recent()
+      .then((videoIds: string) => {
 
-      res.render('index', {
-        filter: routes.recent.filter,
-        links: spotify.getLinks('recent'),
-        service,
-        title: `Laid Back VJ - ${userId}`,
-        userId,
-        videos: videoIds,
+        res.render('index', {
+          filter: routes.recent.filter,
+          links: spotify.getLinks('recent'),
+          service,
+          title: `Laid Back VJ - ${userId}`,
+          userId,
+          videos: videoIds,
+        });
+
+      })
+      .catch((error: any) => {
+
+        res.render('notFound', {
+          error,
+          title: 'Laid Back VJ',
+        });
+
       });
 
-    })
-    .catch((error: any) => {
+  },
+);
 
-      res.render('notFound', {
-        error,
-        title: 'Laid Back VJ',
+router.get(
+  '/:userId/saved',
+  (req: _Request, res: _Response, _next: Function) => {
+
+    const userId = req.params.userId;
+
+    spotify.saved()
+      .then((videoIds: string) => {
+
+        res.render('index', {
+          filter: routes.saved.filter,
+          links: spotify.getLinks('saved'),
+          service,
+          title: `Laid Back VJ - ${userId}`,
+          userId,
+          videos: videoIds,
+        });
+
+      })
+      .catch((error: any) => {
+
+        res.render('notFound', {
+          error,
+          title: 'Laid Back VJ',
+        });
+
       });
 
-    });
+  },
+);
 
-});
-
-router.get('/:userId/saved', (req: Request, res: Response, next: Function) => {
-
-  const userId = req.params.userId;
-
-  spotify.savedTracks()
-    .then((videoIds: string) => {
-
-      res.render('index', {
-        filter: routes.saved.filter,
-        links: spotify.getLinks('saved'),
-        service,
-        title: `Laid Back VJ - ${userId}`,
-        userId,
-        videos: videoIds,
-      });
-
-    })
-    .catch((error: any) => {
-
-      res.render('notFound', {
-        error,
-        title: 'Laid Back VJ',
-      });
-
-    });
-
-});
-
-router.get('/*', (req: Request, res: Response, next: Function) => {
+router.get('/*', (req: _Request, res: _Response, _next: Function) => {
 
   const userId = req.path.replace('/', '');
 
-  spotify.topTracks()
+  spotify.top()
     .then((videoIds: string) => {
 
       res.render('index', {

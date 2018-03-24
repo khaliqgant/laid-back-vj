@@ -1,12 +1,16 @@
-import { TrackQuery, ArtistQuery } from '../interfaces/VideoQuery';
 import {
-  Tracks as TrackResponse,
-  Track as LastFmTrack, User as UserResponse,
-  Friends as FriendResponse,
-  Artist as LastFmArtist,
-  Artists as ArtistResponse,
+  TrackQuery as _TrackQuery,
+  ArtistQuery as _ArtistQuery,
+} from '../interfaces/VideoQuery';
+import {
+  Tracks as _TrackResponse,
+  Track as _LastFmTrack,
+  User as _UserResponse,
+  Friends as _FriendResponse,
+  Artist as _LastFmArtist,
+  Artists as _ArtistResponse,
 } from '../interfaces/Lastfm';
-import { Response as YoutubeResponse } from '../interfaces/Youtube';
+import { Response as _YoutubeResponse } from '../interfaces/Youtube';
 
 const Q = require('q');
 
@@ -31,7 +35,7 @@ export function user(userId: string): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
-    lfm.user.getInfo(userId, (error: any, userInfo: UserResponse) => {
+    lfm.user.getInfo(userId, (error: any, userInfo: _UserResponse) => {
 
       if (error !== null) {
 
@@ -63,7 +67,7 @@ export function friends(userId: string): Q.Promise<any> {
 
     lfm.user.getFriends(
       { user: userId },
-      (error: any, friendInfo: FriendResponse) => {
+      (error: any, friendInfo: _FriendResponse) => {
 
         if (error !== null) {
 
@@ -97,7 +101,7 @@ export function topTracks(params: any): Q.Promise<any> {
 
     lfm.user.getTopTracks(
       params,
-      (error: any, topTracksResponse: TrackResponse) => {
+      (error: any, topTracksResponse: _TrackResponse) => {
 
         if (error !== null) {
 
@@ -108,9 +112,9 @@ export function topTracks(params: any): Q.Promise<any> {
           const searches = [];
           for (let i = 0; i < topTracksResponse.track.length; i++) {
 
-            const track: LastFmTrack = topTracksResponse.track[i];
+            const track: _LastFmTrack = topTracksResponse.track[i];
             const search = `${track.artist.name} ${track.name} VEVO`;
-            const trackQuery: TrackQuery = {
+            const trackQuery: _TrackQuery = {
               artist: track.artist.name,
               query: search,
               title: track.name,
@@ -144,7 +148,7 @@ export function recentTracks(params: any): Q.Promise<any> {
 
     lfm.user.getRecentTracks(
       params,
-      (error: any, topTracksResponse: TrackResponse) => {
+      (error: any, topTracksResponse: _TrackResponse) => {
 
         if (error !== null) {
 
@@ -155,10 +159,10 @@ export function recentTracks(params: any): Q.Promise<any> {
           const searches = [];
           for (let i = 0; i < topTracksResponse.track.length; i++) {
 
-            const track: LastFmTrack = topTracksResponse.track[i];
+            const track: _LastFmTrack = topTracksResponse.track[i];
             const artist = track.artist['#text'];
             const search = `${artist} ${track.name} VEVO`;
-            const trackQuery: TrackQuery = {
+            const trackQuery: _TrackQuery = {
               artist,
               query: search,
               title: track.name,
@@ -188,34 +192,120 @@ export function recentArtists(params: any): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
-    lfm.user.getTopArtists(params, (error: any, topArtists: ArtistResponse) => {
+    lfm
+      .user.getTopArtists(params, (error: any, topArtists: _ArtistResponse) => {
 
-      if (error !== null) {
+        if (error !== null) {
 
-        reject(error);
+          reject(error);
 
-      } else {
+        } else {
 
-        const searches = [];
-        for (let i = 0; i < topArtists.artist.length; i++) {
+          const searches = [];
+          for (let i = 0; i < topArtists.artist.length; i++) {
 
-          const artist: LastFmArtist = topArtists.artist[i];
-          const search = `${artist.name} VEVO`;
-          const artistQuery: ArtistQuery = {
-            artist: artist['#text'],
-            query: search,
-            ranking: artist['@attr'].rank,
-          };
-          searches.push(artistQuery);
+            const artist: _LastFmArtist = topArtists.artist[i];
+            const search = `${artist.name} VEVO`;
+            const artistQuery: _ArtistQuery = {
+              artist: artist['#text'],
+              query: search,
+              ranking: artist['@attr'].rank,
+            };
+            searches.push(artistQuery);
+
+          }
+          resolve(searches);
 
         }
-        resolve(searches);
 
-      }
-
-    });
+      });
 
   });
 
 }
 
+/**
+ *
+ * Last Fm Recommended Tracks
+ * @desc grab top tracks then find tracks recommended from that list
+ * @see https://www.last.fm/api/show/track.getSimilar
+ *
+ */
+export function recommended(params: any): Q.Promise<any> {
+
+  return Q.Promise((resolve: Function, reject: Function) => {
+
+    lfm.user.getTopTracks(
+      params,
+      (error: any, topTracksResponse: _TrackResponse) => {
+
+        if (error !== null) {
+
+          reject(error);
+
+        } else {
+
+          const similars = [];
+          for (let i = 0; i < topTracksResponse.track.length; i++) {
+
+            const trackInfo: _LastFmTrack = topTracksResponse.track[i];
+            const artist: string = trackInfo.artist.name;
+            const track: string = trackInfo.name;
+
+            similars.push(similarTrack(artist, track));
+
+          }
+
+          Q.all(similars)
+            .then((searches: _TrackQuery[]) => {
+
+              resolve(searches);
+
+            })
+            .catch((searchError: any) => {
+
+              reject(searchError);
+
+            });
+
+        }
+
+      },
+    );
+
+  });
+
+}
+
+function similarTrack(artist: string, trackName: string): Q.Promise<any> {
+
+  return Q.Promise((resolve: Function, reject: Function) => {
+
+    lfm.track.getSimilar(
+      { artist, track: trackName },
+      (error: any, track: _LastFmTrack) => {
+
+        if (error !== null) {
+
+          // console.log(error);
+          reject(error);
+
+        } else {
+
+          const search = `${track.artist.name} ${track.name} VEVO`;
+
+          const trackQuery: _TrackQuery = {
+            artist: track.artist.name,
+            query: search,
+            title: track.name,
+          };
+          resolve(trackQuery);
+
+        }
+
+      },
+    );
+
+  });
+
+}

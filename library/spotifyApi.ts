@@ -1,12 +1,15 @@
-import { TrackQuery, ArtistQuery } from '../interfaces/VideoQuery';
 import {
-  AuthResponse,
-  UserResponse,
-  TrackResponse,
-  ItemResponse,
-  TrackInfo,
+  TrackQuery as _TrackQuery,
+  ArtistQuery as _ArtistQuery,
+} from '../interfaces/VideoQuery';
+import {
+  AuthResponse as _AuthResponse,
+  UserResponse as _UserResponse,
+  TrackResponse as _TrackResponse,
+  ItemResponse as _ItemResponse,
+  TrackInfo as _TrackInfo,
 } from '../interfaces/Spotify';
-import { Response as YoutubeResponse } from '../interfaces/Youtube';
+import { Response as _YoutubeResponse } from '../interfaces/Youtube';
 
 const Q = require('q');
 const crypto = require('crypto');
@@ -93,7 +96,7 @@ export class SpotifyAPI {
     return Q.Promise((resolve: Function, reject: Function) => {
 
       this.api.authorizationCodeGrant(code)
-        .then((data: AuthResponse) => {
+        .then((data: _AuthResponse) => {
 
           this.api.setAccessToken(data.body.access_token);
           this.api.setRefreshToken(data.body.refresh_token);
@@ -114,11 +117,17 @@ export class SpotifyAPI {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
-      this.api.getMe().then((info: UserResponse) => {
+      this.api.getMe()
+        .then((info: _UserResponse) => {
 
-        resolve(info.body.id);
+          resolve(info.body.id);
 
-      });
+        })
+        .catch((error: any) => {
+
+          reject(error);
+
+        });
 
     });
 
@@ -136,7 +145,7 @@ export class SpotifyAPI {
     return Q.Promise((resolve: Function, reject: Function) => {
 
       this.api.getMyRecentlyPlayedTracks()
-        .then((recentTracks: TrackResponse) => {
+        .then((recentTracks: _TrackResponse) => {
 
           resolve(this.formSearch(recentTracks));
 
@@ -156,7 +165,7 @@ export class SpotifyAPI {
     return Q.Promise((resolve: Function, reject: Function) => {
 
       this.api.getMyTopTracks()
-        .then((recentTracks: ItemResponse) => {
+        .then((recentTracks: _ItemResponse) => {
 
           resolve(this.formSearch(recentTracks));
 
@@ -183,7 +192,7 @@ export class SpotifyAPI {
     return Q.Promise((resolve: Function, reject: Function) => {
 
       this.api.getMySavedTracks()
-        .then((recentTracks: ItemResponse) => {
+        .then((recentTracks: _ItemResponse) => {
 
           resolve(this.formSearch(recentTracks));
 
@@ -198,12 +207,12 @@ export class SpotifyAPI {
 
   }
 
-  private formSearch(recentTracks: any): TrackQuery[] {
+  private formSearch(recentTracks: any): _TrackQuery[] {
 
     const searches = [];
     for (const itemResponse of recentTracks.body.items) {
 
-      const item: TrackInfo = Object.prototype.hasOwnProperty
+      const item: _TrackInfo = Object.prototype.hasOwnProperty
         .call(itemResponse, 'track') ? itemResponse.track : itemResponse;
       let artist: string;
       for (const artistObject of item.artists) {
@@ -215,7 +224,7 @@ export class SpotifyAPI {
 
       const title: string = item.name;
       const query: string = `${artist} ${title} VEVO`;
-      const trackQuery: TrackQuery = {
+      const trackQuery: _TrackQuery = {
         artist,
         query,
         title,

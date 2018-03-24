@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request as _Request, Response as _Response } from 'express';
 
 require('dotenv').config();
 const express = require('express');
@@ -55,7 +55,7 @@ app.use('/spotify', spotify);
 app.use('/api', api);
 
 // catch 404 and forward to error handler
-app.use((req: Request, res: Response, next: Function) => {
+app.use((req: _Request, res: _Response, next: Function) => {
 
   const err: any = new Error('Not Found');
   err.status = 404;
@@ -69,7 +69,7 @@ app.use((req: Request, res: Response, next: Function) => {
 // will print stacktrace
 if (app.get('env') === 'development') {
 
-  app.use((err: any, req: Request, res: Response, next: Function) => {
+  app.use((err: any, req: _Request, res: _Response, _next: Function) => {
 
     res.status(err.status || 500);
     res.render('error', {
@@ -83,7 +83,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use((err: any, req: Request, res: Response, next: Function) => {
+app.use((err: any, req: _Request, res: _Response, _next: Function) => {
 
   res.status(err.status || 500);
   res.render('error', {

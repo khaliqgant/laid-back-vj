@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import { Response as YoutubeResponse } from '../interfaces/Youtube';
+import { Request as _Request, Response as _Response } from 'express';
+import { Response as _YoutubeResponse } from '../interfaces/Youtube';
 
 import Controller from '../controllers/youtube';
 import SpotifyController from '../controllers/spotify';
@@ -17,7 +17,7 @@ const routes: any = youtube.getRoutes();
 const spotifyAuthUrl = spotify.getAuthorizeUrl();
 
 
-router.get('/popular', (req: Request, res: Response, next: Function) => {
+router.get('/popular', (req: _Request, res: _Response, _next: Function) => {
 
   YoutubeAPI.popular()
     .then((videos: string[]) => {
@@ -42,7 +42,7 @@ router.get('/popular', (req: Request, res: Response, next: Function) => {
 
 });
 
-router.get('/artist', (req: Request, res: Response, next: Function) => {
+router.get('/artist', (req: _Request, res: _Response, _next: Function) => {
 
   const artist: string = decodeURIComponent(req.query.name);
 
@@ -66,7 +66,7 @@ router.get('/artist', (req: Request, res: Response, next: Function) => {
 
 });
 
-router.get('/newest', (req: Request, res: Response, next: Function) => {
+router.get('/newest', (req: _Request, res: _Response, _next: Function) => {
 
   YoutubeAPI.newest()
     .then((videos: string[]) => {
@@ -91,7 +91,7 @@ router.get('/newest', (req: Request, res: Response, next: Function) => {
 
 });
 
-router.get('/year', (req: Request, res: Response, next: Function) => {
+router.get('/year', (req: _Request, res: _Response, _next: Function) => {
 
   YoutubeAPI.year()
     .then((videos: string[]) => {
@@ -116,7 +116,7 @@ router.get('/year', (req: Request, res: Response, next: Function) => {
 
 });
 
-router.get('/five-years', (req: Request, res: Response, next: Function) => {
+router.get('/five-years', (req: _Request, res: _Response, _next: Function) => {
 
   YoutubeAPI.fiveYear()
     .then((videos: string[]) => {

@@ -18,7 +18,7 @@
     "no-restricted-syntax": ["error", "LabeledStatement", "WithStatement"],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "space-infix-ops": 0,
-    "no-unused-vars": 0,
+    "no-unused-vars": ["error", { "varsIgnorePattern": "_", "argsIgnorePattern": "^_"}],
     "default-case": 0,
     "no-else-return": 0,
     "no-param-reassign": 0,

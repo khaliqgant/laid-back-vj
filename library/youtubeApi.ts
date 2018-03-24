@@ -1,12 +1,13 @@
 import * as moment from 'moment';
 import * as geoip from 'geoip-lite';
 
-import { TrackQuery, ArtistQuery } from '../interfaces/VideoQuery';
-import { Response as YoutubeResponse } from '../interfaces/Youtube';
+import {
+  TrackQuery as _TrackQuery,
+  ArtistQuery as _ArtistQuery,
+} from '../interfaces/VideoQuery';
+import { Response as _YoutubeResponse } from '../interfaces/Youtube';
 
 const Q = require('q');
-
-const YoutubeAPI = require('../library/youtubeApi');
 
 // @see https://github.com/nodenica/youtube-node
 const YouTube = require('youtube-node');
@@ -23,7 +24,7 @@ const NUM_VIDEOS: number = 25;
  * @see https://developers.google.com/youtube/v3/docs/search/list
  *
  */
-export function search(searchOb: ArtistQuery|TrackQuery): Q.Promise<any> {
+export function search(searchOb: _ArtistQuery|_TrackQuery): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -33,7 +34,7 @@ export function search(searchOb: ArtistQuery|TrackQuery): Q.Promise<any> {
       searchOb.query,
       numResults,
       { type: 'video' },
-      (error: any, result: YoutubeResponse) => {
+      (error: any, result: _YoutubeResponse) => {
 
         if (error) {
 
@@ -204,7 +205,7 @@ function baseSearch(query: string, params: any, numResults: number):
       query,
       numResults,
       params,
-      (error: any, result: YoutubeResponse) => {
+      (error: any, result: _YoutubeResponse) => {
 
         if (error) {
 
@@ -220,7 +221,7 @@ function baseSearch(query: string, params: any, numResults: number):
           }
 
           const videoObjects = result.items;
-          const videoIds = videoObjects.map((vid, i) => {
+          const videoIds = videoObjects.map((vid, _i) => {
 
             const videoId = vid.id.videoId;
             const title = vid.snippet.title;

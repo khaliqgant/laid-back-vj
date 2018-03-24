@@ -1,4 +1,4 @@
-import { RouteInfo } from '../interfaces/VideoQuery';
+import { RouteInfo as _RouteInfo } from '../interfaces/VideoQuery';
 import Base from './base';
 
 export default class Youtube extends Base {
@@ -42,7 +42,7 @@ export default class Youtube extends Base {
    * @desc return back a random video type for the homepage
    *
    */
-  public random(): RouteInfo {
+  public random(): _RouteInfo {
 
     const availableRoutes = Object.keys(this.possibleRandomRoutes());
     const numRoutes: number = availableRoutes.length;

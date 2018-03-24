@@ -1,6 +1,9 @@
-import { Request, Response } from 'express';
-import { Response as YoutubeResponse, Methods } from '../interfaces/Youtube';
-import { RouteInfo } from '../interfaces/VideoQuery';
+import { Request as _Request, Response as _Response } from 'express';
+import {
+  Response as _YoutubeResponse,
+  Methods as _Methods,
+} from '../interfaces/Youtube';
+import { RouteInfo as _RouteInfo } from '../interfaces/VideoQuery';
 
 import YoutubeController from '../controllers/youtube';
 import SpotifyController from '../controllers/spotify';
@@ -15,14 +18,13 @@ const router = express.Router();
 const youtube = new YoutubeController();
 const spotify = new SpotifyController();
 const lastfm = new LastFmController();
-const routes: any = youtube.getRoutes();
 
-router.get('/', (req: Request, res: Response, next: Function) => {
+router.get('/', (req: _Request, res: _Response, _next: Function) => {
 
   const spotifyAuthUrl = spotify.getAuthorizeUrl();
-  const route: RouteInfo = youtube.random();
+  const route: _RouteInfo = youtube.random();
 
-  const method: (keyof Methods) = route.method;
+  const method: (keyof _Methods) = route.method;
 
   // hack for dynamic method calling
   (YoutubeAPI as any)[method]()

@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
+import { Request as _Request, Response as _Response } from 'express';
 import {
-  User as UserResponse,
-  Friends as FriendResponse,
+  User as _UserResponse,
+  Friends as _FriendResponse,
 } from '../interfaces/Lastfm';
 
 import LastfmApi = require('../library/lastfmApi');
@@ -10,7 +10,7 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/', (req: Request, res: Response, next: Function) => {
+router.get('/', (req: _Request, res: _Response, _next: Function) => {
 
   res.json({
     title: `Laid Back VJ: Watch your favorite
@@ -21,12 +21,12 @@ router.get('/', (req: Request, res: Response, next: Function) => {
 
 router.get(
   '/lastfm/user/:userId',
-  (req: Request, res: Response, next: Function) => {
+  (req: _Request, res: _Response, _next: Function) => {
 
     const userId = req.params.userId;
 
     LastfmApi.user(userId)
-      .then((userInfo: UserResponse) => {
+      .then((userInfo: _UserResponse) => {
 
         res.json(userInfo);
 
@@ -42,12 +42,12 @@ router.get(
 
 router.get(
   '/lastfm/friends/:userId',
-  (req: Request, res: Response, next: Function) => {
+  (req: _Request, res: _Response, _next: Function) => {
 
     const userId = req.params.userId;
 
     LastfmApi.friends(userId)
-      .then((friends: FriendResponse) => {
+      .then((friends: _FriendResponse) => {
 
         res.json(friends);
 

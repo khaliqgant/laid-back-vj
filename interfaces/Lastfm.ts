@@ -67,4 +67,10 @@ interface Artists {
     artist: Artist[];
 }
 
-export { Tracks, Track, User, Friends, Artists, Artist };
+interface SearchParams {
+    limit: number;
+    period?: string;
+    user: string;
+}
+
+export { Tracks, Track, User, Friends, Artists, Artist, SearchParams };

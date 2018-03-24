@@ -1,5 +1,17 @@
-import { Request, Response } from 'express';
+import { Request as _Request, Response as _Response } from 'express';
+import {
+  TrackQuery as _TrackQuery,
+  ArtistQuery as _ArtistQuery,
+} from '../interfaces/VideoQuery';
+import { SearchParams as _SearchParams } from '../interfaces/Lastfm';
+import { SearchResult as _YoutubeSearchResult } from '../interfaces/Youtube';
+
 import Base from './base';
+
+import Video = require('../library/video');
+
+const Q = require('q');
+const LastfmAPI = require('../library/lastfmApi');
 
 export default class LastFm extends Base {
 
@@ -54,22 +66,146 @@ export default class LastFm extends Base {
 
   }
 
-  public setUser(res: Response, userId: string) {
+  public setUser(res: _Response, userId: string) {
 
     const ONE_DAY = 3600000 * 24;
 
     const options = {
       maxAge: ONE_DAY,
     };
+
     res.cookie(this.cookieName, userId, options);
 
   }
 
-  public getUser(req: Request) {
+  public getUser(req: _Request) {
 
     const user = req.cookies[this.cookieName];
 
     return user;
+
+  }
+
+  public artists(params: _SearchParams): Q.Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      LastfmAPI.recentArtists(params)
+        .then((searches: _ArtistQuery[]) => {
+
+          Video.getSearches(searches)
+            .then((youtubeIds: _YoutubeSearchResult[]) => {
+
+              resolve(youtubeIds);
+
+            })
+            .catch((error: any) => {
+
+              reject(error);
+
+            });
+
+        })
+
+        .catch((error: any) => {
+
+          reject(error);
+
+        });
+
+    });
+
+  }
+
+  public top(params: _SearchParams): Q.Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      LastfmAPI.topTracks(params)
+        .then((searches: _TrackQuery[]) => {
+
+          Video.getSearches(searches)
+            .then((youtubeIds: _YoutubeSearchResult[]) => {
+
+              resolve(youtubeIds);
+
+            })
+            .catch((error: any) => {
+
+              reject(error);
+
+            });
+
+        })
+
+        .catch((error: any) => {
+
+          reject(error);
+
+        });
+
+    });
+
+  }
+
+  public recent(params: _SearchParams): Q.Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      LastfmAPI.recentTracks(params)
+        .then((searches: _TrackQuery[]) => {
+
+          Video.getSearches(searches)
+            .then((youtubeIds: _YoutubeSearchResult[]) => {
+
+              resolve(youtubeIds);
+
+            })
+            .catch((error: any) => {
+
+              reject(error);
+
+            });
+
+        })
+        .catch((error: any) => {
+
+          reject(error);
+
+        });
+
+    });
+
+  }
+
+  public recommended(params: _SearchParams): Q.Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      LastfmAPI.recommended(params)
+        .then((searches: _TrackQuery[]) => {
+
+          console.log(searches);
+          Video.getSearches(searches)
+            .then((youtubeIds: _YoutubeSearchResult[]) => {
+
+              resolve(youtubeIds);
+
+            })
+            .catch((error: any) => {
+
+              reject(error);
+
+            });
+
+        })
+        .catch((error: any) => {
+
+          reject(error);
+
+        });
+
+    });
 
   }
 

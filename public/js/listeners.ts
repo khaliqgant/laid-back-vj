@@ -54,7 +54,7 @@ function checkUser(e: KeyboardEvent) {
         }
 
       })
-      .catch((error: any) => {
+      .catch((_error: any) => {
 
         noUser.classList.remove('none');
 
@@ -64,15 +64,6 @@ function checkUser(e: KeyboardEvent) {
   }
 
 }
-
-function showButton(undo: any) {
-
-  undo.parentNode.style.dipslay = 'none';
-  const button = undo.parentNode.previousSibling;
-  undo.parentNode.previousSibling.style.display = 'inline';
-
-}
-
 
 function showInput(className: string) {
 
