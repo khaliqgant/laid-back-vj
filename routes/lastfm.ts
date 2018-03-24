@@ -364,7 +364,7 @@ router.get(
  */
 router.get('/*', (req: _Request, res: _Response, _next: Function) => {
 
-  const userId = req.path.replace('/', '');
+  const userId = req.path.replace(/\//g, '');
   const params = {
     limit: LIMIT,
     user: userId,

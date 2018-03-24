@@ -25,6 +25,11 @@
         margin: 0;
         padding: 0;
         li {
+            @media screen and (min-width: $sidebar-min) {
+                padding-bottom: 0px;
+            }
+            padding-bottom: 25px;
+
             .link {
                 &:hover {
                     opacity: .7;
@@ -32,11 +37,12 @@
             }
             .link-text {
                 left: 60px;
-                top: 15px;
+                top: 7px;
+                @media screen and (min-width: $sidebar-min) {
+                    top: 15px;
+                }
                 position: relative;
                 color: black;
-                &:hover {
-                }
             }
             display: block;
             position: relative;
