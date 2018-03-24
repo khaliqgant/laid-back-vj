@@ -208,4 +208,34 @@ export default class LastFm extends Base {
 
   }
 
+  public friendsTracks(params: _SearchParams): Q.Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      LastfmAPI.friendsTracks(params)
+        .then((searches: _TrackQuery[]) => {
+
+          Video.getSearches(searches)
+            .then((youtubeIds: _YoutubeSearchResult[]) => {
+
+              resolve(youtubeIds);
+
+            })
+            .catch((error: any) => {
+
+              reject(error);
+
+            });
+
+        })
+        .catch((error: any) => {
+
+          reject(error);
+
+        });
+
+    });
+
+  }
+
 }

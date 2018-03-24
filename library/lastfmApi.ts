@@ -9,6 +9,7 @@ import {
   Friends as _FriendResponse,
   Artist as _LastFmArtist,
   Artists as _ArtistResponse,
+  SearchParams as _SearchParams,
 } from '../interfaces/Lastfm';
 import { Response as _YoutubeResponse } from '../interfaces/Youtube';
 
@@ -95,7 +96,7 @@ export function friends(userId: string): Q.Promise<any> {
  *
  *
  */
-export function topTracks(params: any): Q.Promise<any> {
+export function topTracks(params: _SearchParams): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -142,7 +143,7 @@ export function topTracks(params: any): Q.Promise<any> {
  * @see http://www.last.fm/api/show/user.getRecentTracks
  *
  */
-export function recentTracks(params: any): Q.Promise<any> {
+export function recentTracks(params: _SearchParams): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -188,7 +189,7 @@ export function recentTracks(params: any): Q.Promise<any> {
  * @see https://www.last.fm/api/show/user.getTopArtists
  *
  */
-export function recentArtists(params: any): Q.Promise<any> {
+export function recentArtists(params: _SearchParams): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -226,13 +227,70 @@ export function recentArtists(params: any): Q.Promise<any> {
 
 /**
  *
+ * Last FM Friends Tracks
+ * @desc grab no more than 10 friends, get their listening history
+ * then pick 3 tracks at random and compile a list of those videos
+ *
+ */
+export function friendsTracks(params: _SearchParams): Q.Promise<any> {
+
+  return Q.Promise((resolve: Function, reject: Function) => {
+
+    friends(params.user)
+      .then((friendInfo: _FriendResponse) => {
+
+        const friendQueries = [];
+        for (const friend of friendInfo.user) {
+
+          const friendParams: _SearchParams = {
+            limit: params.limit,
+            period: params.period,
+            user: friend.name,
+          };
+
+          friendQueries.push(topTracks(friendParams));
+
+          if (friendQueries.length > 10) {
+
+            break;
+
+          }
+
+        }
+
+        Q.all(friendQueries)
+          .then((searches: _TrackQuery[][]) => {
+
+            resolve(pluckQueries(searches, 4));
+
+          })
+          .catch((searchError: any) => {
+
+            reject(searchError);
+
+          });
+
+
+      })
+      .catch((error: any) => {
+
+        reject(error);
+
+      });
+
+  });
+
+}
+
+/**
+ *
  * Last Fm Recommended Tracks
  * @desc grab top tracks then find tracks recommended from that list
  * then pick a subset from that list to find videos for
  * @see https://www.last.fm/api/show/track.getSimilar
  *
  */
-export function recommended(params: any): Q.Promise<any> {
+export function recommended(params: _SearchParams): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -260,7 +318,7 @@ export function recommended(params: any): Q.Promise<any> {
           Q.all(similars)
             .then((searches: _TrackQuery[][]) => {
 
-              resolve(pluckQueries(searches));
+              resolve(pluckQueries(searches, 6));
 
             })
             .catch((searchError: any) => {
@@ -278,6 +336,13 @@ export function recommended(params: any): Q.Promise<any> {
 
 }
 
+/**
+ *
+ * Similar Tracks
+ * @desc grab a similar track given an artist and track name and send back
+ * a formatted video search from the results
+ *
+ */
 function similarTrack(artist: string, trackName: string): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, _reject: Function) => {
@@ -314,21 +379,21 @@ function similarTrack(artist: string, trackName: string): Q.Promise<any> {
 /**
  *
  * Pluck Queries
- * @desc a similar lastfm query returns a set of track for each original track.
+ * @desc some lastfm query returns a set of track for each original track.
  * Reduce that array of array of objects into an array of objects
  *
  */
-function pluckQueries(similarQueries: _TrackQuery[][]): _TrackQuery[] {
+function pluckQueries(nestedQueries: _TrackQuery[][], toPluck: number): _TrackQuery[] {
 
   let trackQueries: _TrackQuery[] = [];
 
-  for (const queries of similarQueries) {
+  for (const queries of nestedQueries) {
 
     const len: number = queries.length;
 
     if (len > 0) {
 
-      trackQueries = trackQueries.concat(randoms(len - 1, 6, queries));
+      trackQueries = trackQueries.concat(randoms(len - 1, toPluck, queries));
 
     }
 

@@ -343,15 +343,38 @@ router.get(
 );
 
 router.get(
-  '/:userId/friends-videos',
+  '/:userId/friends',
   (req: _Request, res: _Response, _next: Function) => {
 
-  // http://www.last.fm/api/show/user.getFriends
-    res.render('notFound', {
-      error: { message: 'not implemented' },
-      service,
-      title: 'Laid Back VJ',
-    });
+    const userId = req.params.userId;
+    const params = {
+      limit: 10,
+      period: '12month',
+      user: userId,
+    };
+
+    lastFm.friendsTracks(params)
+      .then((videoIds: string[]) => {
+
+        res.render('index', {
+          filter: routes.friends.filter,
+          lastfmUserId: userId,
+          links: lastFm.getLinks('friends'),
+          service,
+          title: `Laid Back VJ - ${userId}`,
+          userId,
+          videos: videoIds,
+        });
+
+      })
+      .catch((error: any) => {
+
+        res.render('notFound', {
+          error,
+          title: 'Laid Back VJ',
+        });
+
+      });
 
   },
 );

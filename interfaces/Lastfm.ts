@@ -46,7 +46,14 @@ interface User {
 }
 
 interface Friends {
-    friends: User[];
+    '@attr': {
+        for: string;
+        page: string;
+        perPage: string;
+        total: string;
+        totalPages: string;
+    };
+    user: User[];
 }
 
 interface Artist {
