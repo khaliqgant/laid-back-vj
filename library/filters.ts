@@ -15,6 +15,38 @@ export default class Filters {
 
     /**
      *
+     * Audio And Artist
+     * @desc prioritize no audio tracks and ensure the artist name
+     * is in the title
+     *
+     */
+    public audioAndArtist(item: _ItemResponse): _SearchResult|undefined {
+
+      const title = item.snippet.title;
+
+      if (title.toLowerCase().indexOf('audio') > -1 ||
+          title.toLowerCase().indexOf('lyric') > -1) {
+
+        return undefined;
+
+      }
+
+      if (title.toLowerCase().indexOf(this.prop.toLowerCase()) < 0) {
+
+        return undefined;
+
+      }
+
+      return {
+        artist: this.prop,
+        title,
+        videoId: item.id.videoId,
+      };
+
+    }
+
+    /**
+     *
      * Artist
      * @desc make sure the result has artists in title and/or the
      * vevo channel is the artists vevo channel and just use those results

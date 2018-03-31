@@ -14,15 +14,17 @@ const YoutubeAPI = require('../library/youtubeApi');
  * and resolve the ids after making sure it has a result
  *
  */
-export function getSearches(searches: _ArtistQuery[]|_TrackQuery[]):
-  Q.Promise<any> {
+export function getSearches(
+  searches: _ArtistQuery[]|_TrackQuery[],
+  filter?: string,
+): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
     const promises = [];
     for (const search of searches) {
 
-      promises.push(YoutubeAPI.search(search));
+      promises.push(YoutubeAPI.search(search, filter));
 
     }
 

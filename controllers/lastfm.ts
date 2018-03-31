@@ -93,7 +93,7 @@ export default class LastFm extends Base {
       LastfmAPI.recentArtists(params)
         .then((searches: _ArtistQuery[]) => {
 
-          Video.getSearches(searches)
+          Video.getSearches(searches, 'audioAndArtist')
             .then((youtubeIds: _YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);
@@ -124,7 +124,7 @@ export default class LastFm extends Base {
       LastfmAPI.topTracks(params)
         .then((searches: _TrackQuery[]) => {
 
-          Video.getSearches(searches)
+          Video.getSearches(searches, 'audioAndArtist')
             .then((youtubeIds: _YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);
@@ -155,7 +155,7 @@ export default class LastFm extends Base {
       LastfmAPI.recentTracks(params)
         .then((searches: _TrackQuery[]) => {
 
-          Video.getSearches(searches)
+          Video.getSearches(searches, 'audioAndArtist')
             .then((youtubeIds: _YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);

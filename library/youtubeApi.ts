@@ -26,7 +26,10 @@ const NUM_VIDEOS: number = 25;
  * @see https://developers.google.com/youtube/v3/docs/search/list
  *
  */
-export function search(searchOb: _ArtistQuery|_TrackQuery): Q.Promise<any> {
+export function search(
+  searchOb: _ArtistQuery|_TrackQuery,
+  filterFn?: string,
+): Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -53,6 +56,15 @@ export function search(searchOb: _ArtistQuery|_TrackQuery): Q.Promise<any> {
           const videoId = result.items[0].id.videoId;
           const videoTitle = result.items[0].snippet.title;
           const artistName = searchOb.artist;
+
+          if (filterFn) {
+
+            const filterClass: any = new Filters(artistName);
+            resolve(filterClass[filterFn](result.items[0]));
+
+            return;
+
+          }
 
           resolve({
             artist: artistName,
