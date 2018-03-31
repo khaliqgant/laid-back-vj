@@ -69,7 +69,7 @@ export default class Spotify extends Base {
       SpotifyAPI.recents()
         .then((queries: _TrackQuery[]) => {
 
-          Video.getSearches(queries)
+          Video.getSearches(queries, 'audioAndArtist')
             .then((youtubeIds: _YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);
@@ -94,7 +94,7 @@ export default class Spotify extends Base {
       SpotifyAPI.top()
         .then((queries: _TrackQuery[]) => {
 
-          Video.getSearches(queries)
+          Video.getSearches(queries, 'audioAndArtist')
             .then((youtubeIds: _YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);
@@ -119,7 +119,7 @@ export default class Spotify extends Base {
       SpotifyAPI.saved()
         .then((queries: _TrackQuery[]) => {
 
-          Video.getSearches(queries)
+          Video.getSearches(queries, 'audioAndArtist')
             .then((youtubeIds: _YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);
@@ -144,7 +144,7 @@ export default class Spotify extends Base {
       SpotifyAPI.artists()
         .then((queries: _TrackQuery[]) => {
 
-          Video.getSearches(queries)
+          Video.getSearches(queries, 'audioAndArtist')
             .then((youtubeIds: _YoutubeSearchResult[]) => {
 
               resolve(youtubeIds);

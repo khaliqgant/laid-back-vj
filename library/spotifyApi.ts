@@ -205,7 +205,7 @@ export class SpotifyAPI {
           const searches = [];
           for (const artist of recentArtists.body.items) {
 
-            const search = `${artist.name} VEVO`;
+            const search = `${artist.name}`;
             const artistQuery: _ArtistQuery = {
               artist: artist.name,
               query: search,
@@ -290,7 +290,7 @@ export class SpotifyAPI {
       }
 
       const title: string = item.name;
-      const query: string = `${artist} ${title} VEVO`;
+      const query: string = `${artist} ${title}`;
       const trackQuery: _TrackQuery = {
         artist,
         query,
