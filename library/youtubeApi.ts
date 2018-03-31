@@ -7,6 +7,8 @@ import {
 } from '../interfaces/VideoQuery';
 import { Response as _YoutubeResponse } from '../interfaces/Youtube';
 
+import Filters from '../library/filters';
+
 const Q = require('q');
 
 // @see https://github.com/nodenica/youtube-node
@@ -135,13 +137,14 @@ export function popular(): Q.Promise<any> {
 
 export function artist(name: string): Q.Promise<any> {
 
-  const query: string = `${name} vevo`;
+  const query: string = `${name} VEVO`;
   const params = {
-    order: 'viewCount',
     type: 'video',
   };
 
-  return baseSearch(query, params, NUM_VIDEOS);
+  const filter = new Filters(name);
+
+  return baseSearch(query, params, NUM_VIDEOS, filter, 'artist');
 
 }
 
@@ -193,7 +196,13 @@ function time(after: string, before?: string, order?: string): Q.Promise<any> {
 
 }
 
-function baseSearch(query: string, params: any, numResults: number):
+function baseSearch(
+  query: string,
+  params: any,
+  numResults: number,
+  filterClass?: any,
+  fn?: string,
+):
   Q.Promise<any> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
@@ -218,6 +227,14 @@ function baseSearch(query: string, params: any, numResults: number):
           }
 
           const videoObjects = result.items;
+
+          if (filterClass && fn) {
+
+            resolve(filterClass[fn](videoObjects));
+
+            return;
+
+          }
           const videoIds = videoObjects.map((vid, _i) => {
 
             const videoId = vid.id.videoId;

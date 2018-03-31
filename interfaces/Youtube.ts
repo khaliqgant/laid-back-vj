@@ -43,4 +43,4 @@ interface SearchResult {
   videoId: string;
 }
 
-export { Response, Methods, SearchResult };
+export { Response, Methods, SearchResult, Item };
