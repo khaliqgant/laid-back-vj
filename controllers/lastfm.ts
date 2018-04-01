@@ -148,6 +148,38 @@ export default class LastFm extends Base {
 
   }
 
+  public topCharts(): Q.Promise<any> {
+
+    return Q.Promise((resolve: Function, reject: Function) => {
+
+      LastfmAPI.topCharts()
+        .then((searches: _TrackQuery[]) => {
+
+          Video.getSearches(searches, 'audioAndArtist')
+            .then((youtubeIds: _YoutubeSearchResult[]) => {
+
+              resolve(youtubeIds);
+
+            })
+            .catch((error: any) => {
+
+              reject(error);
+
+            });
+
+        })
+
+        .catch((error: any) => {
+
+          reject(error);
+
+        });
+
+    });
+
+
+  }
+
   public recent(params: _SearchParams): Q.Promise<any> {
 
     return Q.Promise((resolve: Function, reject: Function) => {

@@ -9,7 +9,7 @@ import YoutubeController from '../controllers/youtube';
 import SpotifyController from '../controllers/spotify';
 import LastFmController from '../controllers/lastfm';
 
-import YoutubeAPI = require('../library/youtubeApi');
+import Video = require('../library/video');
 
 const express = require('express');
 
@@ -27,7 +27,7 @@ router.get('/', (req: _Request, res: _Response, _next: Function) => {
   const method: (keyof _Methods) = route.method;
 
   // hack for dynamic method calling
-  (YoutubeAPI as any)[method]()
+  (Video as any)[method]()
     .then((videos: string[]) => {
 
       res.render('index', {

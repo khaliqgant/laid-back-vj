@@ -27,6 +27,11 @@ export default class Youtube extends Base {
         link: 'popular',
         method: 'popular',
       },
+      topCharts: {
+        filter: 'Top Songs From The Charts By Lastfm',
+        link: 'top-charts',
+        method: 'topCharts',
+      },
       year: {
         filter: 'Most Popular this Year',
         link: 'year',
@@ -62,7 +67,7 @@ export default class Youtube extends Base {
   private possibleRandomRoutes(): any {
 
     const routes: any = {};
-    const allowedRoutes: string[] = ['fiveYear', 'newest', 'popular', 'year'];
+    const allowedRoutes: string[] = ['fiveYear', 'newest', 'popular', 'year', 'topCharts'];
 
     for (const route of allowedRoutes) {
 

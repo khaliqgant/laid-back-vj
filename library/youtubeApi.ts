@@ -149,7 +149,7 @@ export function popular(): Q.Promise<any> {
 
 export function artist(name: string): Q.Promise<any> {
 
-  const query: string = `${name} VEVO`;
+  const query: string = `${name}`;
   const params = {
     type: 'video',
   };

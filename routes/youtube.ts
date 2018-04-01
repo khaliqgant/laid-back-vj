@@ -3,6 +3,7 @@ import { Response as _YoutubeResponse } from '../interfaces/Youtube';
 
 import Controller from '../controllers/youtube';
 import SpotifyController from '../controllers/spotify';
+import LastfmController from '../controllers/lastfm';
 
 import YoutubeAPI = require('../library/youtubeApi');
 
@@ -12,6 +13,7 @@ const router = express.Router();
 
 const youtube = new Controller();
 const spotify = new SpotifyController();
+const lastfm = new LastfmController();
 const routes: any = youtube.getRoutes();
 
 const spotifyAuthUrl = spotify.getAuthorizeUrl();
@@ -141,5 +143,29 @@ router.get('/five-years', (req: _Request, res: _Response, _next: Function) => {
 
 });
 
+router.get('/top-charts', (req: _Request, res: _Response, _next: Function) => {
+
+  lastfm.topCharts()
+    .then((videos: string[]) => {
+
+      res.render('index', {
+        auth: true,
+        filter: routes.topCharts.filter,
+        intro: true,
+        links: youtube.getLinks('topCharts'),
+        service: 'youtube',
+        spotifyAuthUrl,
+        title: 'Prep For Relaxation',
+        videos,
+      });
+
+    })
+    .catch((error: any) => {
+
+      res.json(error);
+
+    });
+
+});
 
 module.exports = router;

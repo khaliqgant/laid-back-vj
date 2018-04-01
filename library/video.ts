@@ -6,6 +6,7 @@ import {
 const Q = require('q');
 
 const YoutubeAPI = require('../library/youtubeApi');
+const LastfmAPI = require('../library/lastfmApi');
 
 /**
  *
@@ -49,5 +50,33 @@ export function getSearches(
       });
 
   });
+
+}
+export function fiveYear(): Q.Promise<any> {
+
+  return YoutubeAPI.fiveYear();
+
+}
+export function newest(): Q.Promise<any> {
+
+  return YoutubeAPI.newest();
+
+}
+
+export function popular(): Q.Promise<any> {
+
+  return YoutubeAPI.popular();
+
+}
+
+export function year(): Q.Promise<any> {
+
+  return YoutubeAPI.year();
+
+}
+
+export function topCharts(): Q.Promise<any> {
+
+  return LastfmAPI.topCharts();
 
 }

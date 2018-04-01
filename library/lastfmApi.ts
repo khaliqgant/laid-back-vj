@@ -284,6 +284,70 @@ export function friendsTracks(params: _SearchParams): Q.Promise<any> {
 
 /**
  *
+ * Top Charts
+ * @desc grab the top tracks from Lastfm Charts
+ * @see https://www.last.fm/api/show/chart.getTopTracks
+ *
+ */
+export function topCharts(): Q.Promise<any> {
+
+  return Q.Promise((resolve: Function, reject: Function) => {
+
+    lfm.chart.getTopTracks(
+      {},
+      (error: any, topTracksResponse: _TrackResponse) => {
+
+        if (error !== null) {
+
+          reject(error);
+
+        } else {
+
+          const searches = [];
+          for (let i = 0; i < topTracksResponse.track.length; i++) {
+
+            const track: _LastFmTrack = topTracksResponse.track[i];
+            const search = `${track.artist.name} ${track.name}`;
+            const trackQuery: _TrackQuery = {
+              artist: track.artist.name,
+              query: search,
+              title: track.name,
+            };
+            searches.push(trackQuery);
+
+          }
+
+          resolve(searches);
+
+        }
+
+      },
+    );
+
+  });
+
+}
+
+/**
+ *
+ * Top Charts By Country
+ * @desc grab the top tracks from Lastfm Charts
+ * @see https://www.last.fm/api/show/geo.getTopTracks
+ *
+ */
+export function topChartsByCountry(params: _SearchParams): Q.Promise<any> {
+
+  return Q.Promise((resolve: Function, _reject: Function) => {
+
+    resolve(params);
+
+  });
+
+}
+
+
+/**
+ *
  * Last Fm Recommended Tracks
  * @desc grab top tracks then find tracks recommended from that list
  * then pick a subset from that list to find videos for
