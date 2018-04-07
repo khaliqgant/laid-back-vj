@@ -16,9 +16,6 @@ interface Window {
     videos: any[];
     Handlebars: any;
     onYouTubeIframeAPIReady: Function;
-    setDefaultWidth: Function;
-    defaultWidth: number;
-    defaultHeight: number;
     onPlayerReady: Function;
     onPlayerStateChange: Function;
     onPlayerError: Function;
