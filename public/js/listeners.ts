@@ -55,8 +55,8 @@ Share.addEventListener('click', (e: KeyboardEvent) => {
   }
 
   const shareInfo = {
-    message: `${messageStart} thought you might like these videos!`,
     filter: `Shared videos from ${messageEnd}`,
+    message: `${messageStart} thought you might like these videos!`,
     videos: DataModel.videos,
   };
 
