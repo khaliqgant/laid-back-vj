@@ -1,5 +1,8 @@
+import * as copy from 'copy-to-clipboard';
+
 require('./effects');
 const LastFm = require('./lastfm');
+const DataModel = require('./model');
 
 const LastFmButtons: HTMLCollectionOf<Element> = document
   .getElementsByClassName('js-lastfm-login');
@@ -21,6 +24,54 @@ if (LastFmButtons.length > 0) {
   });
 
 }
+
+const Shares: HTMLCollectionOf<Element> = document
+  .getElementsByClassName('js-share');
+const Share: any = Shares[0];
+
+/**
+ *
+ * Share Listener
+ * @desc share a set of videos and format the object to what the server expects
+ *
+ */
+Share.addEventListener('click', (e: KeyboardEvent) => {
+
+  e.preventDefault();
+
+  let filterStart: string;
+  let messageEnd: string;
+
+  if (DataModel.userName === '') {
+
+    filterStart = 'A friend';
+    messageEnd = 'a friend';
+
+  } else {
+
+    filterStart = DataModel.userName;
+    messageEnd = DataModel.userName;
+
+  }
+
+  const shareInfo = {
+    filter: `${filterStart} thought you might like these videos!`,
+    message: `Shared videos from ${messageEnd}`,
+    videos: DataModel.videos,
+  };
+
+  const hash: string = btoa(JSON.stringify(shareInfo));
+  const url: string = `${window.location.origin}/share/${hash}`;
+  const copied: boolean = copy(url);
+
+  if (copied) {
+
+    Share.innerHTML = 'Share URL Copied To Your Clipboard!';
+    Share.classList.remove('js-share');
+
+  }
+
+});
 
 function checkUser(e: KeyboardEvent) {
 

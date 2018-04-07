@@ -12,6 +12,7 @@ const youtube = require('./routes/youtube');
 const lastfm = require('./routes/lastfm');
 const spotify = require('./routes/spotify');
 const api = require('./routes/api');
+const share = require('./routes/share');
 
 const app = express();
 
@@ -53,6 +54,7 @@ app.use('/youtube', youtube);
 app.use('/lastfm', lastfm);
 app.use('/spotify', spotify);
 app.use('/api', api);
+app.use('/share', share);
 
 // catch 404 and forward to error handler
 app.use((req: _Request, res: _Response, next: Function) => {

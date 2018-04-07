@@ -32,6 +32,22 @@ input {
     display: none;
 }
 
+.share {
+    float: right;
+    color: $lastfm;
+    text-decoration: none;
+    &.lastfm {
+        color: $lastfm;
+    }
+    &.spotify {
+        color: $spotify;
+    }
+}
+
+.artist-link {
+    text-decoration: none;
+}
+
 .service-input {
     border: 2px solid;
     display: inline-block;

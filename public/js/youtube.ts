@@ -2,6 +2,7 @@ declare let Promise: any;
 
 const LastFmApi = require('./lastfm');
 const SpotifyApi = require('./spotify');
+const Model = require('./model');
 const request = require('browser-request');
 
 loadArtistTemplate();
@@ -15,15 +16,22 @@ interface Window {
     videos: any[];
     Handlebars: any;
     onYouTubeIframeAPIReady: Function;
+    setDefaultWidth: Function;
+    defaultWidth: number;
+    defaultHeight: number;
     onPlayerReady: Function;
     onPlayerStateChange: Function;
     onPlayerError: Function;
     YT: any;
 }
 
+Model.videos = window.videos;
+
 /**
  *
  * On Player State Change
+ * @desc grab the currently playing track and append the artist listen to more
+ * link using handlebars
  *
  */
 window.onPlayerStateChange = (event: any) => {
@@ -115,6 +123,7 @@ if (Object.prototype.hasOwnProperty.call(window, 'lastfmUserId') &&
         .getElementsByClassName('js-profile')[0];
       SidebarProfile.innerHTML = info;
 
+      Model.userName = userInfo.realname || userInfo.name;
 
     });
 
@@ -139,6 +148,8 @@ if (window.service === 'spotify') {
       const SidebarProfile: any = document
         .getElementsByClassName('js-profile')[0];
       SidebarProfile.innerHTML = info;
+
+      Model.userName = userInfo.display_name;
 
     });
 

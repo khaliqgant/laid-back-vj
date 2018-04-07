@@ -172,6 +172,7 @@ export function nearMe(ip: string): Q.Promise<any> {
 
   const geo: geoip.Lookup = geoip.lookup(ip);
   const query: string = 'music videos vevo';
+  // geo.country.toString()
   const params = {
     location: geo.ll.toString() || 0,
     locationRadius: '1500000m',

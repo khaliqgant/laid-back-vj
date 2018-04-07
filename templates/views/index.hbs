@@ -5,6 +5,10 @@
         or just watch some videos right away</h1>
 {{/if}}
 
+{{#if shareMessage}}
+    <h1 class="indie">{{shareMessage}}</h1>
+{{/if}}
+
 {{#if auth}}
     <div class="auth">
         <a href="{{spotifyAuthUrl}}" class="spotify-button js-spotify-login">Login With Spotify</a>
@@ -24,7 +28,10 @@
 {{/if}}
 
 <div class="now-playing">
-    <div><img class="playing-logo {{service}}" src="/img/{{service}}.png" alt="{{service}} icon"></div>
+    <div class="js-playing-container">
+        <img class="playing-logo {{service}}" src="/img/{{service}}.png" alt="{{service}} icon">
+        <a href="#" class="share {{service}} js-share"><i class="fas fa-bullhorn"></i> Share This Playlist</a>
+    </div>
     <i class="fas fa-volume-up {{service}}"></i>
     <span>{{filter}}</span>
 </div>
@@ -46,6 +53,10 @@
     if (defaultWidth * 1.15 >= window.outerWidth) {
         defaultWidth = Number(window.outerWidth * 0.80);
     }
+
+    var PlayingContainer = document
+        .getElementsByClassName('js-playing-container')[0];
+    PlayingContainer.style.maxWidth = defaultWidth.toString() + 'px';
 
     /**
      * On YouTubeIframeAPIReady

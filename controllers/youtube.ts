@@ -67,7 +67,9 @@ export default class Youtube extends Base {
   private possibleRandomRoutes(): any {
 
     const routes: any = {};
-    const allowedRoutes: string[] = ['fiveYear', 'newest', 'popular', 'year', 'topCharts'];
+    const allowedRoutes: string[] = [
+      'fiveYear', 'newest', 'popular', 'year', 'topCharts',
+    ];
 
     for (const route of allowedRoutes) {
 
