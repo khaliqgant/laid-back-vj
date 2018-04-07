@@ -60,7 +60,7 @@ Share.addEventListener('click', (e: KeyboardEvent) => {
     videos: DataModel.videos,
   };
 
-  const hash: string = btoa(JSON.stringify(shareInfo));
+  const hash: string = btoa(unescape(encodeURIComponent(JSON.stringify(shareInfo))));
   const url: string = `${window.location.origin}/share/${hash}`;
   const copied: boolean = copy(url);
 
