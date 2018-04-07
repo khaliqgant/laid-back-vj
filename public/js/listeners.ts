@@ -39,24 +39,24 @@ Share.addEventListener('click', (e: KeyboardEvent) => {
 
   e.preventDefault();
 
-  let filterStart: string;
+  let messageStart: string;
   let messageEnd: string;
 
   if (DataModel.userName === '') {
 
-    filterStart = 'A friend';
+    messageStart = 'A friend';
     messageEnd = 'a friend';
 
   } else {
 
-    filterStart = DataModel.userName;
+    messageStart = DataModel.userName;
     messageEnd = DataModel.userName;
 
   }
 
   const shareInfo = {
-    filter: `${filterStart} thought you might like these videos!`,
-    message: `Shared videos from ${messageEnd}`,
+    message: `${messageStart} thought you might like these videos!`,
+    filter: `Shared videos from ${messageEnd}`,
     videos: DataModel.videos,
   };
 
