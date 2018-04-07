@@ -1,5 +1,8 @@
 import { Request as _Request, Response as _Response } from 'express';
-import { Response as _ShareResponse } from '../interfaces/Share';
+import {
+  Response as _ShareResponse,
+  Shorten as _ShortenResponse,
+} from '../interfaces/Share';
 
 import Controller from '../controllers/share';
 import SpotifyController from '../controllers/spotify';
@@ -13,9 +16,9 @@ const spotify = new SpotifyController();
 
 const spotifyAuthUrl = spotify.getAuthorizeUrl();
 
-router.get('/:hash', (req: _Request, res: _Response, _next: Function) => {
+router.get('/playlist', (req: _Request, res: _Response, _next: Function) => {
 
-  const hash: string = req.params.hash;
+  const hash: string = req.query.hash;
   const videoInfo: _ShareResponse = share.decode(hash);
 
   res.render('index', {
@@ -28,6 +31,20 @@ router.get('/:hash', (req: _Request, res: _Response, _next: Function) => {
     title: 'Prep For Relaxation',
     videos: videoInfo.videos,
   });
+
+});
+
+router.post('/api', (req: _Request, res: _Response, _next: Function) => {
+
+  const shareInfo = JSON.parse(req.body.shareInfo);
+
+  share.shorten(shareInfo).then((shareable: _ShortenResponse|string) => {
+
+    const url = typeof shareable === 'string' ? shareable : shareable.data.url;
+    res.json(url);
+
+  });
+
 
 });
 
