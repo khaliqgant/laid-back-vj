@@ -28,6 +28,8 @@ services:
       SPOTIFY_KEY: ${SPOTIFY_KEY}
       SPOTIFY_SECRET: ${SPOTIFY_SECRET}
       SPOTIFY_CALLBACK_URL: ${SPOTIFY_CALLBACK_URL}
+    volumes:
+      - storage:/src/storage
     logging:
       driver: "awslogs"
       options:

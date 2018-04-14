@@ -2,10 +2,9 @@ import { Request as _Request, Response as _Response } from 'express';
 import { Response as _ShareResponse } from '../interfaces/Share';
 import Youtube from './youtube';
 
-const BitlyClient = require('bitly');
+import Storage = require('../library/storage');
 
-const bitly = BitlyClient(process.env.BITLY_ACCESS_TOKEN);
-const shorturl = require('shorturl');
+console.log(Storage.getHash());
 
 export default class Share extends Youtube {
 
@@ -35,27 +34,8 @@ export default class Share extends Youtube {
     const based: string = Buffer.from(encoded, 'binary').toString('base64');
     const shareUrl = `${baseUrl}/share/playlist?hash=${based}`;
 
-    shorturl(shareUrl, (result: string) => {
 
-      console.log(result);
-
-    });
-
-    if (process.env.NODE_ENV !== 'production') {
-
-      return Promise.resolve(shareUrl);
-
-    }
-
-    try {
-
-      return await bitly.shorten(shareUrl);
-
-    } catch (e) {
-
-      throw e;
-
-    }
+    return Promise.resolve(shareUrl);
 
   }
 

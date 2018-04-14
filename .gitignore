@@ -12,6 +12,7 @@ npm-debug.log
 !webpack.config.js
 !gulpfile.js
 *.js.map
+db.json
 
 # Terraform provisioning
 .terraform

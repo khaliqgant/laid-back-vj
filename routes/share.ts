@@ -1,8 +1,5 @@
 import { Request as _Request, Response as _Response } from 'express';
-import {
-  Response as _ShareResponse,
-  Shorten as _ShortenResponse,
-} from '../interfaces/Share';
+import { Response as _ShareResponse } from '../interfaces/Share';
 
 import Controller from '../controllers/share';
 import SpotifyController from '../controllers/spotify';
