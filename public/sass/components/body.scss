@@ -63,13 +63,13 @@ input {
     padding-bottom: 10px;
     .playing-logo {
         &.spotify {
-            width: 15%;
+            width: 100px;
         }
         &.lastfm {
-            width: 15%;
+            width: 100px;
         }
         &.youtube {
-            width: 25%;
+            width: 100px;
         }
     }
 }
