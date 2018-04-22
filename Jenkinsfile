@@ -1,10 +1,10 @@
 pipeline {
   agent any
   stages {
-    stage('ECR login') {
+    stage('AWS Login') {
       steps {
         script {
-          sh("eval \$(aws ecr get-login --no-include-email --region eu-west-1 | sed 's|https://||')")
+          sh("$(aws ecr get-login --no-include-email --region=eu-west-1)")
         }
 
       }
@@ -12,24 +12,46 @@ pipeline {
     stage('Build and push docker images') {
       steps {
         script {
-          docker.build('lbv-nginx', '-f ./provision/nginx/Dockerfile .')
-          docker.withRegistry(ECR_REPO, ECRCRED)
+          docker.build('nginx', '-f ./provision/nginx/Dockerfile .')
+          docker.withRegistry(ECR_REPO)
           {
-            docker.image('lbv-nginx').push('latest')
+            docker.image('nginx').push('latest')
           }
-          docker.build('lbv-node', '-f ./provision/node/Dockerfile .')
-          docker.withRegistry(ECR_REPO, ECRCRED)
+          docker.build('node', '-f ./provision/node/Dockerfile .')
+          docker.withRegistry(ECR_REPO)
           {
-            docker.image('lbv-node').push('latest')
+            docker.image('node').push('latest')
           }
         }
       }
     }
+    stage('Cluster up') {
+        steps {
+            script {
+sh '''APP="lbv"
+
+CLUSTER="${APP}-cluster"
+SERVICE="${APP}-service"
+LB="${APP}-elb"
+IMAGE="nginx"
+
+ecs-cli compose \\
+--file ./docker-compose.prod.yml \\
+--project-name ${SERVICE} \\
+--cluster ${CLUSTER} \\
+--verbose service up \\
+--container-name ${IMAGE} \\
+--container-port 80 \\
+--load-balancer-name ${LB} \\
+--deployment-min-healthy-percent 0 \\
+--timeout 10
+'''
+            }
+        }
+    }
   }
   environment {
-    PROJECT = 'lbv'
-    ECR_REPO = 'http://568063086568.dkr.ecr.eu-west-1.amazonaws.com'
-    ECRCRED = 'ecr:eu-west-1:lbv-deployer'
+    ECR_REPO = credentials('ecr-repo')
   }
   options {
     buildDiscarder(logRotator(numToKeepStr: '3'))
