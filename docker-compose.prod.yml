@@ -3,7 +3,7 @@ version: "2"
 services:
   nginx:
     mem_limit: 25M
-    image: 568063086568.dkr.ecr.eu-west-1.amazonaws.com/nginx
+    image: ${ECR_REPO}/nginx
     links:
       - node
     ports:
@@ -18,7 +18,7 @@ services:
   node:
     # https://github.com/aws/amazon-ecs-cli/issues/1
     mem_limit: 750M
-    image: 568063086568.dkr.ecr.eu-west-1.amazonaws.com/node
+    image: ${ECR_REPO}/node
     environment:
       NODE_ENV: production
       LASTFM_KEY: ${LASTFM_KEY}

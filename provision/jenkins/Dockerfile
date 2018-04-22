@@ -10,3 +10,7 @@ RUN apk --no-cache update && \
     rm -rf /var/cache/apk/*
 
 RUN pip install awscli
+
+ADD https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest /usr/local/bin/ecs-cli
+
+RUN chmod 555 /usr/local/bin/ecs-cli
