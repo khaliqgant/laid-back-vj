@@ -1,6 +1,8 @@
 import { Request as _Request, Response as _Response } from 'express';
 import { Response as _ShareResponse } from '../interfaces/Share';
 
+import { Storage as storage } from '../library/storage';
+
 import Controller from '../controllers/share';
 import SpotifyController from '../controllers/spotify';
 
@@ -10,13 +12,14 @@ const router = express.Router();
 
 const share = new Controller();
 const spotify = new SpotifyController();
+const Storage = storage.getInstance();
 
 const spotifyAuthUrl = spotify.getAuthorizeUrl();
 
-router.get('/playlist', (req: _Request, res: _Response, _next: Function) => {
+router.get('/:hash', (req: _Request, res: _Response, _next: Function) => {
 
-  const hash: string = req.query.hash;
-  const videoInfo: _ShareResponse = share.decode(hash);
+  const hash: string = req.params.hash;
+  const videoInfo: _ShareResponse = share.lookup(hash);
 
   res.render('index', {
     auth: true,
@@ -31,19 +34,19 @@ router.get('/playlist', (req: _Request, res: _Response, _next: Function) => {
 
 });
 
-router.post('/api', (req: _Request, res: _Response, _next: Function) => {
+router.post(
+  '/api/:hash',
+  (req: _Request, res: _Response, _next: Function) => {
 
-  const shareInfo = JSON.parse(req.body.shareInfo);
+    const hash: string = req.params.hash;
+    const info: any = req.body.shareInfo;
 
-  share.shorten(shareInfo).then((shareable: _ShortenResponse|string) => {
+    Storage.save(hash, info);
 
-    const url = typeof shareable === 'string' ? shareable : shareable.data.url;
-    res.json(url);
+    res.sendStatus(200);
 
-  });
-
-
-});
+  },
+);
 
 
 module.exports = router;
