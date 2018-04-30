@@ -15,6 +15,12 @@ export default class Share extends Youtube {
 
     const record: _Record = Storage.get(hash);
 
+    if (!record) {
+
+      return undefined;
+
+    }
+
     return {
       filter: record.message.filter,
       message: record.message.message,
