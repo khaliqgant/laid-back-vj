@@ -26,9 +26,8 @@ export class Storage {
 
   private Storage: any;
 
-  private pwd: string;
   private LOCATION: string;
-  private FILE: string = '/storage/db.json';
+  private FILE: string = '/../storage/db.json';
 
   private db: any;
 
@@ -42,9 +41,7 @@ export class Storage {
 
     }
 
-    this.pwd = process.cwd();
-
-    this.LOCATION = `${this.pwd}${this.FILE}`;
+    this.LOCATION = `${__dirname}${this.FILE}`;
 
     this.init();
 
