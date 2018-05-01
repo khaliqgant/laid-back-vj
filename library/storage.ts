@@ -122,7 +122,7 @@ export class Storage {
 
     if (!fs.existsSync(this.LOCATION)) {
 
-      fs.writeFile(this.LOCATION, {}, (err: any) => {
+      fs.writeFileSync(this.LOCATION, '', (err: any) => {
 
         if (err) {
 
