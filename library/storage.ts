@@ -26,7 +26,9 @@ export class Storage {
 
   private Storage: any;
 
-  private LOCATION: string = './storage/db.json';
+  private pwd: string;
+  private LOCATION: string;
+  private FILE: string = '/storage/db.json';
 
   private db: any;
 
@@ -39,6 +41,10 @@ export class Storage {
       throw new Error('Storage is a singleton class and can\' be created!');
 
     }
+
+    this.pwd = process.cwd();
+
+    this.LOCATION = `${this.pwd}${this.FILE}`;
 
     this.init();
 
