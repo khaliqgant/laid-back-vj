@@ -5,6 +5,8 @@ import {
 } from '../interfaces/Youtube';
 import { RouteInfo as _RouteInfo } from '../interfaces/VideoQuery';
 
+import { Storage as storage } from '../library/storage';
+
 import YoutubeController from '../controllers/youtube';
 import SpotifyController from '../controllers/spotify';
 import LastFmController from '../controllers/lastfm';
@@ -14,6 +16,7 @@ import Video = require('../library/video');
 const express = require('express');
 
 const router = express.Router();
+const Storage = storage.getInstance();
 
 const youtube = new YoutubeController();
 const spotify = new SpotifyController();
@@ -33,6 +36,7 @@ router.get('/', (req: _Request, res: _Response, _next: Function) => {
       res.render('index', {
         auth: true,
         filter: route.filter,
+        hash: Storage.getHash(),
         intro: true,
         lastfmUser: lastfm.getUser(req),
         links: youtube.getLinks(route.method),

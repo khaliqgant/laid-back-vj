@@ -1,11 +1,14 @@
 import { Request as _Request, Response as _Response } from 'express';
 
+import { Storage as storage } from '../library/storage';
+
 import Controller from '../controllers/lastfm';
 
 import Video = require('../library/video');
 
 const express = require('express');
 
+const Storage = storage.getInstance();
 const router = express.Router();
 
 const LIMIT = 25;
@@ -19,6 +22,7 @@ router.get('/test', (req: _Request, res: _Response, _next: Function) => {
 
   res.render('index', {
     filter: routes.recent.filter,
+    hash: Storage.getHash(),
     links: lastFm.getLinks('recent'),
     service,
     title: 'Laid Back VJ - test',
@@ -50,6 +54,7 @@ router.get(
 
         res.render('index', {
           filter: routes.year.filter,
+          hash: Storage.getHash(),
           lastfmUserId: userId,
           links: lastFm.getLinks('year'),
           service,
@@ -93,6 +98,7 @@ router.get(
 
         res.render('index', {
           filter: routes.month.filter,
+          hash: Storage.getHash(),
           lastfmUserId: userId,
           links: lastFm.getLinks('month'),
           service,
@@ -135,6 +141,7 @@ router.get(
 
         res.render('index', {
           filter: routes.recent.filter,
+          hash: Storage.getHash(),
           lastfmUserId: userId,
           links: lastFm.getLinks('recent'),
           service,
@@ -173,6 +180,7 @@ router.get(
 
         res.render('index', {
           filter: routes.artists.week.filter,
+          hash: Storage.getHash(),
           lastfmUserId: userId,
           links: lastFm.getLinks('artists', 'week'),
           service,
@@ -210,6 +218,7 @@ router.get(
 
         res.render('index', {
           filter: routes.artists.month.filter,
+          hash: Storage.getHash(),
           lastfmUserId: userId,
           links: lastFm.getLinks('artists', 'month'),
           service,
@@ -247,6 +256,7 @@ router.get(
 
         res.render('index', {
           filter: routes.artists.threeMonth.filter,
+          hash: Storage.getHash(),
           lastfmUserId: userId,
           links: lastFm.getLinks('artists', 'threeMonth'),
           service,
@@ -284,6 +294,7 @@ router.get(
 
         res.render('index', {
           filter: routes.artists.year.filter,
+          hash: Storage.getHash(),
           lastfmUserId: userId,
           links: lastFm.getLinks('artists', 'year'),
           service,
@@ -321,6 +332,7 @@ router.get(
 
         res.render('index', {
           filter: routes.recommended.filter,
+          hash: Storage.getHash(),
           lastfmUserId: userId,
           links: lastFm.getLinks('recommended'),
           service,
@@ -400,6 +412,7 @@ router.get('/*', (req: _Request, res: _Response, _next: Function) => {
 
       res.render('index', {
         filter: routes.allTime.filter,
+        hash: Storage.getHash(),
         lastfmUserId: userId,
         links: lastFm.getLinks('allTime'),
         service,

@@ -1,10 +1,12 @@
 import { Request as _Request, Response as _Response } from 'express';
 
 import { UserResponse as _UserResponse } from '../interfaces/Spotify';
+import { Storage as storage } from '../library/storage';
 import Controller from '../controllers/spotify';
 
 const express = require('express');
 
+const Storage = storage.getInstance();
 const router = express.Router();
 const service = 'spotify';
 
@@ -15,6 +17,7 @@ router.get('/test', (req: _Request, res: _Response, _next: Function) => {
 
   res.render('index', {
     filter: [],
+    hash: Storage.getHash(),
     links: [],
     service,
     title: 'Laid Back VJ - test',
@@ -61,6 +64,7 @@ router.get(
 
         res.render('index', {
           filter: routes.recent.filter,
+          hash: Storage.getHash(),
           links: spotify.getLinks('recent'),
           service,
           title: `Laid Back VJ - ${userId}`,
@@ -92,6 +96,7 @@ router.get(
 
         res.render('index', {
           filter: routes.saved.filter,
+          hash: Storage.getHash(),
           links: spotify.getLinks('saved'),
           service,
           title: `Laid Back VJ - ${userId}`,
@@ -123,6 +128,7 @@ router.get(
 
         res.render('index', {
           filter: routes.artists.filter,
+          hash: Storage.getHash(),
           links: spotify.getLinks('artists'),
           service,
           title: `Laid Back VJ - ${userId}`,
@@ -152,6 +158,7 @@ router.get('/*', (req: _Request, res: _Response, _next: Function) => {
 
       res.render('index', {
         filter: routes.top.filter,
+        hash: Storage.getHash(),
         links: spotify.getLinks('top'),
         service,
         title: `Laid Back VJ - ${userId}`,
