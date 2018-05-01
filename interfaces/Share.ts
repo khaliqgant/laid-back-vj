@@ -1,9 +1,11 @@
 export interface Response {
     filter: string;
     message: string;
-    videos: {
-        artist: string;
-        title: string;
-        videoId: string;
-    };
+    videos: Playlist[];
+}
+
+export interface Playlist {
+  artist: string;
+  title: string;
+  videoId: string;
 }

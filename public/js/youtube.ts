@@ -11,6 +11,7 @@ let currentIndex = -1;
 
 interface Window {
     lastfmUserId: string;
+    hash: string;
     service: string;
     userId: string;
     videos: any[];
