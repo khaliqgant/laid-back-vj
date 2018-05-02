@@ -60,7 +60,9 @@ router.get(
     const userId = req.params.userId;
 
     spotify.recent()
-      .then((videoIds: string) => {
+      .then((videos: string) => {
+
+        Storage.setPlaylist(videos);
 
         res.render('index', {
           filter: routes.recent.filter,
@@ -69,7 +71,7 @@ router.get(
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
-          videos: videoIds,
+          videos,
         });
 
       })
@@ -92,7 +94,9 @@ router.get(
     const userId = req.params.userId;
 
     spotify.saved()
-      .then((videoIds: string) => {
+      .then((videos: string) => {
+
+        Storage.setPlaylist(videos);
 
         res.render('index', {
           filter: routes.saved.filter,
@@ -101,7 +105,7 @@ router.get(
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
-          videos: videoIds,
+          videos,
         });
 
       })
@@ -124,7 +128,9 @@ router.get(
     const userId = req.params.userId;
 
     spotify.artists()
-      .then((videoIds: string) => {
+      .then((videos: string) => {
+
+        Storage.setPlaylist(videos);
 
         res.render('index', {
           filter: routes.artists.filter,
@@ -133,7 +139,7 @@ router.get(
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
-          videos: videoIds,
+          videos,
         });
 
       })
@@ -154,7 +160,9 @@ router.get('/*', (req: _Request, res: _Response, _next: Function) => {
   const userId = req.path.replace('/', '');
 
   spotify.top()
-    .then((videoIds: string) => {
+    .then((videos: string) => {
+
+      Storage.setPlaylist(videos);
 
       res.render('index', {
         filter: routes.top.filter,
@@ -163,7 +171,7 @@ router.get('/*', (req: _Request, res: _Response, _next: Function) => {
         service,
         title: `Laid Back VJ - ${userId}`,
         userId,
-        videos: videoIds,
+        videos,
       });
 
     })

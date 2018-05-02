@@ -30,7 +30,9 @@
 <div class="now-playing">
     <div class="js-playing-container">
         <img class="playing-logo {{service}}" src="/img/{{service}}.png" alt="{{service}} icon">
-        <a href="#" class="share {{service}} js-share"><i class="fas fa-bullhorn"></i> Share This Playlist</a>
+        {{#if hash}}
+            <a href="#" class="share {{service}} js-share"><i class="fas fa-bullhorn"></i> Share This Playlist</a>
+        {{/if}}
     </div>
     <i class="fas fa-volume-up {{service}}"></i>
     <span>{{filter}}</span>

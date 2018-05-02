@@ -50,7 +50,9 @@ router.get(
     };
 
     lastFm.top(params)
-      .then((videoIds: string[]) => {
+      .then((videos: string[]) => {
+
+        Storage.setPlaylist(videos);
 
         res.render('index', {
           filter: routes.year.filter,
@@ -60,7 +62,7 @@ router.get(
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
-          videos: videoIds,
+          videos,
         });
 
       })
@@ -94,7 +96,9 @@ router.get(
     };
 
     lastFm.top(params)
-      .then((videoIds: string[]) => {
+      .then((videos: string[]) => {
+
+        Storage.setPlaylist(videos);
 
         res.render('index', {
           filter: routes.month.filter,
@@ -104,7 +108,7 @@ router.get(
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
-          videos: videoIds,
+          videos,
         });
 
       })
@@ -137,7 +141,9 @@ router.get(
     };
 
     lastFm.recent(params)
-      .then((videoIds: string[]) => {
+      .then((videos: string[]) => {
+
+        Storage.setPlaylist(videos);
 
         res.render('index', {
           filter: routes.recent.filter,
@@ -147,7 +153,7 @@ router.get(
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
-          videos: videoIds,
+          videos,
         });
 
       })
@@ -176,7 +182,9 @@ router.get(
     };
 
     lastFm.artists(params)
-      .then((videoIds: string[]) => {
+      .then((videos: string[]) => {
+
+        Storage.setPlaylist(videos);
 
         res.render('index', {
           filter: routes.artists.week.filter,
@@ -186,7 +194,7 @@ router.get(
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
-          videos: videoIds,
+          videos,
         });
 
       })
@@ -214,7 +222,9 @@ router.get(
     };
 
     lastFm.artists(params)
-      .then((videoIds: string[]) => {
+      .then((videos: string[]) => {
+
+        Storage.setPlaylist(videos);
 
         res.render('index', {
           filter: routes.artists.month.filter,
@@ -224,7 +234,7 @@ router.get(
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
-          videos: videoIds,
+          videos,
         });
 
       })
@@ -252,7 +262,9 @@ router.get(
     };
 
     lastFm.artists(params)
-      .then((videoIds: string[]) => {
+      .then((videos: string[]) => {
+
+        Storage.setPlaylist(videos);
 
         res.render('index', {
           filter: routes.artists.threeMonth.filter,
@@ -262,7 +274,7 @@ router.get(
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
-          videos: videoIds,
+          videos,
         });
 
       })
@@ -290,7 +302,9 @@ router.get(
     };
 
     lastFm.artists(params)
-      .then((videoIds: string[]) => {
+      .then((videos: string[]) => {
+
+        Storage.setPlaylist(videos);
 
         res.render('index', {
           filter: routes.artists.year.filter,
@@ -300,7 +314,7 @@ router.get(
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
-          videos: videoIds,
+          videos,
         });
 
       })
@@ -328,7 +342,9 @@ router.get(
     };
 
     lastFm.recommended(params)
-      .then((videoIds: string[]) => {
+      .then((videos: string[]) => {
+
+        Storage.setPlaylist(videos);
 
         res.render('index', {
           filter: routes.recommended.filter,
@@ -338,7 +354,7 @@ router.get(
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
-          videos: videoIds,
+          videos,
         });
 
       })
@@ -366,7 +382,9 @@ router.get(
     };
 
     lastFm.friendsTracks(params)
-      .then((videoIds: string[]) => {
+      .then((videos: string[]) => {
+
+        Storage.setPlaylist(videos);
 
         res.render('index', {
           filter: routes.friends.filter,
@@ -375,7 +393,7 @@ router.get(
           service,
           title: `Laid Back VJ - ${userId}`,
           userId,
-          videos: videoIds,
+          videos,
         });
 
       })
@@ -408,7 +426,9 @@ router.get('/*', (req: _Request, res: _Response, _next: Function) => {
   lastFm.setUser(res, userId);
 
   lastFm.top(params)
-    .then((videoIds: string[]) => {
+    .then((videos: string[]) => {
+
+      Storage.setPlaylist(videos);
 
       res.render('index', {
         filter: routes.allTime.filter,
@@ -418,7 +438,7 @@ router.get('/*', (req: _Request, res: _Response, _next: Function) => {
         service,
         title: `Laid Back VJ - ${userId}`,
         userId,
-        videos: videoIds,
+        videos,
       });
 
     })

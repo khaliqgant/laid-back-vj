@@ -33,6 +33,8 @@ router.get('/', (req: _Request, res: _Response, _next: Function) => {
   (Video as any)[method]()
     .then((videos: string[]) => {
 
+      Storage.setPlaylist(videos);
+
       res.render('index', {
         auth: true,
         filter: route.filter,
