@@ -20,15 +20,15 @@ const Spotify = require('spotify-web-api-node');
 
 export class SpotifyAPI {
 
-  public static getInstance(): any {
+  public static getInstance(): SpotifyAPI {
 
     return SpotifyAPI.instance;
 
   }
 
-  private static instance: any = new SpotifyAPI();
+  private static instance: SpotifyAPI = new SpotifyAPI();
 
-  private SpotifyAPI: any;
+  private SpotifyAPI: SpotifyAPI;
 
   private api: any;
 
@@ -92,7 +92,7 @@ export class SpotifyAPI {
    * to make calls to the Spotify API
    *
    */
-  public setTokens(code: string): Q.Promise<any> {
+  public setTokens(code: string): Q.Promise<boolean|Error> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -104,7 +104,7 @@ export class SpotifyAPI {
           resolve(true);
 
         })
-        .catch((error: any) => {
+        .catch((error: Error) => {
 
           reject(error);
 
@@ -114,7 +114,7 @@ export class SpotifyAPI {
 
   }
 
-  public getInfo(): Q.Promise<any> {
+  public getInfo(): Q.Promise<_UserResponse|Error> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -124,7 +124,7 @@ export class SpotifyAPI {
           resolve(info);
 
         })
-        .catch((error: any) => {
+        .catch((error: Error) => {
 
           reject(error);
 
@@ -141,7 +141,7 @@ export class SpotifyAPI {
    * @see https://github.com/thelinmichael/spotify-web-api-node/blob/master/src/spotify-web-api.js#L1006
    *
    */
-  public recents(): Q.Promise<any> {
+  public recents<E>(): Q.Promise<_TrackQuery|E> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -151,7 +151,7 @@ export class SpotifyAPI {
           resolve(this.formSearch(recentTracks));
 
         })
-        .catch((error: any) => {
+        .catch((error: E) => {
 
           reject(error);
 
@@ -167,7 +167,7 @@ export class SpotifyAPI {
    * @see https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
    *
    */
-  public top(): Q.Promise<any> {
+  public top<E>(): Q.Promise<_TrackQuery|E> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -177,7 +177,7 @@ export class SpotifyAPI {
           resolve(this.formSearch(recentTracks));
 
         })
-        .catch((error: any) => {
+        .catch((error: E) => {
 
           reject(error);
 
@@ -195,14 +195,14 @@ export class SpotifyAPI {
    * @see https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
    *
    */
-  public artists(): Q.Promise<any> {
+  public artists<E>(): Q.Promise<_ArtistQuery[]|E> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
       this.api.getMyTopArtists()
         .then((recentArtists: _ArtistResponse) => {
 
-          const searches = [];
+          const searches: _ArtistQuery[] = [];
           for (const artist of recentArtists.body.items) {
 
             const search = `${artist.name}`;
@@ -217,7 +217,7 @@ export class SpotifyAPI {
           resolve(searches);
 
         })
-        .catch((error: any) => {
+        .catch((error: E) => {
 
           reject(error);
 
@@ -234,7 +234,7 @@ export class SpotifyAPI {
    * @see https://github.com/thelinmichael/spotify-web-api-node/blob/master/src/spotify-web-api.js#L844
    *
    */
-  public saved(): Q.Promise<any> {
+  public saved(): Q.Promise<_TrackQuery[]|Error> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -244,7 +244,7 @@ export class SpotifyAPI {
           resolve(this.formSearch(recentTracks));
 
         })
-        .catch((error: any) => {
+        .catch((error: Error) => {
 
           reject(error);
 
@@ -263,7 +263,7 @@ export class SpotifyAPI {
    * TODO
    *
    */
-  public recommendations(): Q.Promise<any> {
+  public recommendations<U>(): Q.Promise<U> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 

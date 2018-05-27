@@ -1,6 +1,7 @@
 import { Request as _Request, Response as _Response } from 'express';
 
 import { UserResponse as _UserResponse } from '../interfaces/Spotify';
+import { Playlist as _Playlist } from '../interfaces/Share';
 import { Storage as storage } from '../library/storage';
 import Controller from '../controllers/spotify';
 
@@ -60,7 +61,7 @@ router.get(
     const userId = req.params.userId;
 
     spotify.recent()
-      .then((videos: string) => {
+      .then((videos: _Playlist[]) => {
 
         Storage.setPlaylist(videos);
 
@@ -75,7 +76,7 @@ router.get(
         });
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.render('notFound', {
           error,
@@ -94,7 +95,7 @@ router.get(
     const userId = req.params.userId;
 
     spotify.saved()
-      .then((videos: string) => {
+      .then((videos: _Playlist[]) => {
 
         Storage.setPlaylist(videos);
 
@@ -109,7 +110,7 @@ router.get(
         });
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.render('notFound', {
           error,
@@ -128,7 +129,7 @@ router.get(
     const userId = req.params.userId;
 
     spotify.artists()
-      .then((videos: string) => {
+      .then((videos: _Playlist[]) => {
 
         Storage.setPlaylist(videos);
 
@@ -143,7 +144,7 @@ router.get(
         });
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.render('notFound', {
           error,
@@ -160,7 +161,7 @@ router.get('/*', (req: _Request, res: _Response, _next: Function) => {
   const userId = req.path.replace('/', '');
 
   spotify.top()
-    .then((videos: string) => {
+    .then((videos: _Playlist[]) => {
 
       Storage.setPlaylist(videos);
 
@@ -175,7 +176,7 @@ router.get('/*', (req: _Request, res: _Response, _next: Function) => {
       });
 
     })
-    .catch((error: any) => {
+    .catch((error: Error) => {
 
       res.render('notFound', {
         error,

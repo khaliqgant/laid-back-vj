@@ -32,11 +32,11 @@ const lfm = new LastfmAPI({
  *
  *
  */
-export function user(userId: string): Q.Promise<any> {
+export function user(userId: string): Q.Promise<_UserResponse|Error> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
-    lfm.user.getInfo(userId, (error: any, userInfo: _UserResponse) => {
+    lfm.user.getInfo(userId, (error: Error, userInfo: _UserResponse) => {
 
       if (error !== null) {
 
@@ -62,13 +62,13 @@ export function user(userId: string): Q.Promise<any> {
  *
  *
  */
-export function friends(userId: string): Q.Promise<any> {
+export function friends(userId: string): Q.Promise<_FriendResponse|Error> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
     lfm.user.getFriends(
       { user: userId },
-      (error: any, friendInfo: _FriendResponse) => {
+      (error: Error, friendInfo: _FriendResponse) => {
 
         if (error !== null) {
 
@@ -96,13 +96,14 @@ export function friends(userId: string): Q.Promise<any> {
  *
  *
  */
-export function topTracks(params: _SearchParams): Q.Promise<any> {
+export function topTracks(params: _SearchParams):
+  Q.Promise<_TrackResponse|Error> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
     lfm.user.getTopTracks(
       params,
-      (error: any, topTracksResponse: _TrackResponse) => {
+      (error: Error, topTracksResponse: _TrackResponse) => {
 
         if (error !== null) {
 
@@ -143,13 +144,14 @@ export function topTracks(params: _SearchParams): Q.Promise<any> {
  * @see http://www.last.fm/api/show/user.getRecentTracks
  *
  */
-export function recentTracks(params: _SearchParams): Q.Promise<any> {
+export function recentTracks(params: _SearchParams):
+  Q.Promise<_TrackResponse|Error> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
     lfm.user.getRecentTracks(
       params,
-      (error: any, topTracksResponse: _TrackResponse) => {
+      (error: Error, topTracksResponse: _TrackResponse) => {
 
         if (error !== null) {
 
@@ -189,37 +191,41 @@ export function recentTracks(params: _SearchParams): Q.Promise<any> {
  * @see https://www.last.fm/api/show/user.getTopArtists
  *
  */
-export function recentArtists(params: _SearchParams): Q.Promise<any> {
+export function recentArtists(params: _SearchParams):
+  Q.Promise<_ArtistResponse|Error> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
     lfm
-      .user.getTopArtists(params, (error: any, topArtists: _ArtistResponse) => {
+      .user.getTopArtists(
+        params,
+        (error: Error, topArtists: _ArtistResponse) => {
 
-        if (error !== null) {
+          if (error !== null) {
 
-          reject(error);
+            reject(error);
 
-        } else {
+          } else {
 
-          const searches = [];
-          for (let i = 0; i < topArtists.artist.length; i++) {
+            const searches = [];
+            for (let i = 0; i < topArtists.artist.length; i++) {
 
-            const artist: _LastFmArtist = topArtists.artist[i];
-            const search = `${artist.name}`;
-            const artistQuery: _ArtistQuery = {
-              artist: artist.name,
-              query: search,
-              ranking: artist['@attr'].rank,
-            };
-            searches.push(artistQuery);
+              const artist: _LastFmArtist = topArtists.artist[i];
+              const search = `${artist.name}`;
+              const artistQuery: _ArtistQuery = {
+                artist: artist.name,
+                query: search,
+                ranking: artist['@attr'].rank,
+              };
+              searches.push(artistQuery);
+
+            }
+            resolve(searches);
 
           }
-          resolve(searches);
 
-        }
-
-      });
+        },
+      );
 
   });
 
@@ -232,7 +238,8 @@ export function recentArtists(params: _SearchParams): Q.Promise<any> {
  * then pick 3 tracks at random and compile a list of those videos
  *
  */
-export function friendsTracks(params: _SearchParams): Q.Promise<any> {
+export function friendsTracks(params: _SearchParams):
+  Q.Promise<_TrackQuery[]|Error> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -264,7 +271,7 @@ export function friendsTracks(params: _SearchParams): Q.Promise<any> {
             resolve(pluckQueries(searches, 4));
 
           })
-          .catch((searchError: any) => {
+          .catch((searchError: Error) => {
 
             reject(searchError);
 
@@ -272,7 +279,7 @@ export function friendsTracks(params: _SearchParams): Q.Promise<any> {
 
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         reject(error);
 
@@ -289,13 +296,13 @@ export function friendsTracks(params: _SearchParams): Q.Promise<any> {
  * @see https://www.last.fm/api/show/chart.getTopTracks
  *
  */
-export function topCharts(): Q.Promise<any> {
+export function topCharts(): Q.Promise<_TrackQuery[]|Error> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
     lfm.chart.getTopTracks(
       {},
-      (error: any, topTracksResponse: _TrackResponse) => {
+      (error: Error, topTracksResponse: _TrackResponse) => {
 
         if (error !== null) {
 
@@ -303,7 +310,7 @@ export function topCharts(): Q.Promise<any> {
 
         } else {
 
-          const searches = [];
+          const searches: _TrackQuery[] = [];
           for (let i = 0; i < topTracksResponse.track.length; i++) {
 
             const track: _LastFmTrack = topTracksResponse.track[i];
@@ -335,7 +342,8 @@ export function topCharts(): Q.Promise<any> {
  * @see https://www.last.fm/api/show/geo.getTopTracks
  *
  */
-export function topChartsByCountry(params: _SearchParams): Q.Promise<any> {
+export function topChartsByCountry(params: _SearchParams):
+  Q.Promise<_SearchParams> {
 
   return Q.Promise((resolve: Function, _reject: Function) => {
 
@@ -354,13 +362,14 @@ export function topChartsByCountry(params: _SearchParams): Q.Promise<any> {
  * @see https://www.last.fm/api/show/track.getSimilar
  *
  */
-export function recommended(params: _SearchParams): Q.Promise<any> {
+export function recommended(params: _SearchParams):
+  Q.Promise<_TrackQuery[]|Error> {
 
   return Q.Promise((resolve: Function, reject: Function) => {
 
     lfm.user.getTopTracks(
       params,
-      (error: any, topTracksResponse: _TrackResponse) => {
+      (error: Error, topTracksResponse: _TrackResponse) => {
 
         if (error !== null) {
 
@@ -385,7 +394,7 @@ export function recommended(params: _SearchParams): Q.Promise<any> {
               resolve(pluckQueries(searches, 6));
 
             })
-            .catch((searchError: any) => {
+            .catch((searchError: Error) => {
 
               reject(searchError);
 
@@ -407,13 +416,14 @@ export function recommended(params: _SearchParams): Q.Promise<any> {
  * a formatted video search from the results
  *
  */
-function similarTrack(artist: string, trackName: string): Q.Promise<any> {
+function similarTrack(artist: string, trackName: string):
+  Q.Promise<_TrackQuery[]|Error> {
 
   return Q.Promise((resolve: Function, _reject: Function) => {
 
     lfm.track.getSimilar(
       { artist, track: trackName },
-      (error: any, tracks: _TrackResponse) => {
+      (error: Error, tracks: _TrackResponse) => {
 
         const queries: _TrackQuery[] = [];
 
@@ -475,7 +485,8 @@ function pluckQueries(nestedQueries: _TrackQuery[][], toPluck: number):
  * @see https://stackoverflow.com/questions/2380019/generate-unique-random-numbers-between-1-and-100
  *
  */
-function randoms(len: number, totalNumber: number, queries: _TrackQuery[]) {
+function randoms(len: number, totalNumber: number, queries: _TrackQuery[]):
+  _TrackQuery[] {
 
   const rands = [];
   const picked: _TrackQuery[] = [];

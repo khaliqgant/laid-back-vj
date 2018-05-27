@@ -62,7 +62,7 @@ export default class Spotify extends Base {
 
   }
 
-  public recent(): Promise<any> {
+  public recent<E>(): Promise<_YoutubeSearchResult|E> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -77,7 +77,7 @@ export default class Spotify extends Base {
             });
 
         })
-        .catch((error: any) => {
+        .catch((error: E) => {
 
           reject(error);
 
@@ -87,7 +87,7 @@ export default class Spotify extends Base {
 
   }
 
-  public top(): Promise<any> {
+  public top<E>(): Promise<_YoutubeSearchResult[]|E> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -102,7 +102,7 @@ export default class Spotify extends Base {
             });
 
         })
-        .catch((error: any) => {
+        .catch((error: E) => {
 
           reject(error);
 
@@ -112,7 +112,7 @@ export default class Spotify extends Base {
 
   }
 
-  public saved(): Promise<any> {
+  public saved<E>(): Promise<_YoutubeSearchResult[]|E> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -127,7 +127,7 @@ export default class Spotify extends Base {
             });
 
         })
-        .catch((error: any) => {
+        .catch((error: E) => {
 
           reject(error);
 
@@ -137,7 +137,7 @@ export default class Spotify extends Base {
 
   }
 
-  public artists(): Promise<any> {
+  public artists<E>(): Promise<_YoutubeSearchResult[]|E> {
 
     return Q.Promise((resolve: Function, reject: Function) => {
 
@@ -152,7 +152,7 @@ export default class Spotify extends Base {
             });
 
         })
-        .catch((error: any) => {
+        .catch((error: E) => {
 
           reject(error);
 

@@ -16,15 +16,15 @@ const FileSync = require('lowdb/adapters/FileSync');
  */
 export class Storage {
 
-  public static getInstance(): any {
+  public static getInstance(): Storage {
 
     return Storage.instance;
 
   }
 
-  private static instance: any = new Storage();
+  private static instance: Storage = new Storage();
 
-  private Storage: any;
+  private Storage: Storage;
 
   private LOCATION: string;
   private FILE: string = '/../storage/db.json';
@@ -49,7 +49,7 @@ export class Storage {
 
   }
 
-  public save(hash: string, info: any) {
+  public save(hash: string, info: any): void {
 
     this.db.get('playlists')
       .insert({ hash, message: info, playlist: this.playlist })
@@ -57,7 +57,7 @@ export class Storage {
 
   }
 
-  public get(hash: string): any {
+  public get(hash: string): _Record {
 
     const record: _Record = this.db.get('playlists')
       .find({ hash })
@@ -103,7 +103,7 @@ export class Storage {
 
   }
 
-  private init() {
+  private init(): void {
 
     this.file();
     const adapter = new FileSync(this.LOCATION);
@@ -121,7 +121,7 @@ export class Storage {
 
   }
 
-  private file() {
+  private file(): void {
 
     if (!fs.existsSync(this.LOCATION)) {
 

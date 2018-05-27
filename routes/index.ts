@@ -4,6 +4,8 @@ import {
   Methods as _Methods,
 } from '../interfaces/Youtube';
 import { RouteInfo as _RouteInfo } from '../interfaces/VideoQuery';
+import { Playlist as _Playlist } from '../interfaces/Share';
+
 
 import { Storage as storage } from '../library/storage';
 
@@ -31,7 +33,7 @@ router.get('/', (req: _Request, res: _Response, _next: Function) => {
 
   // hack for dynamic method calling
   (Video as any)[method]()
-    .then((videos: string[]) => {
+    .then((videos: _Playlist[]) => {
 
       Storage.setPlaylist(videos);
 
@@ -49,7 +51,7 @@ router.get('/', (req: _Request, res: _Response, _next: Function) => {
       });
 
     })
-    .catch((error: any) => {
+    .catch((error: Error) => {
 
       res.json(error);
 

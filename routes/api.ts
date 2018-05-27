@@ -36,7 +36,7 @@ router.get(
         res.json(userInfo);
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.json(error);
 
@@ -57,7 +57,7 @@ router.get(
         res.json(friends);
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.json(error);
 
@@ -76,7 +76,7 @@ router.get(
         res.json(user.body);
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.json(error);
 

@@ -1,5 +1,6 @@
 import { Request as _Request, Response as _Response } from 'express';
 
+import { Playlist as _Playlist } from '../interfaces/Share';
 import { Storage as storage } from '../library/storage';
 
 import Controller from '../controllers/lastfm';
@@ -50,7 +51,7 @@ router.get(
     };
 
     lastFm.top(params)
-      .then((videos: string[]) => {
+      .then((videos: _Playlist[]) => {
 
         Storage.setPlaylist(videos);
 
@@ -66,7 +67,7 @@ router.get(
         });
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.render('notFound', {
           error,
@@ -96,7 +97,7 @@ router.get(
     };
 
     lastFm.top(params)
-      .then((videos: string[]) => {
+      .then((videos: _Playlist[]) => {
 
         Storage.setPlaylist(videos);
 
@@ -112,7 +113,7 @@ router.get(
         });
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.render('notFound', {
           error,
@@ -141,7 +142,7 @@ router.get(
     };
 
     lastFm.recent(params)
-      .then((videos: string[]) => {
+      .then((videos: _Playlist[]) => {
 
         Storage.setPlaylist(videos);
 
@@ -157,7 +158,7 @@ router.get(
         });
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.render('notFound', {
           error,
@@ -182,7 +183,7 @@ router.get(
     };
 
     lastFm.artists(params)
-      .then((videos: string[]) => {
+      .then((videos: _Playlist[]) => {
 
         Storage.setPlaylist(videos);
 
@@ -198,7 +199,7 @@ router.get(
         });
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.render('notFound', {
           error,
@@ -222,7 +223,7 @@ router.get(
     };
 
     lastFm.artists(params)
-      .then((videos: string[]) => {
+      .then((videos: _Playlist[]) => {
 
         Storage.setPlaylist(videos);
 
@@ -238,7 +239,7 @@ router.get(
         });
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.render('notFound', {
           error,
@@ -262,7 +263,7 @@ router.get(
     };
 
     lastFm.artists(params)
-      .then((videos: string[]) => {
+      .then((videos: _Playlist[]) => {
 
         Storage.setPlaylist(videos);
 
@@ -278,7 +279,7 @@ router.get(
         });
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.render('notFound', {
           error,
@@ -302,7 +303,7 @@ router.get(
     };
 
     lastFm.artists(params)
-      .then((videos: string[]) => {
+      .then((videos: _Playlist[]) => {
 
         Storage.setPlaylist(videos);
 
@@ -318,7 +319,7 @@ router.get(
         });
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.render('notFound', {
           error,
@@ -342,7 +343,7 @@ router.get(
     };
 
     lastFm.recommended(params)
-      .then((videos: string[]) => {
+      .then((videos: _Playlist[]) => {
 
         Storage.setPlaylist(videos);
 
@@ -358,7 +359,7 @@ router.get(
         });
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.render('notFound', {
           error,
@@ -382,7 +383,7 @@ router.get(
     };
 
     lastFm.friendsTracks(params)
-      .then((videos: string[]) => {
+      .then((videos: _Playlist[]) => {
 
         Storage.setPlaylist(videos);
 
@@ -397,7 +398,7 @@ router.get(
         });
 
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
 
         res.render('notFound', {
           error,
@@ -426,7 +427,7 @@ router.get('/*', (req: _Request, res: _Response, _next: Function) => {
   lastFm.setUser(res, userId);
 
   lastFm.top(params)
-    .then((videos: string[]) => {
+    .then((videos: _Playlist[]) => {
 
       Storage.setPlaylist(videos);
 
@@ -442,7 +443,7 @@ router.get('/*', (req: _Request, res: _Response, _next: Function) => {
       });
 
     })
-    .catch((error: any) => {
+    .catch((error: Error) => {
 
       res.render('notFound', {
         error,
