@@ -2,6 +2,9 @@ FROM node:8
 
 USER root
 
+RUN apt-get update && apt-get install -y \
+        sudo
+
 RUN npm install -g forever
 
 COPY . /src
