@@ -13,7 +13,7 @@ const service = 'spotify';
 
 const spotify = new Controller();
 const routes = spotify.getRoutes();
-const year = new Date().getFullYear().toString();
+const year = new Date().getFullYear();
 
 router.get('/test', (req: _Request, res: _Response, _next: Function) => {
 
@@ -31,8 +31,8 @@ router.get('/test', (req: _Request, res: _Response, _next: Function) => {
 
 router.get('/callback', (req: _Request, res: _Response, _next: Function) => {
 
-  const code = req.query.code || null;
-  const state = req.query.state || null;
+  const code = req.query.code.toString() || null;
+  const state = req.query.state.toString() || null;
 
   const result = spotify.setAccess(code, state);
 
