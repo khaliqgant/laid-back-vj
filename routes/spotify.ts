@@ -13,6 +13,7 @@ const service = 'spotify';
 
 const spotify = new Controller();
 const routes = spotify.getRoutes();
+const year = new Date().getFullYear();
 
 router.get('/test', (req: _Request, res: _Response, _next: Function) => {
 
@@ -73,6 +74,7 @@ router.get(
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos,
+          year,
         });
 
       })
@@ -107,6 +109,7 @@ router.get(
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos,
+          year,
         });
 
       })
@@ -141,6 +144,7 @@ router.get(
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos,
+          year,
         });
 
       })
@@ -173,6 +177,7 @@ router.get('/*', (req: _Request, res: _Response, _next: Function) => {
         title: `Laid Back VJ - ${userId}`,
         userId,
         videos,
+        year,
       });
 
     })

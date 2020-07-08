@@ -18,6 +18,8 @@ const service = 'lastfm';
 
 const lastFm = new Controller();
 const routes: any = lastFm.getRoutes();
+const year = new Date().getFullYear();
+
 
 router.get('/test', (req: _Request, res: _Response, _next: Function) => {
 
@@ -29,6 +31,7 @@ router.get('/test', (req: _Request, res: _Response, _next: Function) => {
     title: 'Laid Back VJ - test',
     userId: 'khaliqgant',
     videos: ['5483ImCMSfQ', 'OFjQMDtwAbg'],
+    year,
   });
 
 });
@@ -64,6 +67,7 @@ router.get(
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos,
+          year,
         });
 
       })
@@ -110,6 +114,7 @@ router.get(
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos,
+          year,
         });
 
       })
@@ -155,6 +160,7 @@ router.get(
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos,
+          year,
         });
 
       })
@@ -196,6 +202,7 @@ router.get(
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos,
+          year,
         });
 
       })
@@ -236,6 +243,7 @@ router.get(
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos,
+          year,
         });
 
       })
@@ -276,6 +284,7 @@ router.get(
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos,
+          year,
         });
 
       })
@@ -316,6 +325,7 @@ router.get(
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos,
+          year,
         });
 
       })
@@ -356,6 +366,7 @@ router.get(
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos,
+          year,
         });
 
       })
@@ -395,6 +406,7 @@ router.get(
           title: `Laid Back VJ - ${userId}`,
           userId,
           videos,
+          year,
         });
 
       })
@@ -440,6 +452,7 @@ router.get('/*', (req: _Request, res: _Response, _next: Function) => {
         title: `Laid Back VJ - ${userId}`,
         userId,
         videos,
+        year,
       });
 
     })

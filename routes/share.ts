@@ -15,6 +15,8 @@ const spotify = new SpotifyController();
 const Storage = storage.getInstance();
 
 const spotifyAuthUrl = spotify.getAuthorizeUrl();
+const year = new Date().getFullYear();
+
 
 router.get('/:hash', (req: _Request, res: _Response, _next: Function) => {
 
@@ -38,6 +40,7 @@ router.get('/:hash', (req: _Request, res: _Response, _next: Function) => {
       spotifyAuthUrl,
       title: 'Prep For Relaxation',
       videos: videoInfo.videos,
+      year,
     });
 
   }

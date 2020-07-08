@@ -22,6 +22,7 @@ const routes: any = youtube.getRoutes();
 const Storage = storage.getInstance();
 
 const spotifyAuthUrl = spotify.getAuthorizeUrl();
+const year = new Date().getFullYear();
 
 
 router.get('/popular', (req: _Request, res: _Response, _next: Function) => {
@@ -41,6 +42,7 @@ router.get('/popular', (req: _Request, res: _Response, _next: Function) => {
         spotifyAuthUrl,
         title: 'Prep For Relaxation',
         videos,
+        year,
       });
 
     })
@@ -68,6 +70,7 @@ router.get('/artist', (req: _Request, res: _Response, _next: Function) => {
         service: 'youtube',
         title: 'Prep For Relaxation',
         videos,
+        year,
       });
 
     })
@@ -96,6 +99,7 @@ router.get('/newest', (req: _Request, res: _Response, _next: Function) => {
         spotifyAuthUrl,
         title: 'Prep For Relaxation',
         videos,
+        year,
       });
 
     })
@@ -124,6 +128,7 @@ router.get('/year', (req: _Request, res: _Response, _next: Function) => {
         spotifyAuthUrl,
         title: 'Prep For Relaxation',
         videos,
+        year,
       });
 
     })
@@ -152,6 +157,7 @@ router.get('/five-years', (req: _Request, res: _Response, _next: Function) => {
         spotifyAuthUrl,
         title: 'Prep For Relaxation',
         videos,
+        year,
       });
 
     })
@@ -180,6 +186,7 @@ router.get('/top-charts', (req: _Request, res: _Response, _next: Function) => {
         spotifyAuthUrl,
         title: 'Prep For Relaxation',
         videos,
+        year,
       });
 
     })

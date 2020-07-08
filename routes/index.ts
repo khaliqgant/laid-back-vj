@@ -23,6 +23,7 @@ const Storage = storage.getInstance();
 const youtube = new YoutubeController();
 const spotify = new SpotifyController();
 const lastfm = new LastFmController();
+const year = new Date().getFullYear();
 
 router.get('/', (req: _Request, res: _Response, _next: Function) => {
 
@@ -48,6 +49,7 @@ router.get('/', (req: _Request, res: _Response, _next: Function) => {
         spotifyAuthUrl,
         title: 'Prep For Relaxation',
         videos,
+        year,
       });
 
     })

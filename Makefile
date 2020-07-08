@@ -10,4 +10,7 @@ provision-destroy:
 jenkins:
 	docker-compose -f docker-compose.jenkins.yml up
 
-.PHONY: provision provision-plan provision-destroy jenkins
+dev:
+	npm run dev
+
+.PHONY: provision provision-plan provision-destroy jenkins dev

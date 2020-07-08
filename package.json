@@ -36,7 +36,9 @@
     "watch": "npm run clean && ./node_modules/.bin/run-p fix:watch build:watch",
     "precommit": "npm run fix",
     "serve": "./node_modules/.bin/nodemon app.js",
-    "dev": "./node_modules/.bin/run-p build:watch:css fix:watch build:watch serve"
+    "serve:watch": "./node_modules/.bin/nodemon --inspect app.js",
+    "dev": "./node_modules/.bin/run-p build:watch:css fix:watch build:watch serve",
+    "dev:inspect": "./node_modules/.bin/run-p build:watch:css fix:watch build:watch serve:watch"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
