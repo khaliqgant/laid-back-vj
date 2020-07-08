@@ -8,6 +8,7 @@ COPY . /src
 WORKDIR /src
 
 COPY ./provision/node/scripts/start.sh /start.sh
+RUN chmod +x /start.sh
 
 RUN npm install
 RUN npm run build
