@@ -22,7 +22,7 @@ const routes: any = youtube.getRoutes();
 const Storage = storage.getInstance();
 
 const spotifyAuthUrl = spotify.getAuthorizeUrl();
-const year = new Date().getFullYear();
+const year = new Date().getFullYear().toString();
 
 
 router.get('/popular', (req: _Request, res: _Response, _next: Function) => {
@@ -56,7 +56,7 @@ router.get('/popular', (req: _Request, res: _Response, _next: Function) => {
 
 router.get('/artist', (req: _Request, res: _Response, _next: Function) => {
 
-  const artist: string = decodeURIComponent(req.query.name).toString();
+  const artist: string = decodeURIComponent(req.query.name);
 
   YoutubeAPI.artist(artist)
     .then((videos: _Playlist[]) => {

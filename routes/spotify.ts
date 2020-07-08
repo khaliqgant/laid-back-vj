@@ -13,7 +13,7 @@ const service = 'spotify';
 
 const spotify = new Controller();
 const routes = spotify.getRoutes();
-const year = new Date().getFullYear();
+const year = new Date().getFullYear().toString();
 
 router.get('/test', (req: _Request, res: _Response, _next: Function) => {
 
