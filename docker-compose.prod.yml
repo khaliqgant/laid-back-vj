@@ -37,6 +37,8 @@ services:
         awslogs-group: "lbv"
         awslogs-stream-prefix: "node"
 
+volumes:
+    storage:
 
 
 
