@@ -56,7 +56,7 @@ router.get('/popular', (req: _Request, res: _Response, _next: Function) => {
 
 router.get('/artist', (req: _Request, res: _Response, _next: Function) => {
 
-  const artist: string = decodeURIComponent(req.query.name);
+  const artist: string = decodeURIComponent(req.query.name).toString();
 
   YoutubeAPI.artist(artist)
     .then((videos: _Playlist[]) => {
