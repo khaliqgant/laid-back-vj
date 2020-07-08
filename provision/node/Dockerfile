@@ -11,7 +11,7 @@ RUN npm install
 RUN npm run build
 
 RUN chown -R node:node /src
-VOLUME /src/storage
+RUN chown -R node:node /src/storage
 USER node
 
 CMD ["forever", "/src/app.js"]
