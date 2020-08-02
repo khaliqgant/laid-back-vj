@@ -47,10 +47,9 @@ jobs:
 
     - name: Deploy to ecs using the cli
       env:
-        APP: lbv
-        CLUSTER: $APP-cluster
-        SERVICE: $APP-service
-        LB: $APP-elb
+        CLUSTER: lbv-cluster
+        SERVICE: lbv-service
+        LB: lbv-elb
         IMAGE: nginx
         ECR_REPO: ${{ secrets.ECR_REPO }}
         LASTFM_KEY: ${{ secrets.LASTFM_KEY }}
