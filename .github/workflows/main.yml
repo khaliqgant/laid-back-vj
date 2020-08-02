@@ -2,9 +2,9 @@ name: Docker Build & Publish, ECS Deploy
 
 on:
   push:
-    branches: [ github-actions ]
+    branches: [ master ]
   pull_request:
-    branches: [ github-actions ]
+    branches: [ master ]
 jobs:
   build:
     runs-on: ubuntu-latest
