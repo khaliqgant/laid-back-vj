@@ -33,7 +33,7 @@ jobs:
         ECR_REPOSITORY: nginx
         IMAGE_TAG: latest
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./provision/node/Dockerfile .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./provision/nginx/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Build, tag, and push image to Amazon ECR
@@ -42,7 +42,7 @@ jobs:
         ECR_REPOSITORY: node
         IMAGE_TAG: latest
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./provision/nginx/Dockerfile .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./provision/node/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Deploy to ecs using the cli
@@ -62,12 +62,12 @@ jobs:
       run: |
           ecs-cli compose \
             --file ./docker-compose.prod.yml \
-            --project-name ${SERVICE} \
-            --cluster ${CLUSTER} \
+            --project-name $SERVICE \
+            --cluster $CLUSTER \
             --verbose service up \
-            --container-name ${IMAGE} \
+            --container-name $IMAGE \
             --container-port 80 \
-            --load-balancer-name ${LB} \
+            --load-balancer-name $LB \
             --deployment-min-healthy-percent 0 \
             --timeout 10
 
