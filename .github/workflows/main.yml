@@ -52,6 +52,14 @@ jobs:
         SERVICE: $APP-service
         LB: $APP-elb
         IMAGE: nginx
+        ECR_REPO: ${{ secrets.ECR_REPO }}
+        LASTFM_KEY: ${{ secrets.LASTFM_KEY }}
+        LASTFM_SECRET: ${{ secrets.LASTFM_SECRET }}
+        YOUTUBE_KEY: ${{ secrets.YOUTUBE_KEY }}
+        ROLLBAR_KEY: ${{ secrets.ROLLBAR_KEY }}
+        SPOTIFY_KEY: ${{ secrets.SPOTIFY_KEY }}
+        SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
+        SPOTIFY_CALLBACK_URL: ${{ secrets.SPOTIFY_CALLBACK_URL }}
       run: |
           ecs-cli compose \
             --file ./docker-compose.prod.yml \
